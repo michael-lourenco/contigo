@@ -10,27 +10,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f4f9;
+            background: #1c1c1c;
+            color: #e0e0e0;
+            padding: 20px;
+            overflow: hidden;
         }
         .container {
             text-align: center;
-            background: #fff;
+            background: #2b2b2b;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
+            width: 100%;
+            max-width: 480px; /* Ajuste a largura máxima do container */
         }
         .info-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
             width: 100%;
             padding: 10px 0;
-            background: #e9ecef;
+            background: #3b3b3b;
             border-radius: 10px;
             margin-bottom: 20px;
         }
@@ -38,15 +44,18 @@
             display: flex;
             align-items: center;
             font-size: 1.2em;
-            padding: 2.0em;
-            color: #333;
+            padding: 1em;
+            color: #e0e0e0;
+            flex: 1 1 45%;
         }
         .info-item .fa-icon {
             margin-right: 8px;
             font-size: 24px;
+            color: #00ff00;
         }
         .number-boxes {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 20px;
         }
@@ -56,11 +65,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #ddd;
+            border: 2px solid #444;
             border-radius: 10px;
-            margin: 0 10px;
+            margin: 5px;
             font-size: 1.5em;
-            background: #f9f9f9;
+            background: #2b2b2b;
+            color: #00ff00;
         }
         .input-container {
             display: flex;
@@ -70,7 +80,15 @@
         #result {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #333;
+            color: #00ff00;
+        }
+        .grid-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 960px;
+            margin-bottom: 20px;
         }
         .grid {
             display: grid;
@@ -78,18 +96,20 @@
             grid-template-rows: repeat(8, 1fr);
             gap: 5px;
             width: 100%;
-            max-width: 960px;
+            max-height: 100%;
             aspect-ratio: 1;
         }
         .grid-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 5px;
-            background: #fff;
+            background: #2b2b2b;
             font-size: 1em;
             cursor: pointer;
+            color: #e0e0e0;
+            transition: background 0.3s, color 0.3s;
         }
         .grid-item button {
             width: 100%;
@@ -98,26 +118,37 @@
             background: transparent;
             font-size: 1em;
             cursor: pointer;
+            color: inherit;
         }
         .grid-item button:disabled {
-            background: #ddd;
-            color: #aaa;
+            background: #444;
+            color: #666;
             cursor: not-allowed;
         }
         .grid-item button.authenticated {
-            background: #4caf50;
-            color: #fff;
+            background: #00ff00;
+            color: #000;
         }
         #new-game-button {
-            display: none;
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 1em;
-            background: #4caf50;
-            color: #fff;
+            background: #00ff00;
+            color: #000;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .info-item {
+                font-size: 1em;
+                padding: 0.5em;
+            }
+            .number-box {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
@@ -152,8 +183,10 @@
             <button id="new-game-button" onclick="startNewGame()">Iniciar Novo Jogo</button>
         </div>
     </div>
-    <div class="grid" id="grid">
-        <!-- Grid items will be populated here -->
+    <div class="grid-container">
+        <div class="grid" id="grid">
+            <!-- Grid items will be populated here -->
+        </div>
     </div>
 
     <script src="contas.js"></script>
@@ -221,7 +254,7 @@
 
             disableNonAuthenticatedGridButtons();
 
-            let timer = 5;
+            let timer = 2;
             document.getElementById('timer').innerText = `next: ${timer} segundos`;
 
             const interval = setInterval(() => {
@@ -261,22 +294,15 @@
                 document.getElementById('general-timer').innerText = `${minutes}:${seconds}`;
 
                 if (timeRemaining <= 0) {
-                    clearInterval(generalTimer);
                     endGame();
                 }
             }, 1000);
         }
 
         function endGame() {
-            document.getElementById('game-over').innerText = `Fim de Jogo! Acertos: ${successCount}`;
-            disableAllGridButtons();
+            clearInterval(generalTimer);
+            document.getElementById('game-over').innerText = 'Game Over!';
             document.getElementById('new-game-button').style.display = 'block';
-        }
-
-        function disableAllGridButtons() {
-            document.querySelectorAll('.grid-item button').forEach(btn => {
-                btn.disabled = true;
-            });
         }
 
         function shuffle(array) {
@@ -286,7 +312,7 @@
             }
             return array;
         }
-
+        
         function populateGrid() {
             const numerosPossiveis = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180];
             const shuffledNumbers = shuffle(numerosPossiveis.slice(0, 64));
@@ -307,8 +333,9 @@
             }
         }
 
-        // Populate the grid on page load
-        startNewGame();
+        window.onload = () => {
+            document.getElementById('new-game-button').style.display = 'block';
+        };
     </script>
 </body>
 </html>
