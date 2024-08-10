@@ -29,6 +29,58 @@
             width: 100%;
             max-width: 480px; /* Ajuste a largura máxima do container */
         }
+        /* Menu Styles */
+        .menu {
+            width: 100%;
+            background: #2b2b2b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .menu a {
+            color: #00ff00;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .menu a:hover {
+            color: #ffffff;
+        }
+        .menu .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+        .menu .menu-links {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .menu .menu-links {
+                display: none;
+                flex-direction: column;
+                background: #2b2b2b;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                border-radius: 10px;
+            }
+            .menu .menu-links.active {
+                display: flex;
+            }
+            .menu .menu-toggle {
+                display: block;
+            }
+        }
         .info-container {
             display: flex;
             flex-wrap: wrap;
@@ -153,6 +205,16 @@
     </style>
 </head>
 <body>
+    <nav class="menu">
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-links">
+            <a href="index.html">Jogar</a>
+            <a href="how_to_play.html">Como Jogar</a>
+            <a href="about.html">Sobre</a>
+        </div>
+    </nav>
     <div class="container">
         <div class="info-container">
             <div class="info-item">
@@ -191,6 +253,11 @@
 
     <script src="contas.js"></script>
     <script>
+        // Menu Toggle Script
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.menu-links').classList.toggle('active');
+        });
+
         function getRandomNumber() {
             return Math.floor(Math.random() * 6) + 1;
         }
