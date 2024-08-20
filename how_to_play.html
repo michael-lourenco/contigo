@@ -10,13 +10,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
             background: #1c1c1c;
             color: #e0e0e0;
             padding: 20px;
-            overflow: hidden;
+            overflow-x: hidden; /* Permite scroll vertical */
         }
         .container {
             text-align: center;
@@ -28,7 +28,8 @@
             width: 100%;
             max-width: 800px;
         }
-        .menu {
+          /* Menu Styles */
+          .menu {
             width: 100%;
             background: #2b2b2b;
             display: flex;
@@ -39,26 +40,34 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        .menu a {
+        .menu .logo a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .menu .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #00ff00;
+        }
+        .menu .menu-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .menu .menu-links a {
             color: #00ff00;
             text-decoration: none;
             margin: 0 10px;
             font-size: 1.2em;
             transition: color 0.3s;
         }
-        .menu a:hover {
+        .menu .menu-links a:hover {
             color: #ffffff;
         }
-        .menu .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5em;
-        }
-        .menu .menu-links {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-        }
+
         @media (max-width: 768px) {
             .menu .menu-links {
                 display: none;
@@ -131,14 +140,19 @@
     </style>
 </head>
 <body>
-    <div class="menu">
+    <nav class="menu">
+        <div class="logo">
+            <a href="index.html">ContiGO</a>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
         <div class="menu-links">
-            <a href="index.html">Início</a>
+            <a href="index.html">Jogar</a>
             <a href="how_to_play.html">Como Jogar</a>
             <a href="about.html">Sobre</a>
-            <!-- Adicione outros links do menu aqui -->
         </div>
-    </div>
+    </nav>
     
     <div class="container">
         <h1>CONTI GO 2023</h1>
@@ -218,6 +232,7 @@
     </div>
 
     <script>
+        // Menu Toggle Script
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.menu-links').classList.toggle('active');
         });

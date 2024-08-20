@@ -27,7 +27,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
             width: 100%;
-            max-width: 480px; /* Ajuste a largura máxima do container */
+            max-width: 930px; /* Ajuste a largura máxima do container */
         }
         /* Menu Styles */
         .menu {
@@ -41,26 +41,34 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        .menu a {
+        .menu .logo a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .menu .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #00ff00;
+        }
+        .menu .menu-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .menu .menu-links a {
             color: #00ff00;
             text-decoration: none;
             margin: 0 10px;
             font-size: 1.2em;
             transition: color 0.3s;
         }
-        .menu a:hover {
+        .menu .menu-links a:hover {
             color: #ffffff;
         }
-        .menu .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5em;
-        }
-        .menu .menu-links {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-        }
+
         @media (max-width: 768px) {
             .menu .menu-links {
                 display: none;
@@ -81,6 +89,7 @@
                 display: block;
             }
         }
+
         .info-container {
             display: flex;
             flex-wrap: wrap;
@@ -92,14 +101,23 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
         .info-item {
             display: flex;
             align-items: center;
             font-size: 1.2em;
             padding: 1em;
             color: #e0e0e0;
-            flex: 1 1 45%;
+            flex: 1 1 20%; /* Ajuste aqui */
+            box-sizing: border-box;
         }
+
+        @media (max-width: 768px) {
+            .info-item {
+                flex: 1 1 100%; /* Em telas menores, os itens ocuparão toda a largura */
+            }
+        }
+
         .info-item .fa-icon {
             margin-right: 8px;
             font-size: 24px;
@@ -141,6 +159,7 @@
             width: 100%;
             max-width: 960px;
             margin-bottom: 20px;
+            height: calc(100vh - 450px); /* Adjust the height calculation based on your content */
         }
         .grid {
             display: grid;
@@ -148,7 +167,7 @@
             grid-template-rows: repeat(8, 1fr);
             gap: 5px;
             width: 100%;
-            max-height: 100%;
+            height: 100%;
             aspect-ratio: 1;
         }
         .grid-item {
@@ -203,9 +222,13 @@
             }
         }
     </style>
+    
 </head>
 <body>
     <nav class="menu">
+        <div class="logo">
+            <a href="index.html">ContiGO</a>
+        </div>
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>
