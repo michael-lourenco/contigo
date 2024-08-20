@@ -276,7 +276,6 @@
 
     <script src="contas.js"></script>
     <script>
-        // Menu Toggle Script
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.menu-links').classList.toggle('active');
         });
@@ -408,7 +407,7 @@
             const shuffledNumbers = shuffle(numerosPossiveis.slice(0, 64));
             const grid = document.getElementById('grid');
 
-            grid.innerHTML = ''; // Clear the grid before populating
+            grid.innerHTML = ''; 
 
             for (let i = 0; i < 64; i++) {
                 const gridItem = document.createElement('div');

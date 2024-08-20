@@ -19,7 +19,7 @@
             overflow-x: hidden; /* Permite scroll vertical */
         }
         .container {
-            text-align: center;
+            text-align: justify;
             background: #2b2b2b;
             padding: 20px;
             border-radius: 10px;
@@ -155,42 +155,6 @@
     </nav>
     
     <div class="container">
-        <h1>CONTI GO 2023</h1>
-        
-        <div class="info-container">
-            <div class="info-item">
-                <h2>OBJETIVO</h2>
-                <ul>
-                    <li>Passar a versão do CONTI GO mobile para a versão HTML/Javascript.</li>
-                    <li>Desenvolver sistemas de coleta de dados para obter informações relevantes sobre diversos aspectos do jogo como: utilização/resultado/melhoria local, individual, regional, global.</li>
-                </ul>
-            </div>
-            <div class="info-item">
-                <h2>O QUE É O CONTI GO?</h2>
-                <p>Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.</p>
-            </div>
-            <div class="info-item">
-                <h2>POSSÍVEIS OBJETIVOS EDUCACIONAIS</h2>
-                <ul>
-                    <li>Cálculos, Lógica, Noções Espaciais e Agilidade.</li>
-                </ul>
-                <h3>Habilidades Matemáticas</h3>
-                <ul>
-                    <li>Resolver e elaborar problemas com números naturais envolvendo adição e subtração, utilizando estratégias diversas, como cálculo, cálculo mental e algoritmos, além de fazer estimativas do resultado.</li>
-                    <li>Utilizar as relações entre adição e subtração, bem como entre multiplicação e divisão, para ampliar as estratégias de cálculo.</li>
-                    <li>Utilizar as propriedades das operações para desenvolver estratégias de cálculo.</li>
-                </ul>
-                <h3>Habilidades Sociais</h3>
-                <ul>
-                    <li>Aprender a lidar com a vitória.</li>
-                    <li>Aprender a lidar com a derrota.</li>
-                    <li>Aprender a lidar com a ansiedade.</li>
-                    <li>Aprender a lidar com a pressão.</li>
-                    <li>Tomar decisões.</li>
-                    <li>Estratégia.</li>
-                    <li>Observar.</li>
-                </ul>
-            </div>
             <div class="info-item">
                 <h2>REGRAS DO JOGO CONTI GO</h2>
                 <ul>
@@ -203,7 +167,8 @@
                 <ul>
                     <li>1 tabuleiro 8x8, totalizando 64 casas.</li>
                     <li>Cada casa é numerada de forma aleatória.</li>
-                    <li>64 casas numeradas. Os números possíveis são: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180.</li>
+                    <li>64 casas numeradas.</li>
+                    <li>Os números possíveis são: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180.</li>
                     <li>Um contador de tempo principal do jogo.</li>
                     <li>Conjunto de peças para cada jogador.</li>
                     <li>3 dados.</li>
@@ -215,15 +180,25 @@
                 <h3>REGRAS</h3>
                 <ul>
                     <li>Existe um tempo principal do jogo.</li>
-                    <li>Quando o tempo principal do jogo acabar, o resultado por tempo é acionado.</li>
+                    
                     <li>Em cada rodada do jogador, acontece a seguinte sequência:</li>
-                    <ul>
-                        <li>O jogador lança os dados.</li>
-                        <li>O jogador usa a fórmula de adição, subtração, multiplicação e divisão para obter o valor correspondente.</li>
-                        <li>O valor corresponde a uma casa do tabuleiro.</li>
-                        <li>O jogador marca a casa do tabuleiro.</li>
-                        <li>O tempo principal continua.</li>
-                    </ul>
+                    <li>
+                        <ol>
+                            <li>O jogador lança os dados.</li>
+                            <li>O jogador usa a fórmula de adição, subtração, multiplicação e divisão para obter o valor correspondente.</li>
+                            <li>O valor corresponde a uma casa do tabuleiro.</li>
+                            <li>O jogador marca a casa do tabuleiro.</li>
+                            <li>O tempo principal continua.</li>
+                        </ol>
+                    </li>
+                    <li>Existem tres formas de encerrar a partida:</li>
+                    <li>
+                        <ol>
+                            <li>O jogador consegue marcar todos os números do tabuleiro</li>
+                            <li>Quando o tempo principal do jogo acabar, o resultado por tempo é acionado.</li>
+                            <li>O jogador erra 3 vezes.</li>
+                        </ol>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -232,7 +207,6 @@
     </div>
 
     <script>
-        // Menu Toggle Script
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.menu-links').classList.toggle('active');
         });
