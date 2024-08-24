@@ -64,8 +64,8 @@
             document.querySelector('.menu-links').classList.toggle('active');
         });
 
-        function getRandomNumber() {
-            return Math.floor(Math.random() * 6) + 1;
+        function getRandomNumber(largestNumberPossible) {
+            return Math.floor(Math.random() * Number(largestNumberPossible)) + 1;
         }
 
         let number1, number2, number3;
@@ -96,9 +96,9 @@
         }
 
         function generateNewNumbers() {
-            number1 = getRandomNumber();
-            number2 = getRandomNumber();
-            number3 = getRandomNumber();
+            number1 = getRandomNumber(6);
+            number2 = getRandomNumber(6);
+            number3 = getRandomNumber(6);
 
             document.getElementById('number1').innerText = number1;
             document.getElementById('number2').innerText = number2;
