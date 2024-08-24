@@ -42,9 +42,9 @@
             </div>
         </div>
         <div class="number-boxes">
-            <div id="number1" class="number-box"></div>
-            <div id="number2" class="number-box"></div>
-            <div id="number3" class="number-box"></div>
+            <div id="firstDice" class="number-box"></div>
+            <div id="secondDice" class="number-box"></div>
+            <div id="thirdDice" class="number-box"></div>
         </div>
         <div class="input-container">
             <div id="result"></div>
@@ -68,7 +68,7 @@
             return Math.floor(Math.random() * Number(largestNumberPossible)) + 1;
         }
 
-        let number1, number2, number3;
+        let firstDice, secondDice, thirdDice;
         let errorCount = 0;
         let successCount = 0;
         let generalTimer;
@@ -87,7 +87,7 @@
             document.getElementById('new-game-button').style.display = 'none';
             clearInterval(generalTimer);
             startGeneralTimer();
-            generateNewNumbers();
+            generateNewNumbers(diceList);
             populateGrid();
         }
 
@@ -95,19 +95,38 @@
             resetGame();
         }
 
-        function generateNewNumbers() {
-            number1 = getRandomNumber(6);
-            number2 = getRandomNumber(6);
-            number3 = getRandomNumber(6);
+        const diceList = {
+            firstDice:{
+                    element: 'firstDice',
+                    value: 0
+                },
+            secondDice:{
+                    element: 'secondDice',
+                    value: 0
+                },
+            thirdDice:{
+                    element: 'thirdDice',
+                    value: 0
+                }
+        }
 
-            document.getElementById('number1').innerText = number1;
-            document.getElementById('number2').innerText = number2;
-            document.getElementById('number3').innerText = number3;
+        function generateNewNumbers(diceList) {
+            const randomNumber1 = getRandomNumber(6);
+            diceList.firstDice.value = randomNumber1
+            document.getElementById(diceList.firstDice.element).innerText = randomNumber1; 
+
+            const randomNumber2 = getRandomNumber(6);
+            diceList.secondDice.value = randomNumber2
+            document.getElementById(diceList.secondDice.element).innerText = randomNumber2; 
+
+            const randomNumber3 = getRandomNumber(6);
+            diceList.thirdDice.value = randomNumber3
+            document.getElementById(diceList.thirdDice.element).innerText = randomNumber3; 
         }
 
         function validate(value, button) {
             const calculoData = new CalculoData();
-            const resultado = calculoData.resolve(number1, number2, number3, value);
+            const resultado = calculoData.resolve(diceList.firstDice.value, diceList.secondDice.value, diceList.thirdDice.value, value);
 
             if (resultado.valorEncontrado) {
                 document.getElementById('result').innerText = 'Resultado existe';
@@ -128,6 +147,9 @@
             disableNonAuthenticatedGridButtons();
 
             let timer = 2;
+
+
+
             document.getElementById('timer').innerText = `next: ${timer} segundos`;
 
             const interval = setInterval(() => {
@@ -135,7 +157,7 @@
                 document.getElementById('timer').innerText = `next: ${timer} segundos`;
                 if (timer === 0) {
                     clearInterval(interval);
-                    generateNewNumbers();
+                    generateNewNumbers(diceList);
                     document.getElementById('result').innerText = '';
                     document.getElementById('timer').innerText = 'next: 00:00';
                     enableGridButtons();
