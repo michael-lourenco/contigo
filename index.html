@@ -111,17 +111,11 @@
         }
 
         function generateNewNumbers(diceList) {
-            const randomNumber1 = getRandomNumber(6);
-            diceList.firstDice.value = randomNumber1
-            document.getElementById(diceList.firstDice.element).innerText = randomNumber1; 
-
-            const randomNumber2 = getRandomNumber(6);
-            diceList.secondDice.value = randomNumber2
-            document.getElementById(diceList.secondDice.element).innerText = randomNumber2; 
-
-            const randomNumber3 = getRandomNumber(6);
-            diceList.thirdDice.value = randomNumber3
-            document.getElementById(diceList.thirdDice.element).innerText = randomNumber3; 
+            Object.keys(diceList).forEach(key => {
+                const randomNumber = getRandomNumber(6);
+                diceList[key].value = randomNumber;
+                document.getElementById(diceList[key].element).innerText = randomNumber;
+            });
         }
 
         function validate(value, button) {
