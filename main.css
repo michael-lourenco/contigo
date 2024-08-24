@@ -104,11 +104,12 @@ body {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .info-item {
-        flex: 1 1 100%; /* Em telas menores, os itens ocuparão toda a largura */
+        flex: 1 1 100%; 
     }
-}
+} 
+*/
 
 .info-item .fa-icon {
     margin-right: 8px;

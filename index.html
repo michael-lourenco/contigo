@@ -38,7 +38,7 @@
             </div>
             <div class="info-item">
                 <i class="fa fa-hourglass-half fa-icon" aria-hidden="true"></i>
-                <span id="timer">Novo jogo em: 00:00</span>
+                <span id="timer">00</span>
             </div>
         </div>
         <div class="number-boxes">
@@ -82,7 +82,7 @@
             document.getElementById('successes').innerText = `${successCount}`;
             document.getElementById('game-over').innerText = '';
             document.getElementById('result').innerText = '';
-            document.getElementById('timer').innerText = 'next: 00:00';
+            document.getElementById('timer').innerText = '00';
             document.getElementById('general-timer').innerText = `03:00`;
             document.getElementById('new-game-button').style.display = 'none';
             clearInterval(generalTimer);
@@ -144,16 +144,16 @@
 
 
 
-            document.getElementById('timer').innerText = `next: ${timer} segundos`;
+            document.getElementById('timer').innerText = `${timer}`;
 
             const interval = setInterval(() => {
                 timer--;
-                document.getElementById('timer').innerText = `next: ${timer} segundos`;
+                document.getElementById('timer').innerText = `${timer}`;
                 if (timer === 0) {
                     clearInterval(interval);
                     generateNewNumbers(diceList);
                     document.getElementById('result').innerText = '';
-                    document.getElementById('timer').innerText = 'next: 00:00';
+                    document.getElementById('timer').innerText = '00';
                     enableGridButtons();
                 }
             }, 1000);
