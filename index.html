@@ -51,6 +51,12 @@
             <div id="game-over"></div>
             <button id="new-game-button" onclick="startNewGame()">Iniciar Novo Jogo</button>
         </div>
+        <div class="donate-container">
+            <button id="donate-button" onclick="copyPixKey()">
+                <i class="fas fa-donate"></i> Doar via PIX
+            </button>
+            <p id="pix-message">Chave PIX copiada!</p>
+        </div>
     </div>
     <div class="grid-container">
         <div class="grid" id="grid">
@@ -219,6 +225,19 @@
             }
         }
 
+        function copyPixKey() {
+            const pixKey = '15920006629';
+            navigator.clipboard.writeText(pixKey).then(() => {
+                const message = document.getElementById('pix-message');
+                message.style.display = 'block';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar a chave PIX: ', err);
+            });
+        }
+        
         window.onload = () => {
             document.getElementById('new-game-button').style.display = 'block';
         };
