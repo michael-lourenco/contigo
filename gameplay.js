@@ -125,6 +125,7 @@ function startGeneralTimer(element) {
 }
 
 function endGame({ elementGameOver, elementNewGameButton}) {
+    UpdateDbEndGame({ elementGameOver, elementNewGameButton});
     clearInterval(generalTimer);
     enableGridButtons({element:'.grid-item button', disable: true});
     document.getElementById(elementGameOver).innerText = 'Game Over!';

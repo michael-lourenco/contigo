@@ -45,21 +45,39 @@ body {
     font-size: 1.5em;
     color: #00ff00;
 }
-.menu .menu-links {
+.menu-links {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    gap: 10px; /* Espaçamento entre os botões */
 }
-.menu .menu-links a {
-    color: #00ff00;
+
+.menu-links a {
+    display: inline-block;
+    background-color: #4CAF50; /* Cor de fundo */
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
     text-decoration: none;
-    margin: 0 10px;
-    font-size: 1.2em;
-    transition: color 0.3s;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.menu .menu-links a:hover {
-    color: #ffffff;
+
+.menu-links a:hover {
+    background-color: #45A049; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Efeito de leve aumento ao passar o mouse */
 }
+
+.menu-links a:focus {
+    outline: none;
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+.menu-links a:active {
+    background-color: #3E8E41; /* Cor de fundo ao clicar */
+    transform: scale(0.95); /* Efeito de leve redução ao clicar */
+}
+
 
 @media (max-width: 768px) {
     .menu .menu-links {
@@ -217,7 +235,7 @@ body {
 
 .donate-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1px;
 }
 
 #donate-button {
@@ -254,4 +272,35 @@ body {
     margin-top: 10px;
     font-size: 14px;
     display: none;
+}
+
+#google-sign-in-button,
+#google-sign-out-button {
+    background-color: #4285F4; /* Cor do Google */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#google-sign-in-button:hover,
+#google-sign-out-button:hover {
+    background-color: #357AE8; /* Cor mais escura ao passar o mouse */
+}
+
+#google-sign-in-button:focus,
+#google-sign-out-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #357AE8;
+}
+
+#google-sign-out-button {
+    background-color: #DB4437; /* Cor do Google para logout */
+}
+
+#google-sign-out-button:hover {
+    background-color: #C23321; /* Cor mais escura para o botão de logout ao passar o mouse */
 }
