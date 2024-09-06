@@ -28,8 +28,6 @@
             }
 
             const data = await backendResponse.json();  // Corrigido para processar o JSON corretamente
-            console.log(':::::::::backendResponse::::::::::');
-            console.log(data);  // Exibe os dados reais retornados
             return data;
         }
 
@@ -38,10 +36,9 @@
         const app = initializeApp(config);
 
         const auth = getAuth(app);
-        console.log('auth')
-        console.log(auth)
 
         const db = getFirestore(app);
+
         
         setPersistence(auth, browserLocalPersistence)
             .then(() => {
