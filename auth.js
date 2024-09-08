@@ -5,9 +5,7 @@ import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstati
 let globalDisplayName = '';
 let globalUser = {};
 
-
-async function firebaseConfig() {
-    
+async function firebaseConfig() { 
     const backendResponse = await fetch('https://contigo-api-git-master-michaellourencos-projects.vercel.app/firebaseConfig', {
         method: 'GET',
         headers: {
@@ -24,15 +22,12 @@ async function firebaseConfig() {
 }
 
 const config = await firebaseConfig()
-console.log('FIREBASE CONFIG')
-console.log(config)
 
 const app = initializeApp(config);
 
 const auth = getAuth(app);
 
 const db = getFirestore(app);
-
 
 setPersistence(auth, browserLocalPersistence)
     .then(() => {
@@ -93,7 +88,6 @@ async function signInWithGoogle() {
 
 window.signInWithGoogle = signInWithGoogle;
 
-
 async function handleCredentialResponse(response) {
     const idToken = response._tokenResponse.idToken;
 
@@ -105,7 +99,6 @@ async function handleCredentialResponse(response) {
         },
         body: JSON.stringify({ idToken: idToken })
     });
-
 
     if (backendResponse.ok) {
         const userData = await backendResponse.json();
@@ -125,7 +118,6 @@ async function handleCredentialResponse(response) {
         console.error('Erro durante o login:', error);
     }
 }
-
 
 window.handleCredentialResponse = handleCredentialResponse;
 
