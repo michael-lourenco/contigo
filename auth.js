@@ -8,7 +8,7 @@ let globalUser = {};
 
 async function firebaseConfig() {
     
-    const backendResponse = await fetch('http://localhost:3000/firebaseConfig', {
+    const backendResponse = await fetch('https://contigo-api-git-master-michaellourencos-projects.vercel.app/firebaseConfig', {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json'
@@ -24,6 +24,8 @@ async function firebaseConfig() {
 }
 
 const config = await firebaseConfig()
+console.log('FIREBASE CONFIG')
+console.log(config)
 
 const app = initializeApp(config);
 
@@ -96,7 +98,7 @@ async function handleCredentialResponse(response) {
     const idToken = response._tokenResponse.idToken;
 
     try {
-    const backendResponse = await fetch('http://localhost:3000/login', {
+    const backendResponse = await fetch('https://contigo-api-git-master-michaellourencos-projects.vercel.app/login', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -178,7 +180,7 @@ async function UpdateDbEndGame({ elementGameOver, elementNewGameButton }) {
 
         if (successCount > user.best) {
 
-            const backendResponse = await fetch('http://localhost:3000/update-score', {
+            const backendResponse = await fetch('https://contigo-api-git-master-michaellourencos-projects.vercel.app/update-score', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
