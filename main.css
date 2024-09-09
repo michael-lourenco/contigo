@@ -8,16 +8,16 @@ body {
     font-family: Arial, sans-serif;
     background: #1c1c1c;
     color: #e0e0e0;
-    padding: 20px;
+    padding: 4px;
     overflow: hidden;
 }
 .container {
     text-align: center;
     background: #2b2b2b;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 4px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
+    margin-bottom: 4px;
     width: 100%;
     max-width: 930px; /* Ajuste a largura máxima do container */
 }
@@ -28,27 +28,27 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-bottom: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 .menu .logo a {
     color: #00ff00;
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: bold;
 }
 .menu .menu-toggle {
     display: none;
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: #00ff00;
 }
 .menu-links {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espaçamento entre os botões */
+    gap: 8px; /* Espaçamento entre os botões */
 }
 
 .menu-links a {
@@ -56,26 +56,26 @@ body {
     background-color: #4CAF50; /* Cor de fundo */
     color: white;
     text-align: center;
-    padding: 10px 20px;
+    padding: 8px 16px;
     text-decoration: none;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .menu-links a:hover {
     background-color: #45A049; /* Cor de fundo ao passar o mouse */
-    transform: scale(1.05); /* Efeito de leve aumento ao passar o mouse */
+    transform: scale(1.04); /* Efeito de leve aumento ao passar o mouse */
 }
 
 .menu-links a:focus {
     outline: none;
-    box-shadow: 0 0 5px #4CAF50;
+    box-shadow: 0 0 4px #4CAF50;
 }
 
 .menu-links a:active {
     background-color: #3E8E41; /* Cor de fundo ao clicar */
-    transform: scale(0.95); /* Efeito de leve redução ao clicar */
+    transform: scale(0.80); /* Efeito de leve redução ao clicar */
 }
 
 
@@ -85,12 +85,12 @@ body {
         flex-direction: column;
         background: #2b2b2b;
         position: absolute;
-        top: 60px;
+        top: 80px;
         left: 0;
         width: 100%;
         text-align: center;
-        padding: 20px 0;
-        border-radius: 10px;
+        padding: 8px 0;
+        border-radius: 8px;
     }
     .menu .menu-links.active {
         display: flex;
@@ -106,17 +106,17 @@ body {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    padding: 10px 0;
+    padding: 4px 0;
     background: #3b3b3b;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    margin-bottom: 4px;
 }
 
 .info-item {
     display: flex;
     align-items: center;
     font-size: 1.2em;
-    padding: 1em;
+    padding: 0.4em;
     color: #e0e0e0;
     flex: 1 1 20%; /* Ajuste aqui */
     box-sizing: border-box;
@@ -138,18 +138,18 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 .number-box {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid #444;
-    border-radius: 10px;
-    margin: 5px;
-    font-size: 1.5em;
+    border-radius: 8px;
+    margin: 4px;
+    font-size: 1.4em;
     background: #2b2b2b;
     color: #00ff00;
 }
@@ -159,7 +159,7 @@ body {
     align-items: center;
 }
 #result {
-    margin-top: 20px;
+    margin-top: 8px;
     font-size: 1.2em;
     color: #00ff00;
 }
@@ -169,14 +169,14 @@ body {
     align-items: center;
     width: 100%;
     max-width: 960px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     height: calc(100vh - 450px); /* Adjust the height calculation based on your content */
 }
 .grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
-    gap: 5px;
+    gap: 4px;
     width: 100%;
     height: 100%;
     aspect-ratio: 1;
@@ -186,9 +186,9 @@ body {
     align-items: center;
     justify-content: center;
     border: 1px solid #444;
-    border-radius: 5px;
+    border-radius: 4px;
     background: #2b2b2b;
-    font-size: 1em;
+    font-size: 1.2em;
     cursor: pointer;
     color: #e0e0e0;
     transition: background 0.3s, color 0.3s;
@@ -198,7 +198,7 @@ body {
     height: 100%;
     border: none;
     background: transparent;
-    font-size: 1em;
+    font-size: 1.2em;
     cursor: pointer;
     color: inherit;
 }
@@ -212,23 +212,23 @@ body {
     color: #000;
 }
 #new-game-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
+    margin-top: 16px;
+    padding: 8px 16px;
+    font-size: 1.2em;
     background: #00ff00;
     color: #000;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
 @media (max-width: 768px) {
     .info-item {
-        font-size: 1em;
-        padding: 0.5em;
+        font-size: 1.2em;
+        padding: 0.4em;
     }
     .number-box {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         font-size: 1.2em;
     }
 }
@@ -242,10 +242,10 @@ body {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: background-color 0.3s, transform 0.3s;
     display: flex;
     align-items: center;
@@ -259,7 +259,7 @@ body {
 
 #donate-button:hover {
     background-color: #45a049;
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 #donate-button:active {
@@ -269,8 +269,8 @@ body {
 
 #pix-message {
     color: #4CAF50;
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 8px;
+    font-size: 16px;
     display: none;
 }
 
@@ -279,9 +279,9 @@ body {
     background-color: #4285F4; /* Cor do Google */
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -294,7 +294,7 @@ body {
 #google-sign-in-button:focus,
 #google-sign-out-button:focus {
     outline: none;
-    box-shadow: 0 0 5px #357AE8;
+    box-shadow: 0 0 4px #357AE8;
 }
 
 #google-sign-out-button {
