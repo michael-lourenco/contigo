@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Play - CONTI GO 2023</title>
-    <link rel="stylesheet" href="about.css">
-
+    <title>Como Jogar - CONTI GO 2023</title>
+    <link rel="stylesheet" href="how_to_play.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <nav class="menu">
@@ -16,69 +16,121 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="menu-links">
-            <a href="index.html">Jogar</a>
-            <a href="how_to_play.html">Como Jogar</a>
-            <a href="about.html">Sobre</a>
+            <a href="index.html"><i class="fas fa-play"></i> Jogar</a>
+            <a href="how_to_play.html"><i class="fas fa-question-circle"></i> Como Jogar</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> Sobre</a>
         </div>
     </nav>
-    
+
     <div class="container">
-            <div class="info-item">
-                <h2>COMO JOGAR</h2>
-                <p>
-                    No Conti GO, você joga contra o tempo em um tabuleiro 8x8.<br/> 
-                    Em cada rodada, você lança três dados e usa operações matemáticas (adição, subtração, multiplicação ou divisão) para chegar a um número que corresponda a uma casa no tabuleiro. <br/>
-                    Seu objetivo é marcar todas as casas antes que o tempo acabe ou antes de errar três vezes. <br/>
-                    Você tem 3 vidas e deve ser rápido e preciso para vencer!
-                </p>
-                <h2>REGRAS DO JOGO CONTI GO</h2>
-                <ul>
-                    <li><strong>Gênero:</strong> Jogo de Tabuleiro</li>
-                    <li><strong>Plataforma:</strong> PC, ANDROID</li>
-                    <li><strong>Nº de Jogadores:</strong> 1</li>
-                    <li><strong>Idade:</strong> 8+</li>
-                </ul>
-                <h3>COMPONENTES DO JOGO</h3>
-                <ul>
-                    <li>1 tabuleiro 8x8, totalizando 64 casas.</li>
-                    <li>Cada casa é numerada de forma aleatória.</li>
-                    <li>64 casas numeradas.</li>
-                    <li>Os números possíveis são: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180.</li>
-                    <li>Um contador de tempo principal do jogo.</li>
-                    <li>Conjunto de peças para cada jogador.</li>
-                    <li>3 dados.</li>
-                    <li>3 corações que representam as vidas do jogador.</li>
-                    <li>Um contador de tempo de jogo.</li>
-                </ul>
-                <h3>COMPETIDORES</h3>
-                <p>O jogador joga contra o tempo.</p>
-                <h3>REGRAS</h3>
-                <ul>
-                    <li>Existe um tempo principal do jogo.</li>
-                    
-                    <li>Em cada rodada do jogador, acontece a seguinte sequência:</li>
-                    <li>
-                        <ol>
-                            <li>O jogador lança os dados.</li>
-                            <li>O jogador usa a fórmula de adição, subtração, multiplicação e divisão para obter o valor correspondente.</li>
-                            <li>O valor corresponde a uma casa do tabuleiro.</li>
-                            <li>O jogador marca a casa do tabuleiro.</li>
-                            <li>O tempo principal continua.</li>
-                        </ol>
-                    </li>
-                    <li>Existem tres formas de encerrar a partida:</li>
-                    <li>
-                        <ol>
-                            <li>O jogador consegue marcar todos os números do tabuleiro</li>
-                            <li>Quando o tempo principal do jogo acabar, o resultado por tempo é acionado.</li>
-                            <li>O jogador erra 3 vezes.</li>
-                        </ol>
-                    </li>
-                </ul>
-            </div>
+        <h2 class="title"><i class="fas fa-gamepad"></i> Como Jogar</h2>
+        <p class="description">
+            No <strong>Conti GO</strong>, você joga contra o relógio (<i class="fas fa-clock"></i>) em um tabuleiro (<i class="fas fa-chess-board"></i>) 8x8. A cada rodada, você lança três dados (<i class="fas fa-dice"></i>) e usa operações matemáticas (<i class="fas fa-plus"></i>, <i class="fas fa-minus"></i>, <i class="fas fa-times"></i>, <i class="fas fa-divide"></i>) para obter um número que corresponda a uma casa no tabuleiro. O objetivo é marcar todas as casas antes que o tempo (<i class="fas fa-clock"></i>) acabe ou antes de errar <i class="fas fa-heart-broken"></i> três vezes. Com 3 vidas (<i class="fas fa-heart"></i>), você deve ser rápido e preciso para vencer!
+        </p>
+
+        <h2 class="subtitle"><i class="fas fa-book-open"></i> Regras do Jogo</h2>
+        <ul class="rules-list">
+            <li><strong><i class="fas fa-chess-board"></i> Gênero:</strong> Jogo de Tabuleiro</li>
+            <li><strong><i class="fas fa-desktop"></i> Plataforma:</strong> PC, Android</li>
+            <li><strong><i class="fas fa-user"></i> Nº de Jogadores:</strong> 1</li>
+            <li><strong><i class="fas fa-child"></i> Idade:</strong> 8+</li>
+        </ul>
+
+        <h3 class="subtitle"><i class="fas fa-cubes"></i> Componentes do Jogo</h3>
+        <ul class="components-list">
+            <li>Tabuleiro 8x8 com 64 casas numeradas.</li>
+            <li>64 números (veja a relação no final desta explicação).</li>
+            <li>3 dados (<i class="fas fa-dice"></i>) jogados a cada rodada.</li>
+            <li>3 vidas (<i class="fas fa-heart"></i>).</li>
+            <li>Um tempo (<i class="fas fa-clock"></i>) principal.</li>
+        </ul>
+
+        <h3 class="subtitle"><i class="fas fa-play"></i> Como Funciona o Jogo</h3>
+        <ol class="gameplay-steps">
+            <li>O São lançados 3 dados (<i class="fas fa-dice"></i>).</li>
+            <li>O jogador faz operações (<i class="fas fa-plus"></i>, <i class="fas fa-minus"></i>, <i class="fas fa-times"></i>, <i class="fas fa-divide"></i>) com os números dos dados para obter um valor.</li>
+            <li>O valor obtido corresponde a uma casa numerada no tabuleiro.</li>
+            <li>O jogador marca a casa correspondente no tabuleiro.</li>
+            <li>O tempo (<i class="fas fa-clock"></i>) principal continua correndo.</li>
+        </ol>
+
+        <h3 class="subtitle"><i class="fas fa-trophy"></i> Como Ganhar ou Perder</h3>
+        <p class="description">O jogo pode terminar de três maneiras:</p>
+        <ul class="end-conditions">
+            <li>O jogador marca todas as casas do tabuleiro.</li>
+            <li>O tempo (<i class="fas fa-clock"></i>) principal se esgota.</li>
+            <li>O jogador comete 3 erros (<i class="fas fa-heart-broken"></i>).</li>
+        </ul>
+    
+
+        <h3>Números possíveis</h3>
+        <div class="dice-wrapper">
+            <span class="dice">0</span>
+            <span class="dice">1</span>
+            <span class="dice">2</span>
+            <span class="dice">3</span>
+            <span class="dice">4</span>
+            <span class="dice">5</span>
+            <span class="dice">6</span>
+            <span class="dice">7</span>
+            <span class="dice">8</span>
+            <span class="dice">9</span>
+            <span class="dice">10</span>
+            <span class="dice">11</span>
+            <span class="dice">12</span>
+            <span class="dice">13</span>
+            <span class="dice">14</span>
+            <span class="dice">15</span>
+            <span class="dice">16</span>
+            <span class="dice">17</span>
+            <span class="dice">18</span>
+            <span class="dice">19</span>
+            <span class="dice">20</span>
+            <span class="dice">21</span>
+            <span class="dice">22</span>
+            <span class="dice">23</span>
+            <span class="dice">24</span>
+            <span class="dice">25</span>
+            <span class="dice">26</span>
+            <span class="dice">27</span>
+            <span class="dice">28</span>
+            <span class="dice">29</span>
+            <span class="dice">30</span>
+            <span class="dice">31</span>
+            <span class="dice">32</span>
+            <span class="dice">33</span>
+            <span class="dice">34</span>
+            <span class="dice">35</span>
+            <span class="dice">36</span>
+            <span class="dice">37</span>
+            <span class="dice">38</span>
+            <span class="dice">39</span>
+            <span class="dice">40</span>
+            <span class="dice">41</span>
+            <span class="dice">42</span>
+            <span class="dice">44</span>
+            <span class="dice">45</span>
+            <span class="dice">48</span>
+            <span class="dice">50</span>
+            <span class="dice">54</span>
+            <span class="dice">55</span>
+            <span class="dice">60</span>
+            <span class="dice">64</span>
+            <span class="dice">66</span>
+            <span class="dice">72</span>
+            <span class="dice">75</span>
+            <span class="dice">80</span>
+            <span class="dice">90</span>
+            <span class="dice">96</span>
+            <span class="dice">100</span>
+            <span class="dice">108</span>
+            <span class="dice">120</span>
+            <span class="dice">125</span>
+            <span class="dice">144</span>
+            <span class="dice">150</span>
+            <span class="dice">180</span>
         </div>
-        
-        <a id="back-button" href="index.html">Voltar</a>
+        <a id="back-button" href="index.html"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
 
     <script>
