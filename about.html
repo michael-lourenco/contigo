@@ -5,25 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre - Conti Go</title>
     <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <nav class="menu">
+
         <div class="logo">
             <a href="index.html">ContiGO</a>
         </div>
+
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>
+
         <div class="menu-links">
-            <a href="index.html">Jogar</a>
-            <a href="how_to_play.html">Como Jogar</a>
-            <a href="about.html">Sobre</a>
+            <a href="index.html"><i class="fas fa-play"> </i> Jogar</a>
+            <a href="how_to_play.html"><i class="fas fa-question-circle"></i> Como Jogar</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> Sobre</a>
         </div>
+
     </nav>
     <div class="container">
         <h1>Conti Go</h1>
         <p>Adaptação do jogo Contigo para PC criado por:</p>
-        <ul>
+        <ul class="team-list">
             <li>Michael Lourenço</li>
             <li>Sylvia Martins</li>
             <li>Letícia Montanari</li>
@@ -32,39 +37,40 @@
         </ul>
 
         <h1>CONTI GO 2023</h1>
-        
+
         <div class="info-container">
             <div class="info-item">
                 <h2>O QUE É O CONTI GO?</h2>
-                <p>Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.</p>
+                <p>Conti GO é um jogo de tabuleiro educativo que desafia os jogadores a resolver quebra-cabeças matemáticos em uma grade 8x8, utilizando adição, subtração, multiplicação e divisão. O objetivo é marcar a pontuação mais alta dentro de um limite de tempo.</p>
             </div>
             <div class="info-item">
-                <h2>Possíveis objetivos educacionais</h2>
+                <h2>Possíveis Objetivos Educacionais</h2>
                 <ul>
                     <li>Cálculos</li>
-                    <li>Lógica</li> 
+                    <li>Lógica</li>
                     <li>Noções Espaciais</li>
-                    <li>Agilidade.</li>
-                </ul>
-                <h2>Habilidades Matemáticas</h2>
-                <ul>
-                    <li>Resolver e elaborar problemas com números naturais envolvendo adição e subtração, utilizando estratégias diversas, como cálculo, cálculo mental e algoritmos, além de fazer estimativas do resultado.</li>
-                    <li>Utilizar as relações entre adição e subtração, bem como entre multiplicação e divisão, para ampliar as estratégias de cálculo.</li>
-                    <li>Utilizar as propriedades das operações para desenvolver estratégias de cálculo.</li>
-                </ul>
-                <h2>Habilidades Sociais</h2>
-                <ul>
-                    <li>Aprender a lidar com a vitória.</li>
-                    <li>Aprender a lidar com a derrota.</li>
-                    <li>Aprender a lidar com a ansiedade.</li>
-                    <li>Aprender a lidar com a pressão.</li>
-                    <li>Tomar decisões.</li>
-                    <li>Estratégia.</li>
-                    <li>Observar.</li>
+                    <li>Agilidade</li>
                 </ul>
             </div>
+            <div class="info-item">
+                <h2>Habilidades Matemáticas</h2>
+                <ul>
+                    <li>Resolver problemas envolvendo operações matemáticas básicas.</li>
+                    <li>Utilizar relações entre as operações para desenvolver estratégias de cálculo.</li>
+                </ul>
+            </div>
+            <div class="info-item">
+                <h2>Habilidades Sociais</h2>
+                <ul>
+                    <li>Lidar com vitória e derrota.</li>
+                    <li>Tomar decisões sob pressão.</li>
+                    <li>Desenvolver estratégia e observação.</li>
+                </ul>
+            </div>
+        </div>
         <a href="index.html" class="btn-back">Voltar para a página inicial</a>
     </div>
+    
     <script>
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.menu-links').classList.toggle('active');

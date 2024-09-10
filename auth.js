@@ -156,8 +156,7 @@ function displayUserInfo(displayName, best) {
     const userInfoContainer = document.getElementById('user-info');
 
     userInfoContainer.innerHTML = `
-        <p>Nome: ${displayName}</p>
-        <p>Melhor Pontuação: ${best}</p>
+        <i class="fas fa-user"></i> ${displayName} <i class="fas fa-trophy"></i> ${best}</p>
     `;
 
 }
