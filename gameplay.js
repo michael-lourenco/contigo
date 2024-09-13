@@ -62,16 +62,18 @@ function generateNewNumbers(diceList) {
 function validate(value, button) {
     const calculoData = new CalculoData();
     const resultado = calculoData.resolve(diceList.firstDice.value, diceList.secondDice.value, diceList.thirdDice.value, value);
+    
+    document.getElementById('jump-button').style.display = 'none';
 
     if (resultado.valorEncontrado) {
-        document.getElementById('result').innerText = 'Resultado existe';
+        showSuccess();
         button.classList.add('authenticated');
         button.disabled = true;
         successCount++;
         removeNumber(value);
         document.getElementById('successes').innerText = `${successCount}`;
     } else {
-        document.getElementById('result').innerText = 'Resultado não existe';
+        shakeHeartBroken();
         errorCount++;
         document.getElementById('errors').innerText = `${errorCount}`;
         if (errorCount >= 3) {
@@ -94,6 +96,7 @@ function validate(value, button) {
             generateNewNumbers(diceList);
             document.getElementById('result').innerText = '';
             document.getElementById('timer').innerText = '00';
+            document.getElementById('jump-button').style.display = 'block';
             enableGridButtons({element:'.grid-item button', disable: false});
         }
     }, 1000);
@@ -114,10 +117,10 @@ function jump() {
     const resultExists = verifyNumbers(remainNumbers)
 
     if (!resultExists) {
-        document.getElementById('result').innerText = 'Pulou corretamente';
+        showSuccess()
         document.getElementById('successes').innerText = `${successCount}`;
-    } else {
-        document.getElementById('result').innerText = 'Pulou errado';
+    } else {      
+        shakeHeartBroken()
         errorCount++;
         document.getElementById('errors').innerText = `${errorCount}`;
         if (errorCount >= 3) {
@@ -228,6 +231,32 @@ function copyPixKey() {
     }).catch(err => {
         console.error('Error copying key PIX: ', err);
     });
+}
+
+function shakeHeartBroken() {
+    const resultDiv = document.getElementById("result");
+
+    // Limpa o conteúdo anterior e adiciona o ícone heart-broken
+    resultDiv.innerHTML = '<i id="heartIcon" class="fas fa-heart-broken fa-icon shake" aria-hidden="true"></i>';
+
+    // Remove a classe "shake" após a animação
+    setTimeout(() => {
+        const heartIcon = document.getElementById("heartIcon");
+        heartIcon.classList.remove("shake");
+    }, 500); // tempo igual à duração da animação
+}
+
+function showSuccess() {
+    const resultDiv = document.getElementById("result");
+
+    // Limpa o conteúdo anterior e adiciona o ícone heart-broken
+    resultDiv.innerHTML = '<i id="successIcon" class="fas fa-check-circle correct" aria-hidden="true"></i>';
+
+    // Remove a classe "shake" após a animação
+    setTimeout(() => {
+        const successIcon = document.getElementById("successIcon");
+        heartIcon.classList.remove("correct");
+    }, 500); // tempo igual à duração da animação
 }
 
 window.onload = () => {
