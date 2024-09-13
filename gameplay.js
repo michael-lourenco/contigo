@@ -115,6 +115,8 @@ function verifyNumbers(remainNumbers) {
 
 function jump() {
     const resultExists = verifyNumbers(remainNumbers)
+    
+    document.getElementById('jump-button').style.display = 'none';
 
     if (!resultExists) {
         showSuccess()
@@ -141,7 +143,9 @@ function jump() {
             generateNewNumbers(diceList);
             document.getElementById('result').innerText = '';
             document.getElementById('timer').innerText = '00';
+            document.getElementById('jump-button').style.display = 'block';
             enableGridButtons({element:'.grid-item button', disable: false});
+
         }
     }, 1000);
 }
