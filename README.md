@@ -10,7 +10,7 @@ Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores
 ## COMO JOGAR
 
 1. **Iniciar o Jogo:**  
-   Abra o jogo no seu PC ou dispositivo Android e inicie uma nova sessão.
+   Abra o jogo no seu PC ou dispositivo Android e inicie uma nova sessão [clicando aqui](https://contigo-wine.vercel.app/):
 
 2. **Receber Números:**  
    Você receberá 3 números aleatórios.
