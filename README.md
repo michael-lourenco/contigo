@@ -7,6 +7,31 @@
 ## O QUE É O CONTI GO?
 Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.
 
+## COMO JOGAR
+
+1. **Iniciar o Jogo:**  
+   Abra o jogo no seu PC ou dispositivo Android e inicie uma nova sessão.
+
+2. **Receber Números:**  
+   Você receberá 3 números aleatórios.
+
+3. **Calcular:**  
+   Use esses números para realizar uma operação matemática (soma, subtração, multiplicação ou divisão) para obter um resultado.
+
+4. **Marcar o Tabuleiro:**  
+   Encontre o resultado calculado no tabuleiro e marque-o, se ainda não tiver sido marcado.
+
+5. **Pontos e Vidas:**  
+   - **Correto:** Você ganha 1 ponto, e a casa é marcada com a sua cor.
+   - **Incorreto:** Você perde 1 vida.
+
+6. **Continuar Jogando:**  
+   O jogo continua até você perder todas as vidas ou o tempo do jogo acabar.
+
+7. **Ganhar ou Perder:**  
+   Tente marcar o máximo de pontos possível antes do jogo terminar.
+
+
 ## POSSÍVEIS OBJETIVOS EDUCACIONAIS
 
 - Cálculos, Lógica, Noções Espaciais e Agilidade.
@@ -84,70 +109,63 @@ O jogador joga contra o tempo.
 
 ## DADOS DE PUBLICAÇÃO
 
-### Short description or tagline
-Shown when we link to your project. Avoid duplicating your project's title
+### Breve descrição ou slogan
+Mostrado quando vinculamos ao seu projeto. Evite duplicar o título do seu projeto
 
-> Enhance your math skills and strategic thinking with Conti GO, a fast-paced number puzzle game!
+> Aprimore suas habilidades matemáticas e pensamento estratégico com Conti GO, um jogo de quebra-cabeça numérico em ritmo acelerado!
 
-### Details
-— This will make up the content of your game page.
+### Detalhes
+— Isso constituirá o conteúdo da página do seu jogo.
 
-> Conti GO is an engaging and educational board game that challenges players to use their math skills and strategic thinking. Set on an 8x8 grid, players must solve mathematical puzzles by using addition, subtraction, multiplication, and division to mark numbers on the board. The game features a race against time, with players competing to achieve the highest score by correctly solving problems and marking corresponding numbers on the board.
+> Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.
 
-**Key Features:**
-- **Single Player Challenge:** Test your abilities by playing against the clock.
-- **Educational Focus:** Enhance your mathematical skills, including calculations and logical thinking.
-- **Strategic Gameplay:** Make quick decisions under pressure, manage resources like lives, and aim for the highest score.
-- **Customizable Experience:** Choose your operations and tackle the game with your unique strategy.
+**Principais recursos:**
+- **Desafio para um jogador:** Teste suas habilidades jogando contra o relógio.
+- **Foco Educacional:** Aprimore suas habilidades matemáticas, incluindo cálculos e raciocínio lógico.
+- **Jogabilidade estratégica:** Tome decisões rápidas sob pressão, gerencie recursos como vidas e busque a pontuação mais alta.
+- **Experiência Personalizável:** Escolha suas operações e enfrente o jogo com sua estratégia única.
 
-Suitable for players aged 8 and above, Conti GO is perfect for anyone looking to sharpen their mind while enjoying a casual yet stimulating game. Whether you're a math enthusiast or just love a good challenge, Conti GO offers an exciting experience that combines fun and learning.
+Adequado para jogadores a partir de 8 anos, o Conti GO é perfeito para quem quer aguçar a mente enquanto desfruta de um jogo casual, mas estimulante. Quer você seja um entusiasta da matemática ou apenas adore um bom desafio, o Conti GO oferece uma experiência emocionante que combina diversão e aprendizado.
 
-## How to Play / Como Jogar
+# Histórico de Desenvolvimento do Jogo
 
-### English
-1. **Start the Game:**  
-   Open the game on your PC or Android device and start a new session.
+## Início do Projeto
+O desenvolvimento do jogo começou em julho de 2019 durante o último semestre da especialização em Informática Aplicada à Educação no Instituto Federal de São Paulo (IFSP Câmpus Itapetininga). Na disciplina de Desenvolvimento de Jogos Digitais, o professor Wilton nos propôs criar um jogo educacional.
 
-2. **Receive Numbers:**  
-   You will receive 3 random numbers.
+## Equipe
+O time base era composto por:
+- Michael Lourenço (eu - desenvolvedor)
+- Sylvia Martins
+- Letícia Montanari
 
-3. **Calculate:**  
-   Use these numbers to perform a mathematical operation (addition, subtraction, multiplication, or division) to get a result.
+Mais tarde, Taíse e Odair se juntaram para colaborar com ideias e partes educacionais, áreas onde eu não tinha tanto conhecimento.
 
-4. **Mark the Board:**  
-   Find the calculated result on the board and mark it if it hasn't been marked already.
+## Ideia Inicial
+Durante o brainstorming, Letícia sugeriu transformar o jogo analógico Conti 60 em digital. Nossa adaptação principal foi fazer com que os jogadores disputassem as peças simultaneamente, evitando a espera de turnos, o que tornaria o jogo mais dinâmico. O público-alvo definido foi de crianças a partir de 8 anos, por já dominarem as operações matemáticas básicas (+, -, *, /).
 
-5. **Points and Lives:**  
-   - **Correct:** You earn 1 point, and the square is marked with your color.
-   - **Incorrect:** You lose 1 life.
+## Desenvolvimento e Desafios
+Alguns desafios enfrentados durante o desenvolvimento:
+- **Testes**: Dificuldade em encontrar testadores.
+- **Mecânica**: Problema no cálculo do resultado após selecionar uma peça.
+- **Plataforma**: Inicialmente lançado para PC, mas tivemos problemas com a necessidade de jogar no mesmo teclado ou falta de joysticks. Decidimos criar uma versão mobile para um jogador, o que exigiu alterações nas regras para refletir a nova jogabilidade.
 
-6. **Continue Playing:**  
-   The game continues until you either lose all your lives or the game timer runs out.
 
-7. **Win or Lose:**  
-   Try to score as many points as possible before the game ends.
+## Funcionalidades Adicionadas
+- **Leaderboard**: Estudei a API do Google Play Services para implementar o placar online e offline, mantendo um ranking com os 10 melhores resultados.
+- **Publicação**: O jogo foi publicado na Google Play Store em 04/03/2020, inicialmente com um ranking offline.
 
----
+## Feedbacks e Melhorias
+- **Versão Alfa**: Lançada em 09/03/2020.
+- **Versão Beta**: Lançada em 10/03/2020. Após feedback da minha prima Sacha, identifiquei um bug que impedia a gravação do ranking quando o jogo acabava pelo tempo. Resolvi o problema no código do `GameController.cs`.
 
-### Português
-1. **Iniciar o Jogo:**  
-   Abra o jogo no seu PC ou dispositivo Android e inicie uma nova sessão.
+## Imagens 
+Seguem imagens que mostram como jogar e objetivos da primeira versão jogo mobile (est e jogo não foi publicado, ficou na versão de testes).
 
-2. **Receber Números:**  
-   Você receberá 3 números aleatórios.
-
-3. **Calcular:**  
-   Use esses números para realizar uma operação matemática (soma, subtração, multiplicação ou divisão) para obter um resultado.
-
-4. **Marcar o Tabuleiro:**  
-   Encontre o resultado calculado no tabuleiro e marque-o, se ainda não tiver sido marcado.
-
-5. **Pontos e Vidas:**  
-   - **Correto:** Você ganha 1 ponto, e a casa é marcada com a sua cor.
-   - **Incorreto:** Você perde 1 vida.
-
-6. **Continuar Jogando:**  
-   O jogo continua até você perder todas as vidas ou o tempo do jogo acabar.
-
-7. **Ganhar ou Perder:**  
-   Tente marcar o máximo de pontos possível antes do jogo terminar.
+![1](images/history/imagem-1.png)
+![2](images/history/imagem-2.png)
+![3](images/history/imagem-3.png)
+![4](images/history/imagem-4.png)
+![5](images/history/imagem-5.png)
+![6](images/history/imagem-6.png)
+![7](images/history/imagem-7.png)
+![8](images/history/imagem-8.png)
