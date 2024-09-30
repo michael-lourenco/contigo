@@ -1,4 +1,7 @@
 # CONTI GO 2023
+<p align="center">
+  <img src="images/history/imagem-8.png" alt="Descrição da Imagem" width="300"/>
+</p>
 
 ## OBJETIVO
 1. Passar a versão do CONTI GO mobile para a versão HTML/Javascript.
@@ -14,15 +17,21 @@ Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores
 
 2. **Receber Números:**  
    Você receberá 3 números aleatórios.
-
+<p align="center">
+  <img src="images/history/imagem-4.png" alt="Descrição da Imagem" width="250"/>
+</p>
 3. **Calcular:**  
    Use esses números para realizar uma operação matemática (soma, subtração, multiplicação ou divisão) para obter um resultado.
+<p align="center">
+  <img src="images/history/imagem-3.png" alt="Descrição da Imagem" width="250"/>
+</p>
+
 
 4. **Marcar o Tabuleiro:**  
    Encontre o resultado calculado no tabuleiro e marque-o, se ainda não tiver sido marcado.
 
 5. **Pontos e Vidas:**  
-   - **Correto:** Você ganha 1 ponto, e a casa é marcada com a sua cor.
+   - **Correto:** Você ganha 1 ponto, e a casa é marcada.
    - **Incorreto:** Você perde 1 vida.
 
 6. **Continuar Jogando:**  
@@ -161,11 +170,27 @@ Alguns desafios enfrentados durante o desenvolvimento:
 ## Imagens 
 Seguem imagens que mostram como jogar e objetivos da primeira versão jogo mobile (est e jogo não foi publicado, ficou na versão de testes).
 
-![1](images/history/imagem-1.png)
-![2](images/history/imagem-2.png)
-![3](images/history/imagem-3.png)
-![4](images/history/imagem-4.png)
-![5](images/history/imagem-5.png)
-![6](images/history/imagem-6.png)
-![7](images/history/imagem-7.png)
-![8](images/history/imagem-8.png)
+<p align="center">
+  <img src="images/history/imagem-1.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-2.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-3.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-4.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-5.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-6.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-7.png" alt="Descrição da Imagem" width="300"/>
+</p>
+<p align="center">
+  <img src="images/history/imagem-8.png" alt="Descrição da Imagem" width="300"/>
+</p>
