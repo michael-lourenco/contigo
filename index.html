@@ -5,51 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conti GO</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <script type="module" src="auth.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="main.css">
+
 </head>
 <body>
-    <nav class="menu">
-
-        <div class="logo">
-            <a href="index.html">ContiGO</a>
-        </div>
-
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <div class="menu-links">
-            <div class="donate-container">
-
-                <button id="donate-button" onclick="copyPixKey()">
-                    <i class="fas fa-donate"></i> Doar via PIX
-                </button>
-    
-                <p id="pix-message">Chave PIX copiada!</p>
-    
-            </div>
-            <a href="index.html"><i class="fas fa-play"> </i> Jogar</a>
-            <a href="how_to_play.html"><i class="fas fa-question-circle"></i> Como Jogar</a>
-            <a href="about.html"><i class="fas fa-info-circle"></i> Sobre</a>
-            <button id="google-sign-in-button" onclick="signInWithGoogle()">Sign in with Google</button>
-            <button id="google-sign-out-button" onclick="signOutFromGoogle()" style="display: none;">Sign out</button>
-        </div>
-
-    </nav>
 
     <div class="container">
 
         <div class="info-container">
 
             <div class="info-item">
-                <i class="fas fa-heart-broken fa-icon" aria-hidden="true"></i>
+                <i id="heartIconHUD" class="fas fa-heart-broken fa-icon heartIcon" aria-hidden="true"></i>
                 <span id="errors">0</span>
             </div>
 
             <div class="info-item">
-                <i class="fa fa-check-circle fa-icon" aria-hidden="true"></i>
+                <i id="successIconHUD" class="fa fa-check-circle fa-icon successIcon" aria-hidden="true"></i>
                 <span id="successes">0</span>
             </div>
 
@@ -98,7 +72,34 @@
         </div>
         
     </div>
+    <nav class="menu">
 
+        <div class="logo">
+            <a href="index.html">ContiGO</a>
+        </div>
+
+        <!-- <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div> -->
+
+        <div class="menu-links">
+            <div class="donate-container">
+
+                <button id="donate-button" onclick="copyPixKey()">
+                    <i class="fas fa-donate"></i> 
+                </button>
+    
+                <p id="pix-message">Chave PIX copiada!</p>
+    
+            </div>
+            <a href="index.html"><i class="fas fa-play"> </i></a>
+            <a href="how_to_play.html"><i class="fas fa-question-circle"></i></a>
+            <a href="about.html"><i class="fas fa-info-circle"></i></a>
+            <button id="google-sign-in-button" onclick="signInWithGoogle()"><img src='images/icons8-google-logo-480.png'></button>
+            <button id="google-sign-out-button" onclick="signOutFromGoogle()" style="display: none;">Sign out</button>
+        </div>
+
+    </nav>
     <script src="contas.js"></script>
     <script src="gameplay.js"></script>
 </body>

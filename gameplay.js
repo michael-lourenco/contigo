@@ -1,7 +1,7 @@
 
-document.querySelector('.menu-toggle').addEventListener('click', function() {
-    document.querySelector('.menu-links').classList.toggle('active');
-});
+// document.querySelector('.menu-toggle').addEventListener('click', function() {
+//     document.querySelector('.menu-links').classList.toggle('active');
+// });
 
 function getRandomNumber(largestNumberPossible) {
     return Math.floor(Math.random() * Number(largestNumberPossible)) + 1;
@@ -259,7 +259,7 @@ function showSuccess() {
     // Remove a classe "shake" após a animação
     setTimeout(() => {
         const successIcon = document.getElementById("successIcon");
-        heartIcon.classList.remove("correct");
+        successIcon.classList.remove("correct");
     }, 500); // tempo igual à duração da animação
 }
 

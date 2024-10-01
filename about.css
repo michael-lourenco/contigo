@@ -32,14 +32,14 @@ body {
 }
 .menu .logo a {
     font-size: 1.5rem;
-    color: #a4d4a1; /* Verde pastel para o link no logo */
+    color: #fff; /* Verde pastel para o link no logo */
     text-decoration: none;
 }
 .menu .menu-toggle {
     display: none;
     cursor: pointer;
     font-size: 1.4em;
-    color: #a4d4a1;
+    color: #fff;
 }
 .menu-links {
     display: flex;
@@ -49,7 +49,7 @@ body {
 
 .menu-links a {
     display: inline-block;
-    background-color: #a4d4a1; /* Cor de fundo */
+    background-color: #fff; /* Cor de fundo */
     color: #2b2b2b;
     text-align: center;
     padding: 8px 16px;
@@ -66,7 +66,7 @@ body {
 
 .menu-links a:focus {
     outline: none;
-    box-shadow: 0 0 4px #a4d4a1;
+    box-shadow: 0 0 4px #fff;
 }
 
 .menu-links a:active {
@@ -108,7 +108,7 @@ body {
 
 h1 {
     font-size: 2.5em;
-    color: #a4d4a1;
+    color: #fff;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -140,7 +140,7 @@ h1 {
 
 .info-item h2 {
     font-size: 1.8em;
-    color: #a4d4a1;
+    color: #fff;
     margin-bottom: 15px;
 }
 
@@ -163,7 +163,7 @@ h1 {
 .btn-back {
     display: inline-block;
     padding: 12px 24px;
-    background-color: #a4d4a1;
+    background-color: #fff;
     color: #0d0d0d;
     font-size: 1.2em;
     border-radius: 5px;
