@@ -1,4 +1,3 @@
-/* Resetting default styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +6,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #1f1a30; /* Roxo profundo */
-    color: #f5f3fc; /* Branco suave */
+    background-color: #1d1f27; /* Fundo escuro em tom de cinza-azulado */
+    color: #e0e0e0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,43 +16,79 @@ body {
     overflow-y: auto;
 }
 
-/* Navbar Styles */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #272a36; /* Fundo cinza escuro com um leve tom azulado */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    font-family: 'Orbitron', sans-serif;
+    border-bottom: 2px solid #EFEFF1;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #EFEFF1; /* Cor mais clara */
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #EFEFF1; /* Linha de subtítulo em roxo suave */
+    padding-bottom: 10px;
+    color: #EFEFF1;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #b0b0b0; /* Cor da descrição um pouco mais clara */
+}
+
+/* Estilo do Menu */
 /* Menu Styles */
 .menu {
     width: 100%;
-    background: #3d3356; /* Roxo intermediário */
+    background: #1A1A2E; /* Tom mais escuro */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 4px 8px;
-    border-radius: 8px;
-    margin-bottom: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
-.menu .logo a {
-    font-size: 1.5rem;
-    color: #d9f7be; /* Verde pastel */
+.logo a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #EFEFF1; /* Cor mais clara */
     text-decoration: none;
+    letter-spacing: 1px;
 }
 
-.menu .menu-toggle {
-    display: none;
-    cursor: pointer;
-    font-size: 1.4em;
-    color: #f5f3fc; /* Branco suave */
+.logo a:hover {
+    color: #F5F5F5; /* Hover com um tom mais claro */
 }
 
 .menu-links {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espaçamento entre os botões */
+    gap: 8px;
 }
 
 .menu-links a {
     display: inline-block;
-    background-color: #b29dd9; /* Lilás claro */
-    color: #1f1a30; /* Roxo profundo */
+    background-color: #3E497A; /* Azul escuro */
+    color: #EFEFF1;
     text-align: center;
     padding: 8px 16px;
     text-decoration: none;
@@ -63,127 +98,131 @@ body {
 }
 
 .menu-links a:hover {
-    background-color: #a984d6; /* Lilás médio ao passar o mouse */
+    background-color: #5C6FCF; /* Azul mais claro no hover */
     transform: scale(1.04);
 }
 
-.menu-links a:focus {
-    outline: none;
-    box-shadow: 0 0 4px #f5f3fc; /* Branco suave */
-}
-
 .menu-links a:active {
-    background-color: #8f67a7; /* Lilás escuro ao clicar */
-    transform: scale(0.80);
+    background-color: #2E3A6F;
+    transform: scale(0.95);
 }
 
-@media (max-width: 768px) {
-    .menu .menu-links {
-        display: none;
-        flex-direction: column;
-        background-color: #3d3356; /* Roxo intermediário */
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        padding: 20px;
-        border-radius: 10px;
-    }
-    .menu .menu-links.active {
-        display: flex;
-    }
-    .menu .menu-toggle {
-        display: block;
-    }
+#google-sign-in-button img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    vertical-align: middle;
 }
 
-/* Container Styles */
-.container {
-    background-color: #2c2540; /* Roxo escuro */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
-    max-width: 800px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-h1 {
-    font-size: 2.5em;
-    color: #f5f3fc; /* Branco suave */
-    margin-bottom: 20px;
+.donate-container {
     text-align: center;
 }
 
-.team-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 30px;
+#donate-button {
+    background-color: #fff;
+    color: #2b2b2b;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
 }
 
-.team-list li {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #c2bbdf; /* Cinza lilás */
+
+#donate-button:hover {
+    background-color: #45a049;
+    transform: scale(1.04);
 }
 
-.info-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+#donate-button:active {
+    background-color: #3e8e41;
+    transform: scale(1);
 }
 
-.info-item {
-    background-color: #3d3356; /* Roxo intermediário */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+#pix-message {
+    color: #fff;
+    margin-top: 8px;
+    font-size: 16px;
+    display: none;
 }
-
-.info-item h2 {
-    font-size: 1.8em;
-    color: #f5f3fc; /* Branco suave */
-    margin-bottom: 15px;
-}
-
-.info-item p, 
-.info-item ul {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #e1def3; /* Cinza suave */
-}
-
-.info-item ul {
-    list-style: none;
-    padding-left: 20px;
-}
-
-.info-item ul li {
-    margin-bottom: 10px;
-}
-
-.btn-back {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #d9f7be; /* Verde pastel */
-    color: #1f1a30; /* Roxo profundo */
-    font-size: 1.2em;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 30px;
+#google-sign-in-button,
+#google-sign-out-button {
+    background-color: #4285F4; /* Cor do Google */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+#google-sign-in-button:hover,
+#google-sign-out-button:hover {
+    background-color: #357AE8; /* Cor mais escura ao passar o mouse */
+}
+
+#google-sign-in-button:focus,
+#google-sign-out-button:focus {
+    outline: none;
+    box-shadow: 0 0 4px #357AE8;
+}
+
+#google-sign-out-button {
+    background-color: #DB4437; /* Cor do Google para logout */
+}
+
+#google-sign-out-button:hover {
+    background-color: #C23321; /* Cor mais escura para o botão de logout ao passar o mouse */
+}
+
+/* Listas de Regras, Componentes e Passos */
+.rules-list, .components-list, .gameplay-steps, .end-conditions {
+    list-style-type: none;
+    padding: 0;
+}
+
+.rules-list li, .components-list li, .gameplay-steps li, .end-conditions li {
+    margin-bottom: 10px;
+}
+
+/* Estilo dos Dados */
+.dice-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dice {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #5C6FCF;
+    background: #1F1F2E; /* Azul vibrante para os dados */
     text-align: center;
-    width: 100%;
+    line-height: 40px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #EFEFF1;
 }
 
-.btn-back:hover {
-    background-color: #c8f2a8; /* Verde mais claro ao passar o mouse */
-    color: #1f1a30;
+#back-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #5C6FCF;
+    background: #1F1F2E; /* Azul vibrante para os dados *//* Botão com fundo azul escuro */
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 8px;
 }
 
-/* Responsive Styles */
-@media (min-width: 768px) {
-    .info-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+#back-button:hover {
+    background: #5a89f5; /* Fundo do botão mais claro ao passar o mouse */
 }

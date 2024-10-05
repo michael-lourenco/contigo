@@ -30,7 +30,12 @@ body {
     width: 100%;
     max-width: 940px;
 }
-
+.title {
+    font-family: 'Orbitron', sans-serif;
+    color: #EFEFF1; /* Cor mais clara */
+    text-decoration: none;
+    letter-spacing: 1px;
+}
 /* Menu Styles */
 .menu {
     width: 100%;
