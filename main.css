@@ -12,71 +12,62 @@ body {
     justify-content: flex-start;
     margin: 0;
     padding: 0;
-    height: 100vh; /* Garante que o corpo tenha 100% da altura da viewport */
-    justify-content: flex-start;
-    background-color: #000;
-    /* background-image: linear-gradient(rgba(30, 58, 120, 0.50), rgba(30, 58, 120, 0.50)), url('images/bg.jpeg'); */
-    background-size: cover; /* Faz com que a imagem ocupe todo o espaço sem distorcer */
-    background-position: center; /* Centraliza a imagem no centro da tela */
-    background-repeat: no-repeat; /* Impede que a imagem se repita */
-    background-attachment: fixed; /* Mantém o fundo fixo ao rolar a página */
+    height: 100vh;
+    background-color: #1F1F2E; /* Cor de fundo mais suave */
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
     margin: 0;
-    position: relative; /* Necessário para o pseudoelemento */
+    position: relative;
 }
-
 
 .container {
     text-align: center;
-    background: rgba(40, 40, 40, 0.9);
+    background: rgba(255, 255, 255, 0.1); /* Fundo levemente translúcido */
     padding: 4px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     margin-bottom: 4px;
     width: 100%;
-    max-width: 940px; /* Ajuste a largura máxima do container */
+    max-width: 940px;
 }
+
 /* Menu Styles */
 .menu {
     width: 100%;
-    background: #070707;
+    background: #1A1A2E; /* Tom mais escuro */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 4px 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: fixed; /* Fixa o menu na tela */
-    bottom: 0; /* Alinha o menu ao fundo do navegador */
-    left: 0; /* Garante que ele comece no início da tela */
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
+
 .logo a {
-    font-family: 'Orbitron', sans-serif; /* Aplica a nova fonte */
-    font-size: 28px; /* Ajusta o tamanho da fonte */
-    font-weight: 700; /* Deixa a fonte mais forte */
-    color: #fff; /* Cor do texto */
-    text-decoration: none; /* Remove o sublinhado */
-    letter-spacing: 1px; /* Dá um espaçamento suave entre as letras */
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #EFEFF1; /* Cor mais clara */
+    text-decoration: none;
+    letter-spacing: 1px;
 }
+
 .logo a:hover {
-    color: #f0f0f0; /* Cor do texto ao passar o mouse */
+    color: #F5F5F5; /* Hover com um tom mais claro */
 }
-.menu .menu-toggle {
-    display: none;
-    cursor: pointer;
-    font-size: 1.4em;
-    color: #fff;
-}
+
 .menu-links {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espaçamento entre os botões */
+    gap: 8px;
 }
 
 .menu-links a {
     display: inline-block;
-    background-color: #fff; /* Cor de fundo */
-    color: #2b2b2b;
+    background-color: #3E497A; /* Azul escuro */
+    color: #EFEFF1;
     text-align: center;
     padding: 8px 16px;
     text-decoration: none;
@@ -86,46 +77,21 @@ body {
 }
 
 .menu-links a:hover {
-    background-color: #45A049; /* Cor de fundo ao passar o mouse */
-    transform: scale(1.04); /* Efeito de leve aumento ao passar o mouse */
-}
-
-.menu-links a:focus {
-    outline: none;
-    box-shadow: 0 0 4px #fff;
+    background-color: #5C6FCF; /* Azul mais claro no hover */
+    transform: scale(1.04);
 }
 
 .menu-links a:active {
-    background-color: #3E8E41; /* Cor de fundo ao clicar */
-    transform: scale(0.80); /* Efeito de leve redução ao clicar */
+    background-color: #2E3A6F;
+    transform: scale(0.95);
 }
 
 #google-sign-in-button img {
-    width: 24px;  /* Ajuste o tamanho conforme necessário */
-    height: 24px; /* Ajuste o tamanho conforme necessário */
-    object-fit: contain;  /* Garante que a imagem mantenha sua proporção */
-    vertical-align: middle; /* Alinha verticalmente no centro */
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    vertical-align: middle;
 }
-/* @media (max-width: 768px) {
-    .menu .menu-links {
-        display: none;
-        flex-direction: column;
-        background: #2b2b2b;
-        position: absolute;
-        top: 56px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 8px 0;
-        border-radius: 8px;
-    }
-    .menu .menu-links.active {
-        display: flex;
-    }
-    .menu .menu-toggle {
-        display: block;
-    }
-} */
 
 .info-container {
     display: flex;
@@ -134,7 +100,7 @@ body {
     align-items: center;
     width: 100%;
     padding: 4px 0;
-    background: #3b3b3b;    
+    background: #2A2A3D; /* Fundo mais escuro para os elementos de info */
     border-radius: 8px;
     margin-bottom: 4px;
 }
@@ -144,54 +110,51 @@ body {
     align-items: center;
     font-size: 1.2em;
     padding: 0.4em;
-    color: #e0e0e0;
-    flex: 1 1 20%; /* Ajuste aqui */
+    color: #EFEFF1;
+    flex: 1 1 20%;
     box-sizing: border-box;
 }
-
-/* @media (max-width: 768px) {
-    .info-item {
-        flex: 1 1 100%; 
-    }
-} 
-*/
 
 .info-item .fa-icon {
     margin-right: 8px;
     font-size: 24px;
-    color: #fff;
+    color: #EFEFF1;
 }
+
+/* Estilos para os números/dados */
 .number-boxes {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 8px;
 }
+
 .number-box {
     width: 56px;
     height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #333;
+    border: 2px solid #3E497A; /* Cor de borda azul */
     border-radius: 8px;
     margin: 4px;
     font-size: 1.4em;
-    background: rgba(40, 40, 40, 0.9);
-    color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.1);
+    color: #F5F5F5;
 }
+
 .input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top:16px;
-    margin-bottom:16px; 
+    margin-bottom:16px;
 }
 
-#result {
+#result, #game-over {
     margin-top: 8px;
     font-size: 1.2em;
-    color: #fff;
+    color: #EFEFF1;
 }
 
 .grid-container {
@@ -202,88 +165,75 @@ body {
     max-width: 960px;
     margin-bottom: 16px;
     border-radius: 8px;
-    /* background: rgba(40, 40, 40, 0.9); */
-    height: calc(100vh - 450px); /* Adjust the height calculation based on your content */
+    height: calc(100vh - 450px);
 }
+
 .grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
     gap: 4px;
     width: 95%;
-    height: 95%;   
+    height: 95%;
+    background-color: #2A2A3D; /* Fundo da grid */
     aspect-ratio: 1;
 }
+
 .grid-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #444;
+    border: 1px solid #5C6FCF; /* Cor da borda */
     border-radius: 4px;
-    background: #333;
+    background: #1F1F2E; /* Fundo escuro para grid-item */
     font-size: 1rem;
     cursor: pointer;
-    color: #f0f0f0;
+    color: #EFEFF1;
     transition: background 0.3s, color 0.3s;
 }
+
 .grid-item button {
     width: 100%;
     height: 100%;
-    border: 1px solid #444;
+    border: 1px solid #5C6FCF;
     border-radius: 4px;
     background: transparent;
     font-size: 1em;
     cursor: pointer;
     color: inherit;
 }
+
 .grid-item button:disabled {
     background: #444;
     border: 1px solid #444;
-    border-radius: 4px;
     color: #666;
-    cursor: not-allowed;
 }
+
 .grid-item button.authenticated {
-    background: #fff;
-    border: 1px solid #444;
-    border-radius: 4px;
+    background: #EFEFF1;
     color: #333;
 }
-#new-game-button {
-    margin-top: 16px;
-    margin-bottom: 16px;
+
+#new-game-button, #jump-button {
+    margin: 16px 0;
     padding: 8px 16px;
     font-size: 1.2em;
-    background: #fff;
-    color: #000;
+    background: #3E497A;
+    color: #EFEFF1;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#jump-button {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    padding: 8px 16px;
-    font-size: 1.2em;
-    background: #fff;
-    color: #000;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+#new-game-button:hover, #jump-button:hover {
+    background: #5C6FCF;
 }
 
-@media (max-width: 768px) {
-    .info-item {
-        font-size: 1.2em;
-        padding: 0.4em;
-    }
-    .number-box {
-        width: 48px;
-        height: 48px;
-        font-size: 1.2em;
-    }
+#new-game-button:active, #jump-button:active {
+    background: #2E3A6F;
 }
+
 
 .donate-container {
     text-align: center;
@@ -321,7 +271,6 @@ body {
     font-size: 16px;
     display: none;
 }
-
 #google-sign-in-button,
 #google-sign-out-button {
     background-color: #4285F4; /* Cor do Google */
@@ -352,11 +301,6 @@ body {
 #google-sign-out-button:hover {
     background-color: #C23321; /* Cor mais escura para o botão de logout ao passar o mouse */
 }
-
-
-
-
-
 @keyframes shake {
     0% { transform: translate(0, 0); }
     25% { transform: translate(-5px, 0); }
@@ -368,38 +312,6 @@ body {
 .shake {
     animation: shake 0.5s;
 }
-/* .fa-icon {
-    font-size: 50px;
-    color: red;
-    margin-top: 20px;
-} */
-
-  /* Definindo a animação */
-  @keyframes correctAnswer {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Aplicando a animação ao elemento */
-/* .correct {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid #28a745;
-    font-size: 20px;
-    font-weight: bold;
-    color: #28a745;
-    border-radius: 8px;
-    cursor: pointer;
-} */
-
-/* Quando o elemento recebe a classe 'animate', ele inicia a animação */
 .correct {
     animation: correctAnswer 0.6s ease-out;
     font-size: 30px;

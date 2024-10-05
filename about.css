@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #0d0d0d;
-    color: #e0e0e0;
+    background-color: #1f1a30; /* Roxo profundo */
+    color: #f5f3fc; /* Branco suave */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +21,7 @@ body {
 /* Menu Styles */
 .menu {
     width: 100%;
-    background: #2b2b2b;
+    background: #3d3356; /* Roxo intermediário */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,17 +30,20 @@ body {
     margin-bottom: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
 .menu .logo a {
     font-size: 1.5rem;
-    color: #fff; /* Verde pastel para o link no logo */
+    color: #d9f7be; /* Verde pastel */
     text-decoration: none;
 }
+
 .menu .menu-toggle {
     display: none;
     cursor: pointer;
     font-size: 1.4em;
-    color: #fff;
+    color: #f5f3fc; /* Branco suave */
 }
+
 .menu-links {
     display: flex;
     align-items: center;
@@ -49,8 +52,8 @@ body {
 
 .menu-links a {
     display: inline-block;
-    background-color: #fff; /* Cor de fundo */
-    color: #2b2b2b;
+    background-color: #b29dd9; /* Lilás claro */
+    color: #1f1a30; /* Roxo profundo */
     text-align: center;
     padding: 8px 16px;
     text-decoration: none;
@@ -60,26 +63,25 @@ body {
 }
 
 .menu-links a:hover {
-    background-color: #45A049; /* Cor de fundo ao passar o mouse */
-    transform: scale(1.04); /* Efeito de leve aumento ao passar o mouse */
+    background-color: #a984d6; /* Lilás médio ao passar o mouse */
+    transform: scale(1.04);
 }
 
 .menu-links a:focus {
     outline: none;
-    box-shadow: 0 0 4px #fff;
+    box-shadow: 0 0 4px #f5f3fc; /* Branco suave */
 }
 
 .menu-links a:active {
-    background-color: #3E8E41; /* Cor de fundo ao clicar */
-    transform: scale(0.80); /* Efeito de leve redução ao clicar */
+    background-color: #8f67a7; /* Lilás escuro ao clicar */
+    transform: scale(0.80);
 }
-
 
 @media (max-width: 768px) {
     .menu .menu-links {
         display: none;
         flex-direction: column;
-        background-color: #1a1a1a;
+        background-color: #3d3356; /* Roxo intermediário */
         position: absolute;
         top: 60px;
         left: 0;
@@ -97,7 +99,7 @@ body {
 
 /* Container Styles */
 .container {
-    background-color: #1a1a1a;
+    background-color: #2c2540; /* Roxo escuro */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
@@ -108,7 +110,7 @@ body {
 
 h1 {
     font-size: 2.5em;
-    color: #fff;
+    color: #f5f3fc; /* Branco suave */
     margin-bottom: 20px;
     text-align: center;
 }
@@ -122,7 +124,7 @@ h1 {
 .team-list li {
     font-size: 1.2em;
     margin-bottom: 10px;
-    color: #b3b3b3;
+    color: #c2bbdf; /* Cinza lilás */
 }
 
 .info-container {
@@ -132,7 +134,7 @@ h1 {
 }
 
 .info-item {
-    background-color: #292929;
+    background-color: #3d3356; /* Roxo intermediário */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
@@ -140,7 +142,7 @@ h1 {
 
 .info-item h2 {
     font-size: 1.8em;
-    color: #fff;
+    color: #f5f3fc; /* Branco suave */
     margin-bottom: 15px;
 }
 
@@ -148,7 +150,7 @@ h1 {
 .info-item ul {
     font-size: 1.1em;
     line-height: 1.6;
-    color: #cccccc;
+    color: #e1def3; /* Cinza suave */
 }
 
 .info-item ul {
@@ -163,8 +165,8 @@ h1 {
 .btn-back {
     display: inline-block;
     padding: 12px 24px;
-    background-color: #fff;
-    color: #0d0d0d;
+    background-color: #d9f7be; /* Verde pastel */
+    color: #1f1a30; /* Roxo profundo */
     font-size: 1.2em;
     border-radius: 5px;
     text-decoration: none;
@@ -175,8 +177,8 @@ h1 {
 }
 
 .btn-back:hover {
-    background-color: #ffffff;
-    color: #0d0d0d;
+    background-color: #c8f2a8; /* Verde mais claro ao passar o mouse */
+    color: #1f1a30;
 }
 
 /* Responsive Styles */
