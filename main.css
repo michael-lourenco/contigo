@@ -6,6 +6,7 @@
 }
 
 body {
+    font-family: "Afacad Flux", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +15,6 @@ body {
     padding: 0;
     height: 100vh;
     background-color: #1F1F2E; /* Cor de fundo mais suave */
-    font-family: 'Roboto', sans-serif;
     overflow: hidden;
     margin: 0;
     position: relative;
@@ -31,71 +31,9 @@ body {
     max-width: 940px;
 }
 .title {
-    font-family: 'Orbitron', sans-serif;
     color: #EFEFF1; /* Cor mais clara */
     text-decoration: none;
     letter-spacing: 1px;
-}
-/* Menu Styles */
-.menu {
-    width: 100%;
-    background: #1A1A2E; /* Tom mais escuro */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-}
-
-.logo a {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #EFEFF1; /* Cor mais clara */
-    text-decoration: none;
-    letter-spacing: 1px;
-}
-
-.logo a:hover {
-    color: #F5F5F5; /* Hover com um tom mais claro */
-}
-
-.menu-links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.menu-links a {
-    display: inline-block;
-    background-color: #3E497A; /* Azul escuro */
-    color: #EFEFF1;
-    text-align: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.menu-links a:hover {
-    background-color: #5C6FCF; /* Azul mais claro no hover */
-    transform: scale(1.04);
-}
-
-.menu-links a:active {
-    background-color: #2E3A6F;
-    transform: scale(0.95);
-}
-
-#google-sign-in-button img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    vertical-align: middle;
 }
 
 .info-container {
@@ -239,73 +177,6 @@ body {
     background: #2E3A6F;
 }
 
-
-.donate-container {
-    text-align: center;
-}
-
-#donate-button {
-    background-color: #fff;
-    color: #2b2b2b;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-
-#donate-button:hover {
-    background-color: #45a049;
-    transform: scale(1.04);
-}
-
-#donate-button:active {
-    background-color: #3e8e41;
-    transform: scale(1);
-}
-
-#pix-message {
-    color: #fff;
-    margin-top: 8px;
-    font-size: 16px;
-    display: none;
-}
-#google-sign-in-button,
-#google-sign-out-button {
-    background-color: #4285F4; /* Cor do Google */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#google-sign-in-button:hover,
-#google-sign-out-button:hover {
-    background-color: #357AE8; /* Cor mais escura ao passar o mouse */
-}
-
-#google-sign-in-button:focus,
-#google-sign-out-button:focus {
-    outline: none;
-    box-shadow: 0 0 4px #357AE8;
-}
-
-#google-sign-out-button {
-    background-color: #DB4437; /* Cor do Google para logout */
-}
-
-#google-sign-out-button:hover {
-    background-color: #C23321; /* Cor mais escura para o botão de logout ao passar o mouse */
-}
 @keyframes shake {
     0% { transform: translate(0, 0); }
     25% { transform: translate(-5px, 0); }

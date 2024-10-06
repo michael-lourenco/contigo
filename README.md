@@ -10,7 +10,7 @@
 2. Desenvolver sistemas de coleta de dados para obter informações relevantes sobre diversos aspectos do jogo como: utilização/resultado/melhoria local, individual, regional, global.
 
 ## O QUE É O CONTI GO?
-Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.
+CONTI GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.
 
 ## COMO JOGAR
 
@@ -123,12 +123,12 @@ O jogador joga contra o tempo.
 ### Breve descrição ou slogan
 Mostrado quando vinculamos ao seu projeto. Evite duplicar o título do seu projeto
 
-> Aprimore suas habilidades matemáticas e pensamento estratégico com Conti GO, um jogo de quebra-cabeça numérico em ritmo acelerado!
+> Aprimore suas habilidades matemáticas e pensamento estratégico com CONTI GO, um jogo de quebra-cabeça numérico em ritmo acelerado!
 
 ### Detalhes
 — Isso constituirá o conteúdo da página do seu jogo.
 
-> Conti GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.
+> CONTI GO é um jogo de tabuleiro envolvente e educativo que desafia os jogadores a usar suas habilidades matemáticas e pensamento estratégico. Situados em uma grade 8x8, os jogadores devem resolver quebra-cabeças matemáticos usando adição, subtração, multiplicação e divisão para marcar números no tabuleiro. O jogo apresenta uma corrida contra o tempo, com os jogadores competindo para alcançar a pontuação mais alta resolvendo problemas corretamente e marcando os números correspondentes no tabuleiro.
 
 **Principais recursos:**
 - **Desafio para um jogador:** Teste suas habilidades jogando contra o relógio.
@@ -136,7 +136,7 @@ Mostrado quando vinculamos ao seu projeto. Evite duplicar o título do seu proje
 - **Jogabilidade estratégica:** Tome decisões rápidas sob pressão, gerencie recursos como vidas e busque a pontuação mais alta.
 - **Experiência Personalizável:** Escolha suas operações e enfrente o jogo com sua estratégia única.
 
-Adequado para jogadores a partir de 8 anos, o Conti GO é perfeito para quem quer aguçar a mente enquanto desfruta de um jogo casual, mas estimulante. Quer você seja um entusiasta da matemática ou apenas adore um bom desafio, o Conti GO oferece uma experiência emocionante que combina diversão e aprendizado.
+Adequado para jogadores a partir de 8 anos, o CONTI GO é perfeito para quem quer aguçar a mente enquanto desfruta de um jogo casual, mas estimulante. Quer você seja um entusiasta da matemática ou apenas adore um bom desafio, o CONTI GO oferece uma experiência emocionante que combina diversão e aprendizado.
 
 # Histórico de Desenvolvimento do Jogo
 
