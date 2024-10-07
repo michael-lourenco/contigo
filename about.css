@@ -1,4 +1,8 @@
 
+body {
+    overflow-y: auto;
+}
+
 .container {
     width: 90%;
     max-width: 1200px;
