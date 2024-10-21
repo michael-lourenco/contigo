@@ -2,6 +2,9 @@
 // document.querySelector('.menu-toggle').addEventListener('click', function() {
 //     document.querySelector('.menu-links').classList.toggle('active');
 // });
+const audioGameStart = new Audio('/audio/game-start-6104.mp3');
+const audioWrongAnswer = new Audio('/audio/wrong-answer-129254.mp3');
+const audioCorrectAnswer = new Audio('/audio/mixkit-correct-answer-tone-2870.wav');
 
 function getRandomNumber(largestNumberPossible) {
     return Math.floor(Math.random() * Number(largestNumberPossible)) + 1;
@@ -48,6 +51,8 @@ function resetGame() {
 }
 
 function startNewGame() {
+    audioGameStart.currentTime = 0;
+    audioGameStart.play();
     resetGame();
 }
 
@@ -57,6 +62,7 @@ function generateNewNumbers(diceList) {
         diceList[key].value = randomNumber;
         document.getElementById(diceList[key].element).innerText = randomNumber;
     });
+    displayExpressionsTips();
 }
 
 function validate(value, button) {
@@ -243,6 +249,9 @@ function shakeHeartBroken() {
     // Limpa o conteúdo anterior e adiciona o ícone heart-broken
     resultDiv.innerHTML = '<i id="heartIcon" class="fas fa-heart-broken fa-icon shake" aria-hidden="true"></i>';
 
+    // Toca o áudio
+    audioWrongAnswer.currentTime = 0;
+    audioWrongAnswer.play();
     // Remove a classe "shake" após a animação
     setTimeout(() => {
         const heartIcon = document.getElementById("heartIcon");
@@ -256,6 +265,10 @@ function showSuccess() {
     // Limpa o conteúdo anterior e adiciona o ícone heart-broken
     resultDiv.innerHTML = '<i id="successIcon" class="fas fa-check-circle correct" aria-hidden="true"></i>';
 
+    // Toca o áudio
+    audioCorrectAnswer.currentTime = 0;
+    audioCorrectAnswer.play();
+
     // Remove a classe "shake" após a animação
     setTimeout(() => {
         const successIcon = document.getElementById("successIcon");
@@ -263,7 +276,120 @@ function showSuccess() {
     }, 500); // tempo igual à duração da animação
 }
 
+// As expressões a serem exibidas
+const expressions = [
+    { before: '', middle1: '+', middle2: '+', after: '' },
+    { before: '', middle1: '+', middle2: '-', after: '' },
+    { before: '', middle1: '+', middle2: '*', after: '' },
+    { before: '', middle1: '+', middle2: '/', after: '' },
+    { before: '', middle1: '-', middle2: '+', after: '' },
+    { before: '', middle1: '-', middle2: '-', after: '' },
+    { before: '', middle1: '-', middle2: '*', after: '' },
+    { before: '', middle1: '-', middle2: '/', after: '' },
+    { before: '', middle1: '*', middle2: '+', after: '' },
+    { before: '', middle1: '*', middle2: '-', after: '' },
+    { before: '', middle1: '*', middle2: '*', after: '' },
+    { before: '', middle1: '*', middle2: '/', after: '' },
+    { before: '', middle1: '/', middle2: '+', after: '' },
+    { before: '', middle1: '/', middle2: '-', after: '' },
+    { before: '', middle1: '/', middle2: '*', after: '' },
+    { before: '', middle1: '/', middle2: '/', after: '' },
+    { before: '(', middle1: '+', middle2: ') +', after: '' },
+    { before: '(', middle1: '+', middle2: ') -', after: '' },
+    { before: '(', middle1: '+', middle2: ') *', after: '' },
+    { before: '(', middle1: '+', middle2: ') /', after: '' },
+    { before: '(', middle1: '-', middle2: ') +', after: '' },
+    { before: '(', middle1: '-', middle2: ') -', after: '' },
+    { before: '(', middle1: '-', middle2: ') *', after: '' },
+    { before: '(', middle1: '-', middle2: ') /', after: '' },
+    { before: '(', middle1: '*', middle2: ') +', after: '' },
+    { before: '(', middle1: '*', middle2: ') -', after: '' },
+    { before: '(', middle1: '*', middle2: ') *', after: '' },
+    { before: '(', middle1: '*', middle2: ') /', after: '' },
+    { before: '(', middle1: '/', middle2: ') +', after: '' },
+    { before: '(', middle1: '/', middle2: ') -', after: '' },
+    { before: '(', middle1: '/', middle2: ') *', after: '' },
+    { before: '(', middle1: '/', middle2: ') /', after: '' },
+    { before: '', middle1: '+ (', middle2: '+', after: ')' },
+    { before: '', middle1: '+ (', middle2: '-', after: ')' },
+    { before: '', middle1: '+ (', middle2: '*', after: ')' },
+    { before: '', middle1: '+ (', middle2: '/', after: ')' },
+    { before: '', middle1: '- (', middle2: '+', after: ')' },
+    { before: '', middle1: '- (', middle2: '-', after: ')' },
+    { before: '', middle1: '- (', middle2: '*', after: ')' },
+    { before: '', middle1: '- (', middle2: '/', after: ')' },
+    { before: '', middle1: '* (', middle2: '+', after: ')' },
+    { before: '', middle1: '* (', middle2: '-', after: ')' },
+    { before: '', middle1: '* (', middle2: '*', after: ')' },
+    { before: '', middle1: '* (', middle2: '/', after: ')' },
+    { before: '', middle1: '/ (', middle2: '+', after: ')' },
+    { before: '', middle1: '/ (', middle2: '-', after: ')' },
+    { before: '', middle1: '/ (', middle2: '*', after: ')' },
+    { before: '', middle1: '/ (', middle2: '/', after: ')' }
+];
+
+let currentExpressionIndex = Math.floor(Math.random() * expressions.length);
+let currentIndexToShow = 0;
+let quantityExpressionsToShow = 5;
+
+// Função para mostrar a expressão
+function showExpression() {
+    // Obtém os elementos das expressões
+    const expressionBefore = document.querySelector('.expression-before');
+    const expressionMiddle1 = document.querySelector('.expression-middle-1');
+    const expressionMiddle2 = document.querySelector('.expression-middle-2');
+    const expressionAfter = document.querySelector('.expression-after');
+
+    // Atualiza as expressões conforme o índice atual
+    expressionBefore.innerText = expressions[currentExpressionIndex].before;
+    expressionMiddle1.innerText = expressions[currentExpressionIndex].middle1;
+    expressionMiddle2.innerText = expressions[currentExpressionIndex].middle2;
+    expressionAfter.innerText = expressions[currentExpressionIndex].after;
+
+    // Gerar um índice aleatório do array expressions
+    currentExpressionIndex = Math.floor(Math.random() * expressions.length);
+    currentIndexToShow++
+    console.log('currentIndexToShow')
+    console.log(currentIndexToShow)
+    // Se todas as expressões foram mostradas, limpa as expressões e restaura o estado original
+    if (currentIndexToShow >= quantityExpressionsToShow) {
+        
+        setTimeout(() => {
+            expressionBefore.innerText = '';  // Limpa as expressões
+            expressionMiddle1.innerText = '';
+            expressionMiddle2.innerText = '';
+            expressionAfter.innerText = '';
+        }, 500);
+        
+    }
+}
+
+// Função para iniciar a exibição das expressões
+function displayExpressionsTips() {
+    console.log(diceList.firstDice.value)
+    console.log(diceList.secondDice.value)
+    console.log(diceList.thirdDice.value)
+    // Atualizando o conteúdo das divs dos dados (dices)
+    document.getElementById(diceList.firstDice.element).innerText = diceList.firstDice.value;
+    document.getElementById(diceList.secondDice.element).innerText = diceList.secondDice.value;
+    document.getElementById(diceList.thirdDice.element).innerText = diceList.thirdDice.value;
+
+    // Intervalo para exibir as expressões em 0.3 segundos
+    const interval = setInterval(() => {
+        showExpression();
+        if (currentIndexToShow >= quantityExpressionsToShow) {
+            currentExpressionIndex = currentExpressionIndex = Math.floor(Math.random() * expressions.length);
+            currentIndexToShow = 0;
+            clearInterval(interval);  // Para o loop após exibir todas as expressões
+
+        }
+    }, 500);  // Intervalo de 0.3 segundos entre exibições
+}
+
 window.onload = () => {
     document.getElementById('new-game-button').style.display = 'block';
     document.getElementById('jump-button').style.display = 'none';
+    audioGameStart.preload = 'auto';
+    audioWrongAnswer.preload = 'auto';
+    audioCorrectAnswer.preload = 'auto';
 };

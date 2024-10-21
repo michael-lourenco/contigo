@@ -14,7 +14,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #1F1F2E;
+    background-color: #020617;
     overflow: hidden;
     margin: 0;
     position: relative;
@@ -22,7 +22,7 @@ body {
 
 .container {
     text-align: center;
-    background: #1E1E1E;
+    background: #0f172a;
     padding: 4px;
     border-radius: 8px;
     margin-bottom: 4px;
@@ -42,7 +42,7 @@ body {
     align-items: center;
     width: 100%;
     padding: 4px 0;
-    background: #2A2A3D; 
+    background: #1e293b; 
     border-radius: 8px;
     margin-bottom: 4px;
 }
@@ -52,7 +52,7 @@ body {
     align-items: center;
     font-size: 1.2em;
     padding: 0.4em;
-    color: #EFEFF1;
+    color: #f8fafc;
     flex: 1 1 20%;
     box-sizing: border-box;
 }
@@ -60,7 +60,7 @@ body {
 .info-item .fa-icon {
     margin-right: 8px;
     font-size: 24px;
-    color: #EFEFF1;
+    color: #f8fafc;
 }
 
 
@@ -77,12 +77,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #3E497A; 
+    border: 2px solid #1e293b; 
     border-radius: 8px;
     margin: 4px;
     font-size: 1.4em;
-    background: #1F1F2E;
-    color: #F5F5F5;
+    background: #020617;
+    color: #e2e8f0;
+}
+
+.expression {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+    font-size: 2.0em;
+    font-weight: 700;
+    color: #84cc16;
+}
+
+.expression-before, .expression-after, .expression-middle-1, .expression-middle-2 {
+    margin: 0 6px; /* Espaçamento ao redor das expressões */
 }
 
 .input-container {
@@ -96,7 +110,7 @@ body {
 #result, #game-over {
     margin-top: 8px;
     font-size: 1.2em;
-    color: #EFEFF1;
+    color: #f8fafc;
 }
 
 .grid-container {
@@ -117,7 +131,7 @@ body {
     gap: 4px;
     width: 95%;
     height: 95%;
-    background-color: #2A2A3D; 
+    background-color: #0f172a; 
     aspect-ratio: 1;
 }
 
@@ -125,19 +139,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #3E497A;  
+    border: 1px solid #0f172a;  
     border-radius: 4px;
-    background: #1F1F2E; 
+    background: #020617; 
     font-size: 1rem;
     cursor: pointer;
-    color: #EFEFF1;
+    color: #f8fafc;
     transition: background 0.3s, color 0.3s;
 }
 
 .grid-item button {
     width: 100%;
     height: 100%;
-    border: 1px solid #5C6FCF;
+    border: 1px solid #334155;
     border-radius: 4px;
     background: transparent;
     font-size: 1em;
@@ -146,22 +160,22 @@ body {
 }
 
 .grid-item button:disabled {
-    background: #444;
-    border: 1px solid #444;
-    color: #666;
+    background: #475569;
+    border: 1px solid #475569;
+    color: #334155;
 }
 
 .grid-item button.authenticated {
-    background: #EFEFF1;
-    color: #333;
+    background: #f8fafc;
+    color: #0f172a;
 }
 
 #new-game-button, #jump-button {
     margin: 16px 0;
     padding: 8px 16px;
     font-size: 1.2em;
-    background: #3E497A;
-    color: #EFEFF1;
+    background: #f8fafc;
+    color: #0f172a;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -169,7 +183,7 @@ body {
 }
 
 #new-game-button:hover, #jump-button:hover {
-    background: #5C6FCF;
+    background: #334155;
 }
 
 #new-game-button:active, #jump-button:active {
@@ -190,7 +204,7 @@ body {
 .correct {
     animation: correctAnswer 0.6s ease-out;
     font-size: 30px;
-    color: #fff;
+    color: #f8fafc;
 }
 
 #heartIcon {
@@ -212,3 +226,18 @@ body {
     font-size: 30px;
     color: #4caf50;
 }
+
+
+/*
+#020617
+#0f172a
+#1e293b
+#334155
+#475569
+#64748b
+#94a3b8
+#cbd5e1
+#e2e8f0
+#f1f5f9
+#f8fafc
+*/

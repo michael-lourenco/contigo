@@ -15,9 +15,9 @@ body {
 
 .title {
     font-family: 'Orbitron', sans-serif;
-    border-bottom: 2px solid #EFEFF1;
+    border-bottom: 2px solid #f8fafc;
     margin-bottom: 10px;
-    color: #EFEFF1; /* Cor mais clara */
+    color: #f8fafc; /* Cor mais clara */
     text-decoration: none;
     letter-spacing: 1px;
 }
@@ -26,9 +26,9 @@ body {
     font-size: 1.5rem;
     margin-top: 20px;
     margin-bottom: 10px;
-    border-bottom: 2px solid #EFEFF1; /* Linha de subtítulo em roxo suave */
+    border-bottom: 2px solid #f8fafc; /* Linha de subtítulo em roxo suave */
     padding-bottom: 10px;
-    color: #EFEFF1;
+    color: #f8fafc;
 }
 
 .description {
@@ -58,22 +58,22 @@ body {
     display: inline-block;
     width: 40px;
     height: 40px;
-    border: 1px solid #5C6FCF;
-    background: #1F1F2E; /* Azul vibrante para os dados */
+    border: 1px solid #334155;
+    background: #020617; /* Azul vibrante para os dados */
     text-align: center;
     line-height: 40px;
     border-radius: 8px;
     font-size: 1rem;
-    color: #EFEFF1;
+    color: #f8fafc;
 }
 
 #back-button {
     display: block;
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid #5C6FCF;
-    background: #1F1F2E; /* Azul vibrante para os dados *//* Botão com fundo azul escuro */
-    color: #fff;
+    border: 1px solid #334155;
+    background: #020617; /* Azul vibrante para os dados *//* Botão com fundo azul escuro */
+    color: #f8fafc;
     text-decoration: none;
     text-align: center;
     border-radius: 8px;

@@ -1,4 +1,18 @@
 
+/*
+#020617
+#0f172a
+#1e293b
+#334155
+#475569
+#64748b
+#94a3b8
+#cbd5e1
+#e2e8f0
+#f1f5f9
+#f8fafc
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +26,8 @@ body {
     align-items: center;
     justify-content: flex-start;
     font-family: "Afacad Flux", sans-serif;
-    background-color: #1F1F2E;
-    color: #E0E0E0;
+    background-color: #020617;
+    color: #f8fafc;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -22,21 +36,19 @@ body {
     position: relative;
 }
 
-
 .title {
-    color: #E0E0E0; 
+    color: #f8fafc; 
     text-decoration: none;
     letter-spacing: 1px;
 }
 
 .menu {
     width: 100%;
-    background: #121212; 
+    background: #0f172a; 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 4px 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -46,13 +58,13 @@ body {
     font-family: 'Orbitron', sans-serif;
     font-size: 28px;
     font-weight: 700;
-    color: #EFEFF1; 
+    color: #f8fafc; 
     text-decoration: none;
     letter-spacing: 1px;
 }
 
 .logo a:hover {
-    color: #F5F5F5; 
+    color: #e2e8f0; 
 }
 
 .menu-links {
@@ -63,8 +75,8 @@ body {
 
 .menu-links a {
     display: inline-block;
-    background-color: #3E497A; 
-    color: #EFEFF1;
+    background-color: #0f172a; 
+    color: #f8fafc;
     text-align: center;
     padding: 8px 16px;
     text-decoration: none;
@@ -74,7 +86,7 @@ body {
 }
 
 .menu-links a:hover {
-    background-color: #5C6FCF; 
+    background-color: #334155; 
     transform: scale(1.04);
 }
 
@@ -85,7 +97,7 @@ body {
 
 #google-sign-in-button img {
     width: 24px;
-    height: 24px;
+    height: 16px;
     object-fit: contain;
     vertical-align: middle;
 }
@@ -97,7 +109,7 @@ body {
     align-items: center;
     width: 100%;
     padding: 4px 0;
-    background: #2A2A3D; 
+    background: #1e293b; 
     border-radius: 8px;
     margin-bottom: 4px;
 }
@@ -107,7 +119,7 @@ body {
     align-items: center;
     font-size: 1.2em;
     padding: 0.4em;
-    color: #EFEFF1;
+    color: #f8fafc;
     flex: 1 1 20%;
     box-sizing: border-box;
 }
@@ -115,17 +127,16 @@ body {
 .info-item .fa-icon {
     margin-right: 8px;
     font-size: 24px;
-    color: #EFEFF1;
+    color: #f8fafc;
 }
-
 
 .donate-container {
     text-align: center;
 }
 
 #donate-button {
-    background-color: #fff;
-    color: #2b2b2b;
+    background-color: #f8fafc;
+    color: #0f172a;
     border: none;
     padding: 8px 16px;
     font-size: 16px;
@@ -138,7 +149,6 @@ body {
     margin: 0 auto;
 }
 
-
 #donate-button:hover {
     background-color: #45a049;
     transform: scale(1.04);
@@ -150,19 +160,20 @@ body {
 }
 
 #pix-message {
-    color: #fff;
+    color: #f8fafc;
     margin-top: 8px;
     font-size: 16px;
     display: none;
 }
+
 #google-sign-in-button,
 #google-sign-out-button {
-    background-color: #4285F4; 
-    color: white;
+    background-color: #f8fafc; 
+    color: #f8fafc;
     border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    border-radius: 4px;
+    padding: 8px 8px;
+    font-size: 14px;
+    border-radius: 2px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
