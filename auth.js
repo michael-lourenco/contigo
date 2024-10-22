@@ -187,3 +187,11 @@ async function UpdateDbEndGame({ elementGameOver, elementNewGameButton }) {
 }
 
 window.UpdateDbEndGame = UpdateDbEndGame;
+
+
+function toggleMenu() {
+    const menuLinks = document.getElementById("menuLinks");
+    menuLinks.style.display = menuLinks.style.display === "flex" ? "none" : "flex";
+}
+
+window.toggleMenu = toggleMenu;

@@ -46,12 +46,81 @@ body {
     width: 100%;
     background: #0f172a; 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between; /* Espaçar o menu toggle e os links */
     align-items: center;
     padding: 4px 8px;
     position: fixed;
     bottom: 0;
     left: 0;
+}
+
+.menu-links {
+    display: none; /* Ocultar o menu por padrão */
+    flex-direction: column; /* Colocar os itens do menu em coluna */
+    position: absolute; 
+    bottom: 50px; 
+    right: 0; 
+    background: #0f172a; 
+    z-index: 1000; 
+    width: 100%; 
+}
+
+.menu-links.active {
+    display: flex; /* Mostrar o menu quando ativo */
+}
+
+.menu-link {
+    width: 100%; /* Para garantir que o link ocupe toda a largura do menu */
+    display: flex; /* Usar flexbox para o botão e texto */
+    justify-content: flex-start; /* Alinhar conteúdo à esquerda */
+    align-items: center; /* Centralizar verticalmente */
+    padding: 12px;
+    color: #f8fafc; /* Cor do texto */
+    text-decoration: none; /* Remover sublinhado */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+    transition: background 0.3s;
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: 500; /* Peso da fonte */
+}
+.menu-link:hover {
+    background: rgba(255, 255, 255, 0.1); /* Fundo ao passar o mouse */
+}
+
+
+.menu-link button {
+    background: none; /* Remover fundo do botão */
+    border: none; /* Remover borda do botão */
+    color: inherit; /* Herda a cor do texto */
+    cursor: pointer; /* Mudar o cursor ao passar o mouse */
+    width: 100%; /* Ocupa toda a largura */
+    display: flex; /* Para alinhar o ícone e o texto */
+    align-items: center; /* Centralizar verticalmente */
+    justify-content: flex-start; /* Alinhar o texto à esquerda */
+    
+}
+
+.menu-link button:hover {
+    background: rgba(255, 255, 255, 0.1); /* Fundo ao passar o mouse no botão */
+}
+
+.menu-link:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+.menu-link i {
+    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+    font-size: 20px;
+}
+
+
+.menu-toggle {
+    margin-left: auto; 
+    cursor: pointer; 
+}
+
+.menu-toggle i {
+    font-size: 24px; 
+    color: #f8fafc; 
 }
 
 .logo a {
@@ -67,33 +136,6 @@ body {
     color: #e2e8f0; 
 }
 
-.menu-links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.menu-links a {
-    display: inline-block;
-    background-color: #0f172a; 
-    color: #f8fafc;
-    text-align: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.menu-links a:hover {
-    background-color: #334155; 
-    transform: scale(1.04);
-}
-
-.menu-links a:active {
-    background-color: #2E3A6F;
-    transform: scale(0.95);
-}
 
 #google-sign-in-button img {
     width: 24px;

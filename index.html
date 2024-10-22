@@ -79,34 +79,44 @@
 
         </div>
     </div>
+
     <nav class="menu">
-<!-- 
         <div class="logo">
             <a href="index.html">CONTI GO</a>
-        </div> -->
-
-        <!-- <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div> -->
-
-        <div class="menu-links">
-            <div class="donate-container">
-
-                <button id="donate-button" onclick="copyPixKey()">
-                    <i class="fas fa-donate"></i> 
-                </button>
-    
-                <p id="pix-message">Chave PIX copiada!</p>
-    
-            </div>
-            <a href="index.html"><i class="fas fa-play"> </i></a>
-            <a href="how_to_play.html"><i class="fas fa-question-circle"></i></a>
-            <a href="about.html"><i class="fas fa-info-circle"></i></a>
-            <button id="google-sign-in-button" onclick="signInWithGoogle()"><img src='images/icons8-google-logo-480.png'></button>
-            <button id="google-sign-out-button" onclick="signOutFromGoogle()" style="display: none;">Sign out</button>
         </div>
-
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-links" id="menuLinks">
+            <a href="index.html" class="menu-link">
+                <i class="fas fa-play"></i>
+                <span> Jogar</span>
+            </a>
+            <a href="how_to_play.html" class="menu-link">
+                <i class="fas fa-question-circle"></i>
+                <span> Como Jogar</span>
+            </a>
+            <a href="about.html" class="menu-link">
+                <i class="fas fa-info-circle"></i>
+                <span> Sobre</span>
+            </a>
+            <div class="donate-container">
+                <button id="donate-button" onclick="copyPixKey()" class="menu-link">
+                    <i class="fas fa-donate"></i> 
+                    <span> Doar</span>
+                </button>
+                <p id="pix-message">Chave PIX copiada!</p>
+            </div>
+            <button id="google-sign-in-button" class="menu-link" onclick="signInWithGoogle()">
+                <img src='images/icons8-google-logo-480.png' alt="Google">
+                <span> Entrar</span>
+            </button>
+            <button id="google-sign-out-button" class="menu-link" onclick="signOutFromGoogle()" style="display: none;">
+                <span> Sair</span>
+            </button>
+        </div>
     </nav>
+
     <script src="contas.js"></script>
     <script src="gameplay.js"></script>
 </body>

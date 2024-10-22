@@ -8,9 +8,15 @@ body {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
+    padding-bottom: 70px; /* Adicione um padding-bottom para compensar a altura do menu */
     background: #272a36; /* Fundo cinza escuro com um leve tom azulado */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 768px) {
+    .container {
+        padding-bottom: 80px; /* Ajuste para dispositivos menores, se necessário */
+    }
 }
 
 .title {
