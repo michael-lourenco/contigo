@@ -42,9 +42,13 @@ body {
     align-items: center;
     width: 100%;
     padding: 4px 0;
-    background: #1e293b; 
     border-radius: 8px;
     margin-bottom: 4px;
+}
+.info-item-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* space-x-4 */
 }
 
 .info-item {
@@ -208,25 +212,28 @@ body {
 }
 
 #heartIcon {
-    font-size: 30px;
+    font-size: 20px;
     color: #ff4c4c;
 }
 
 #successIcon {
-    font-size: 30px;
+    font-size: 20px;
     color: #4caf50;
 }
 
 #heartIconHUD {
-    font-size: 30px;
+    font-size: 20px;
     color: #ff4c4c;
 }
 
 #successIconHUD {
-    font-size: 30px;
+    font-size: 20px;
     color: #4caf50;
 }
 
+#clockIcon, #hourglassIcon {
+    font-size: 20px;
+} 
 
 /*
 #020617

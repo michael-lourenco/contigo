@@ -21,27 +21,28 @@
     <div class="container">
 
         <div class="info-container">
+            <div class="info-item-section">
+                <div class="info-item">
+                    <i id="heartIconHUD" class="fas fa-heart-broken fa-icon heartIcon" aria-hidden="true"></i>
+                    <span id="errors">0</span>
+                </div>
 
-            <div class="info-item">
-                <i id="heartIconHUD" class="fas fa-heart-broken fa-icon heartIcon" aria-hidden="true"></i>
-                <span id="errors">0</span>
+                <div class="info-item">
+                    <i id="successIconHUD" class="fa fa-check-circle fa-icon successIcon" aria-hidden="true"></i>
+                    <span id="successes">0</span>
+                </div>
             </div>
+            <div class="info-item-section">
+                <div class="info-item">
+                    <i id="clockIcon" class="fa fa-clock fa-icon" aria-hidden="true"></i>
+                    <span id="general-timer">03:00</span>
+                </div>
 
-            <div class="info-item">
-                <i id="successIconHUD" class="fa fa-check-circle fa-icon successIcon" aria-hidden="true"></i>
-                <span id="successes">0</span>
+                <div class="info-item">
+                    <i id="hourglassIcon" class="fa fa-hourglass-half fa-icon" aria-hidden="true"></i>
+                    <span id="timer">00</span>
+                </div>
             </div>
-
-            <div class="info-item">
-                <i class="fa fa-clock fa-icon" aria-hidden="true"></i>
-                <span id="general-timer">03:00</span>
-            </div>
-
-            <div class="info-item">
-                <i class="fa fa-hourglass-half fa-icon" aria-hidden="true"></i>
-                <span id="timer">00</span>
-            </div>
-
         </div>
         
         <div id="user-info" class="user-info"></div>
@@ -56,6 +57,16 @@
             <div class="expression expression-after"></div> <!-- Expressão depois do dado -->
         </div>
 
+    
+
+        <div class="grid-container">
+
+            <div class="grid" id="grid">
+                <!-- Grid items will be populated here -->
+            </div>
+            
+        </div>
+
         <div class="input-container">
 
             <div id="result"></div>
@@ -67,15 +78,6 @@
             <button id="new-game-button" onclick="startNewGame()"><i class="fas fa-play"> </i> PLAY</button>
 
         </div>
-
-    </div>
-
-    <div class="grid-container">
-
-        <div class="grid" id="grid">
-            <!-- Grid items will be populated here -->
-        </div>
-        
     </div>
     <nav class="menu">
 <!-- 
