@@ -168,7 +168,7 @@ body {
     color: #475569;
 }
 
-.grid-item button:hover {
+.grid-item button:active {
     background: #475569;
     border: 1px solid #475569;
     color: #f8fafc;

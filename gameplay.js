@@ -234,14 +234,6 @@ function populateGrid(arrayNumbers, quantityGridItems) {
         const gridItem = document.createElement('div');
         gridItem.className = 'grid-item';
         const button = document.createElement('button');
-
-        button.addEventListener('touchstart', function() {
-            button.classList.add('hover');  // Adiciona a classe para simular o :hover
-        });
-
-        button.addEventListener('touchend', function() {
-            button.classList.remove('hover');  // Remove a classe quando o toque termina
-        });
         
         button.innerText = shuffledNumbers[i];
         button.onclick = function() {
