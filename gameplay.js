@@ -201,6 +201,7 @@ function endGame({ elementGameOver, elementNewGameButton, elementJumpButton}) {
     UpdateDbEndGame({ elementGameOver, elementNewGameButton});
     clearInterval(generalTimer);
     enableGridButtons({element:'.grid-item button', disable: true});
+    document.getElementById('result').innerText = '';
     document.getElementById(elementGameOver).innerText = 'Game Over!';
     document.getElementById(elementNewGameButton).style.display = 'block';
     document.getElementById(elementJumpButton).style.display = 'none';
@@ -422,11 +423,12 @@ function renderChoices() {
         listItem.className = 'choice-item';
         listItem.innerHTML = `
             ${choices.length - index}.  
+           ${choice.success ? '<i class="fas fa-check-circle successIconChoosed" aria-hidden="true"></i>' : '<i class="fas fa-heart-broken fa-icon heartIconChoosed" aria-hidden="true"></i>'}
             [${choice.firstDice}] 
             [${choice.secondDice}] 
             [${choice.thirdDice}] = 
             [${choice.value}]
-            ${choice.success ? '<i id="successIcon" class="fas fa-check-circle" aria-hidden="true"></i>' : '<i id="heartIcon" class="fas fa-heart-broken fa-icon" aria-hidden="true"></i>'}
+            
         `;
         choicesUl.appendChild(listItem);
     });
