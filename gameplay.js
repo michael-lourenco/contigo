@@ -120,6 +120,7 @@ function verifyNumbers(remainNumbers) {
 }
 
 function jump() {
+
     const resultExists = verifyNumbers(remainNumbers)
     
     document.getElementById('jump-button').style.display = 'none';
@@ -136,6 +137,8 @@ function jump() {
             return;
         }
     }
+
+    disableNonAuthenticatedGridButtons();
 
     let timer = 2;
 
