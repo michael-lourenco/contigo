@@ -16,6 +16,8 @@ let generalTimer;
 let timeRemaining = 180;
 const possibleNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180];
 let remainNumbers = []
+let choices = []
+
 const diceList = {
     firstDice:{
             element: 'firstDice',
@@ -35,7 +37,8 @@ function resetGame() {
     errorCount = 0;
     successCount = 0;
     timeRemaining = 180;
-    remainNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180]
+    remainNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 48, 50, 54, 55, 60, 64, 66, 72, 75, 80, 90, 96, 100, 108, 120, 125, 144, 150, 180];
+    choices = [];
     document.getElementById('errors').innerText = `${errorCount}`;
     document.getElementById('successes').innerText = `${successCount}`;
     document.getElementById('game-over').innerText = '';
@@ -48,6 +51,7 @@ function resetGame() {
     startGeneralTimer('general-timer');
     generateNewNumbers(diceList);
     populateGrid(possibleNumbers, 64);
+    renderChoices();
 }
 
 function startNewGame() {
@@ -77,11 +81,13 @@ function validate(value, button) {
         button.disabled = true;
         successCount++;
         removeNumber(value);
+        updateChoices(diceList.firstDice.value, diceList.secondDice.value, diceList.thirdDice.value, value, true);
         document.getElementById('successes').innerText = `${successCount}`;
     } else {
         shakeHeartBroken();
         errorCount++;
         document.getElementById('errors').innerText = `${errorCount}`;
+        updateChoices(diceList.firstDice.value, diceList.secondDice.value, diceList.thirdDice.value, value, false);
         if (errorCount >= 3) {
             endGame({ elementGameOver: 'game-over', elementNewGameButton: 'new-game-button', elementJumpButton: 'jump-button'});
             return;
@@ -127,11 +133,14 @@ function jump() {
 
     if (!resultExists) {
         showSuccess()
+        updateChoices(diceList.firstDice.value, diceList.secondDice.value, diceList.thirdDice.value, 'jump', true);
+        
         document.getElementById('successes').innerText = `${successCount}`;
     } else {      
         shakeHeartBroken()
         errorCount++;
         document.getElementById('errors').innerText = `${errorCount}`;
+        updateChoices(diceList.firstDice.value, diceList.secondDice.value, diceList.thirdDice.value, 'jump', false);
         if (errorCount >= 3) {
             endGame({ elementGameOver: 'game-over', elementNewGameButton: 'new-game-button', elementJumpButton: 'jump-button'});
             return;
@@ -387,6 +396,40 @@ function displayExpressionsTips() {
 
         }
     }, 500);  // Intervalo de 0.3 segundos entre exibições
+}
+
+function updateChoices(firstDice = '', secondDice = '', thirdDice = '', value = '', success = false) {
+    const choicesPayload = {
+        firstDice, 
+        secondDice, 
+        thirdDice, 
+        value,
+        success
+    }
+
+    choices.push(choicesPayload)
+    renderChoices()
+}
+
+function renderChoices() {
+    const choicesUl = document.getElementById('choices-ul');
+    choicesUl.innerHTML = ''; // Clear the current list
+
+    // Loop through the reversed choices array and create list items
+    choices.slice().reverse().forEach((choice, index) => {
+        
+        const listItem = document.createElement('li');
+        listItem.className = 'choice-item';
+        listItem.innerHTML = `
+            ${choices.length - index}.  
+            [${choice.firstDice}] 
+            [${choice.secondDice}] 
+            [${choice.thirdDice}] = 
+            [${choice.value}]
+            ${choice.success ? '<i id="successIcon" class="fas fa-check-circle" aria-hidden="true"></i>' : '<i id="heartIcon" class="fas fa-heart-broken fa-icon" aria-hidden="true"></i>'}
+        `;
+        choicesUl.appendChild(listItem);
+    });
 }
 
 window.onload = () => {

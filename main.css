@@ -235,6 +235,47 @@ body {
     font-size: 20px;
 } 
 
+
+#choices-list {
+    border: 1px solid #0f172a;
+    padding: 5px;
+    width: 90%; /* Ajusta para preencher toda a largura disponível */
+    box-sizing: border-box; 
+
+}
+
+#choices-list ul {
+    list-style-type: none;
+    flex-direction: column;
+    padding: 0;
+    height: 80px; /* Set a fixed height for the scroll */
+    overflow-y: scroll; /* Add vertical scroll */
+}
+
+/* Custom scrollbar for WebKit-based browsers (Chrome, Safari, Edge) */
+#choices-list ul::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+/* The track (background) of the scrollbar */
+#choices-list ul::-webkit-scrollbar-track {
+    background: #0f172a; /* Light background color */
+}
+
+/* The thumb (scroll handle) of the scrollbar */
+#choices-list ul::-webkit-scrollbar-thumb {
+    background-color: #020617; /* Darker color for the scroll handle */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #0f172a; /* Border around the scroll handle */
+}
+
+/* On hover, change the thumb color */
+#choices-list ul::-webkit-scrollbar-thumb:hover {
+    background-color: #1e293b; /* Darker shade on hover */
+}
+.choice-item {
+    margin-bottom: 5px;
+}
 /*
 #020617
 #0f172a
