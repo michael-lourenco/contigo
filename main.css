@@ -163,10 +163,17 @@ body {
 }
 
 .grid-item button:disabled {
+    background: #334155;
+    border: 1px solid #475569;
+    color: #475569;
+}
+
+.grid-item button:hover {
     background: #475569;
     border: 1px solid #475569;
-    color: #334155;
+    color: #f8fafc;
 }
+
 
 .grid-item button.authenticated {
     background: #f8fafc;
@@ -283,14 +290,20 @@ body {
 #choices-list ul::-webkit-scrollbar-thumb:hover {
     background-color: #1e293b; /* Darker shade on hover */
 }
+
 .choice-item {
     margin-bottom: 5px;
 }
 
 .bottom-section {
     display: flex;
-    flex-direction: column;
-    height: 200px; /* Altura fixa para a parte inferior */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    height: calc(100vh - 700px);
   }
 
   .horizontal-split {
@@ -300,7 +313,7 @@ body {
 
   .horizontal-split > div {
     flex: 1;
-    padding: 5px;
+    padding: 4px;
   }
 
 /*
