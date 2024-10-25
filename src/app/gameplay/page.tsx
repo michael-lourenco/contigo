@@ -6,6 +6,7 @@ import { DiceExpression } from "@/components/DiceExpression";
 import { GridButtons } from "@/components/GridButtons";
 import { GameControls } from "@/components/GameControls";
 import { GameOverMessage } from "@/components/GameOverMessage";
+import { calculateService } from '@/services/calculate/CalculateService';
 
 const AUDIO_URLS = {
   gameStart:
@@ -119,7 +120,6 @@ export default function ContiGoGame() {
 
   useEffect(() => {
     if (gameOver) {
-      console.log("Game over, timer stopped"); 
       return;
     }
 
@@ -137,19 +137,19 @@ export default function ContiGoGame() {
     return () => {
       clearInterval(timer);
       setAllDisabled(true);
-      console.log("Timer cleared"); 
     };
   }, [gameOver, endGame]);
 
   const handleGridItemClick = useCallback(
     (value: number) => {
-      
+
       setAllDisabled(true);
 
       if (gameOver) return;
-      
 
-      if (Math.random() > 0.5) {
+      const result = calculateService.resolve(parseInt(diceValues[0]), parseInt(diceValues[1]), parseInt(diceValues[2]), value)
+      
+      if (result.valueFound) {
         setSuccesses((prev) => prev + 1);
         setAuthenticatedButtons((prev) => [...prev, value]);
         playAudio("correctAnswer");
@@ -198,7 +198,7 @@ export default function ContiGoGame() {
 
 
     },
-    [endGame, generateNewNumbers, playAudio]
+    [diceValues, endGame, generateNewNumbers, playAudio]
   );
 
   const isAuthenticated = (value: number) =>
