@@ -7,6 +7,9 @@ import { GridButtons } from "@/components/GridButtons";
 import { GameControls } from "@/components/GameControls";
 import { GameOverMessage } from "@/components/GameOverMessage";
 import { calculateService } from '@/services/calculate/CalculateService';
+import { initFirebase, signInWithGoogle, signOutFromGoogle, UserData } from '@/services/firebase/FirebaseService';
+import { onAuthStateChanged, Auth } from 'firebase/auth'
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 const AUDIO_URLS = {
   gameStart:
@@ -52,6 +55,68 @@ export default function ContiGoGame() {
     wrongAnswer: null,
     correctAnswer: null,
   });
+  const [user, setUser] = useState<UserData | null>(null); 
+  const [auth, setAuth] = useState<Auth | null>(null);
+  const [db, setDb] = useState<any>(null);
+
+ useEffect(() => {
+  const initializeFirebase = async () => {
+      const firebaseInstance = await initFirebase();
+      if (firebaseInstance) {
+          setAuth(firebaseInstance.auth);
+          setDb(firebaseInstance.db); 
+      } else {
+          console.error('Falha na inicialização do Firebase');
+      }
+  };
+
+  initializeFirebase();
+}, []);
+
+useEffect(() => {
+  if (auth) {
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+          if (user) {
+              const userData = await fetchUserData(db, user.email!);
+              if (userData) {
+                  setUser(userData);
+              }
+          } else {
+              setUser(null);
+          }
+      });
+
+      return () => unsubscribe(); 
+  }
+}, [auth, db]);
+
+  const fetchUserData = async (db: any, email: string): Promise<UserData | null> => {
+    try {
+        const userRef = doc(db, 'users', email);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+            return docSnap.data() as UserData;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        return null;
+    }
+};
+
+const handleLogin = async () => {
+  const { auth } = await initFirebase(); 
+  await signInWithGoogle(auth);
+};
+
+const handleLogout = async () => {
+  if (auth) {
+    await signOutFromGoogle(auth);
+    setUser(null); 
+  }
+};
 
   useEffect(() => {
     const loadAudio = async () => {
@@ -140,6 +205,7 @@ export default function ContiGoGame() {
     };
   }, [gameOver, endGame]);
 
+
   const handleGridItemClick = useCallback(
     (value: number) => {
 
@@ -211,10 +277,26 @@ export default function ContiGoGame() {
       .padStart(2, "0")}`;
   };
 
+
+
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 p-4">
       <Card className="w-full max-w-4xl bg-slate-800">
         <CardContent className="p-6">
+            <div className="flex justify-between mb-4">
+              {user ? (
+                <>
+                  <span>{user.displayName} - record - {user.best}</span>
+                  <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded">
+                  Login com Google
+                </button>
+              )}
+            </div>
             <GameStats
                 errors={errors}
                 successes={successes}
