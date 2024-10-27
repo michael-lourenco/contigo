@@ -9,7 +9,7 @@ interface UserInfoProps {
 
 export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin, handleLogout }) => {
   return (
-    <div className="flex justify-between mb-4">
+    <div className="flex justify-between text-slate-50 mb-4">
       {user ? (
         <>
           <span>{user.displayName} - record - {user.best}</span>
