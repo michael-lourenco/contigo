@@ -7,9 +7,11 @@ import { GridButtons } from "@/components/GridButtons";
 import { GameControls } from "@/components/GameControls";
 import { GameOverMessage } from "@/components/GameOverMessage";
 import { calculateService } from '@/services/calculate/CalculateService';
+import { UserInfo } from '@/components/UserInfo';
 import { initFirebase, signInWithGoogle, signOutFromGoogle, UserData } from '@/services/firebase/FirebaseService';
 import { onAuthStateChanged, Auth } from 'firebase/auth'
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { Button } from '@/components/ui/button';
 
 const AUDIO_URLS = {
   gameStart:
@@ -283,20 +285,7 @@ const handleLogout = async () => {
     <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 p-4">
       <Card className="w-full max-w-4xl bg-slate-800">
         <CardContent className="p-6">
-            <div className="flex justify-between mb-4">
-              {user ? (
-                <>
-                  <span>{user.displayName} - record - {user.best}</span>
-                  <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded">
-                  Login com Google
-                </button>
-              )}
-            </div>
+            <UserInfo user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
             <GameStats
                 errors={errors}
                 successes={successes}
