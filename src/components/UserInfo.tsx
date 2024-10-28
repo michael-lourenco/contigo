@@ -12,7 +12,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin, handleLog
     <div className="flex justify-between text-slate-50 mb-4">
       {user ? (
         <>
-          <span>{user.displayName} - record - {user.best}</span>
+          <span>{user.displayName} - record - {user.best_score}</span>
           <Button onClick={handleLogout} variant="destructive">
             Logout
           </Button>

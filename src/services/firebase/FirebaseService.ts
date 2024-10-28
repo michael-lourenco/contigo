@@ -25,7 +25,7 @@ import {
 // Tipos globais para os dados do usuário
 interface UserData {
     displayName: string;
-    best: number;
+    best_score: number;
     email: string;
 }
 
@@ -150,10 +150,21 @@ async function signOutFromGoogle(auth: Auth): Promise<void> {
 }
 
 // Função para exibir as informações do usuário
-function displayUserInfo(displayName: string, best: number): void {
+function displayUserInfo(displayName: string, best_score: number): void {
     globalDisplayName = displayName;
     // Exibir informações do usuário na interface Next.js
-    console.log(`User: ${displayName}, Best Score: ${best}`);
+    console.log(`User: ${displayName}, Best Score: ${best_score}`);
+}
+async function updateUserBestScore(email: string, newBestScore: number): Promise<void> {
+    const db = getFirestore();
+    const userRef = doc(db, 'users', email);
+
+    try {
+        await setDoc(userRef, { best_score: newBestScore }, { merge: true });
+        console.log("User best score updated successfully.");
+    } catch (error) {
+        console.error("Error updating user best score:", error);
+    }
 }
 
 // Exportar funções para uso em páginas Next.js
@@ -162,7 +173,8 @@ export {
     signInWithGoogle,
     signOutFromGoogle,
     displayUserInfo,
-    handleCredentialResponse
+    handleCredentialResponse,
+    updateUserBestScore
 };
 
 // Re-exportar o tipo UserData

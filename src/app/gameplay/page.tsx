@@ -8,7 +8,7 @@ import { GameControls } from "@/components/GameControls";
 import { GameOverMessage } from "@/components/GameOverMessage";
 import { calculateService } from '@/services/calculate/CalculateService';
 import { UserInfo } from '@/components/UserInfo';
-import { initFirebase, signInWithGoogle, signOutFromGoogle, UserData } from '@/services/firebase/FirebaseService';
+import { initFirebase, signInWithGoogle, signOutFromGoogle, UserData, updateUserBestScore } from '@/services/firebase/FirebaseService';
 import { onAuthStateChanged, Auth } from 'firebase/auth'
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
@@ -186,7 +186,13 @@ const handleLogout = async () => {
   const endGame = useCallback(() => {
     setIsPlaying(false);
     setGameOver(true);
-  }, []);
+
+    queueMicrotask(async () => {
+      if (user && successes > user.best_score) {
+          await updateUserBestScore(user.email, successes);
+      }
+  });
+  }, [successes, user]);
 
   useEffect(() => {
     if (gameOver || !isPlaying) {
