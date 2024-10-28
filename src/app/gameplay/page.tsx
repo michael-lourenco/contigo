@@ -49,6 +49,7 @@ export default function ContiGoGame() {
   const [allDisabled, setAllDisabled] = useState(false);
   const [currentExpression, setCurrentExpression] = useState(expressions[0]);
   const [gameOver, setGameOver] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [audioElements, setAudioElements] = useState<{
     [key: string]: HTMLAudioElement | null;
@@ -172,6 +173,7 @@ const handleLogout = async () => {
     setErrors(0);
     setSuccesses(0);
     setGeneralTimer(180);
+    setIsPlaying(true);
     setRoundTimer(0);
     setGameOver(false);
     generateNewNumbers();
@@ -182,11 +184,12 @@ const handleLogout = async () => {
   }, [generateNewNumbers, playAudio]);
 
   const endGame = useCallback(() => {
+    setIsPlaying(false);
     setGameOver(true);
   }, []);
 
   useEffect(() => {
-    if (gameOver) {
+    if (gameOver || !isPlaying) {
       return;
     }
 
@@ -205,7 +208,7 @@ const handleLogout = async () => {
       clearInterval(timer);
       setAllDisabled(true);
     };
-  }, [gameOver, endGame]);
+  }, [gameOver, endGame, isPlaying]);
 
 
   const handleGridItemClick = useCallback(
