@@ -70,7 +70,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
                 globalUser = await fetchUserData(db, user.email!);
                 if (globalUser) {
                     localStorage.setItem('user', JSON.stringify(globalUser));
-                    displayUserInfo(globalUser.displayName, globalUser.best);
+                    displayUserInfo(globalUser.displayName, globalUser.best_score);
                 } else {
                     console.error("Usuário não encontrado na coleção 'users'.");
                 }
@@ -129,7 +129,7 @@ async function handleCredentialResponse(response: UserCredential): Promise<void>
             const userData: UserData = await backendResponse.json();
             localStorage.setItem('user', JSON.stringify(userData));
             globalUser = userData;
-            displayUserInfo(userData.displayName, userData.best);
+            displayUserInfo(userData.displayName, userData.best_score);
         } else {
             console.error('Erro ao fazer login:', backendResponse.statusText);
         }
