@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { UserData } from '@/services/firebase/FirebaseService';
 
 interface UserInfoProps {
   user: UserData | null;
