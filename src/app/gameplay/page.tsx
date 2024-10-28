@@ -6,12 +6,18 @@ import { DiceExpression } from "@/components/DiceExpression";
 import { GridButtons } from "@/components/GridButtons";
 import { GameControls } from "@/components/GameControls";
 import { GameOverMessage } from "@/components/GameOverMessage";
-import { calculateService } from '@/services/calculate/CalculateService';
-import { UserInfo } from '@/components/UserInfo';
-import { initFirebase, signInWithGoogle, signOutFromGoogle, UserData, updateUserBestScore } from '@/services/firebase/FirebaseService';
-import { onAuthStateChanged, Auth } from 'firebase/auth'
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { Button } from '@/components/ui/button';
+import { calculateService } from "@/services/calculate/CalculateService";
+import { UserInfo } from "@/components/UserInfo";
+import {
+  initFirebase,
+  signInWithGoogle,
+  signOutFromGoogle,
+  UserData,
+  updateUserBestScore,
+} from "@/services/firebase/FirebaseService";
+import { onAuthStateChanged, Auth } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { Button } from "@/components/ui/button";
 
 const AUDIO_URLS = {
   gameStart:
@@ -47,7 +53,7 @@ export default function ContiGoGame() {
     []
   );
   const [allDisabled, setAllDisabled] = useState(false);
-  const [currentExpression, setCurrentExpression] = useState(expressions[0]);
+  const [showExpressions, setShowExpressions] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -58,68 +64,71 @@ export default function ContiGoGame() {
     wrongAnswer: null,
     correctAnswer: null,
   });
-  const [user, setUser] = useState<UserData | null>(null); 
+  const [user, setUser] = useState<UserData | null>(null);
   const [auth, setAuth] = useState<Auth | null>(null);
   const [db, setDb] = useState<any>(null);
 
- useEffect(() => {
-  const initializeFirebase = async () => {
+  useEffect(() => {
+    const initializeFirebase = async () => {
       const firebaseInstance = await initFirebase();
       if (firebaseInstance) {
-          setAuth(firebaseInstance.auth);
-          setDb(firebaseInstance.db); 
+        setAuth(firebaseInstance.auth);
+        setDb(firebaseInstance.db);
       } else {
-          console.error('Falha na inicialização do Firebase');
+        console.error("Falha na inicialização do Firebase");
       }
-  };
+    };
 
-  initializeFirebase();
-}, []);
+    initializeFirebase();
+  }, []);
 
-useEffect(() => {
-  if (auth) {
+  useEffect(() => {
+    if (auth) {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-          if (user) {
-              const userData = await fetchUserData(db, user.email!);
-              if (userData) {
-                  setUser(userData);
-              }
-          } else {
-              setUser(null);
+        if (user) {
+          const userData = await fetchUserData(db, user.email!);
+          if (userData) {
+            setUser(userData);
           }
+        } else {
+          setUser(null);
+        }
       });
 
-      return () => unsubscribe(); 
-  }
-}, [auth, db]);
-
-  const fetchUserData = async (db: any, email: string): Promise<UserData | null> => {
-    try {
-        const userRef = doc(db, 'users', email);
-        const docSnap = await getDoc(userRef);
-
-        if (docSnap.exists()) {
-            return docSnap.data() as UserData;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        console.error("Error fetching user data:", error);
-        return null;
+      return () => unsubscribe();
     }
-};
+  }, [auth, db]);
 
-const handleLogin = async () => {
-  const { auth } = await initFirebase(); 
-  await signInWithGoogle(auth);
-};
+  const fetchUserData = async (
+    db: any,
+    email: string
+  ): Promise<UserData | null> => {
+    try {
+      const userRef = doc(db, "users", email);
+      const docSnap = await getDoc(userRef);
 
-const handleLogout = async () => {
-  if (auth) {
-    await signOutFromGoogle(auth);
-    setUser(null); 
-  }
-};
+      if (docSnap.exists()) {
+        return docSnap.data() as UserData;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+    }
+  };
+
+  const handleLogin = async () => {
+    const { auth } = await initFirebase();
+    await signInWithGoogle(auth);
+  };
+
+  const handleLogout = async () => {
+    if (auth) {
+      await signOutFromGoogle(auth);
+      setUser(null);
+    }
+  };
 
   useEffect(() => {
     const loadAudio = async () => {
@@ -164,9 +173,7 @@ const handleLogout = async () => {
       .fill(0)
       .map(() => Math.floor(Math.random() * 6) + 1);
     setDiceValues(newDiceValues.map(String));
-    setCurrentExpression(
-      expressions[Math.floor(Math.random() * expressions.length)]
-    );
+    setShowExpressions(true);
   }, []);
 
   const startNewGame = useCallback(() => {
@@ -189,9 +196,9 @@ const handleLogout = async () => {
 
     queueMicrotask(async () => {
       if (user && successes > user.best_score) {
-          await updateUserBestScore(user.email, successes);
+        await updateUserBestScore(user.email, successes);
       }
-  });
+    });
   }, [successes, user]);
 
   useEffect(() => {
@@ -216,35 +223,38 @@ const handleLogout = async () => {
     };
   }, [gameOver, endGame, isPlaying]);
 
-
   const handleGridItemClick = useCallback(
     (value: number) => {
-
       setAllDisabled(true);
 
       if (gameOver) return;
 
-      const result = calculateService.resolve(parseInt(diceValues[0]), parseInt(diceValues[1]), parseInt(diceValues[2]), value)
-      
+      const result = calculateService.resolve(
+        parseInt(diceValues[0]),
+        parseInt(diceValues[1]),
+        parseInt(diceValues[2]),
+        value
+      );
+
       if (result.valueFound) {
         setSuccesses((prev) => prev + 1);
         setAuthenticatedButtons((prev) => [...prev, value]);
         playAudio("correctAnswer");
         if (!gameOver) {
-            setRoundTimer(1);
-            const roundTimerInterval = setInterval(() => {
-              setRoundTimer((prev) => {
-                if (prev <= 1) {
-                  clearInterval(roundTimerInterval);
-                  if (!gameOver) {
-                    setAllDisabled(false);
-                    generateNewNumbers();
-                  }
-                  return 0;
+          setRoundTimer(1);
+          const roundTimerInterval = setInterval(() => {
+            setRoundTimer((prev) => {
+              if (prev <= 1) {
+                clearInterval(roundTimerInterval);
+                if (!gameOver) {
+                  setAllDisabled(false);
+                  generateNewNumbers();
                 }
-                return prev - 1;
-              });
-            }, 1000);
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
         }
       } else {
         setErrors((prev) => {
@@ -252,28 +262,26 @@ const handleLogout = async () => {
             endGame();
           } else {
             if (!gameOver) {
-                setRoundTimer(1);
-                const roundTimerInterval = setInterval(() => {
-                  setRoundTimer((prev) => {
-                    if (prev <= 1) {
-                      clearInterval(roundTimerInterval);
-                      if (!gameOver) {
-                        setAllDisabled(false);
-                        generateNewNumbers();
-                      }
-                      return 0;
+              setRoundTimer(1);
+              const roundTimerInterval = setInterval(() => {
+                setRoundTimer((prev) => {
+                  if (prev <= 1) {
+                    clearInterval(roundTimerInterval);
+                    if (!gameOver) {
+                      setAllDisabled(false);
+                      generateNewNumbers();
                     }
-                    return prev - 1;
-                  });
-                }, 1000);
-            }              
+                    return 0;
+                  }
+                  return prev - 1;
+                });
+              }, 1000);
+            }
           }
           return prev + 1;
         });
         playAudio("wrongAnswer");
       }
-
-
     },
     [diceValues, endGame, generateNewNumbers, playAudio]
   );
@@ -288,35 +296,40 @@ const handleLogout = async () => {
       .padStart(2, "0")}`;
   };
 
-
-
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 p-4">
       <Card className="w-full max-w-4xl bg-slate-800">
         <CardContent className="p-6">
-            <UserInfo user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
-            <GameStats
-                errors={errors}
-                successes={successes}
-                generalTimer={generalTimer}
-                roundTimer={roundTimer}
-                formatTime={formatTime}
-            />
-            <DiceExpression diceValues={diceValues} currentExpression={currentExpression} />
-            <GridButtons
-                gridValues={gridValues}
-                isAuthenticated={isAuthenticated}
-                handleGridItemClick={handleGridItemClick}
-                allDisabled={allDisabled}
-            />
-            <GameControls
-                gameOver={gameOver}
-                startNewGame={startNewGame}
-                generateNewNumbers={generateNewNumbers}
-                muted={muted}
-                toggleMute={() => setMuted(!muted)}
-            />
-            <GameOverMessage gameOver={gameOver} />
+          <UserInfo
+            user={user}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+          />
+          <GameStats
+            errors={errors}
+            successes={successes}
+            generalTimer={generalTimer}
+            roundTimer={roundTimer}
+            formatTime={formatTime}
+          />
+          <DiceExpression
+            diceValues={diceValues}
+            showExpressions={showExpressions}
+          />
+          <GridButtons
+            gridValues={gridValues}
+            isAuthenticated={isAuthenticated}
+            handleGridItemClick={handleGridItemClick}
+            allDisabled={allDisabled}
+          />
+          <GameControls
+            gameOver={gameOver}
+            startNewGame={startNewGame}
+            generateNewNumbers={generateNewNumbers}
+            muted={muted}
+            toggleMute={() => setMuted(!muted)}
+          />
+          <GameOverMessage gameOver={gameOver} />
         </CardContent>
       </Card>
     </div>
