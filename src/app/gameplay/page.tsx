@@ -17,7 +17,6 @@ import {
 } from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { Button } from "@/components/ui/button";
 
 const AUDIO_URLS = {
   gameStart:
@@ -43,7 +42,7 @@ const possibleNumbers = [
 ];
 
 export default function ContiGoGame() {
-  const [errors, setErrors] = useState(0);
+  const [errors, setErrors] = useState(3);
   const [successes, setSuccesses] = useState(0);
   const [generalTimer, setGeneralTimer] = useState(180);
   const [roundTimer, setRoundTimer] = useState(0);
@@ -177,7 +176,7 @@ export default function ContiGoGame() {
   }, []);
 
   const startNewGame = useCallback(() => {
-    setErrors(0);
+    setErrors(3);
     setSuccesses(0);
     setGeneralTimer(180);
     setIsPlaying(true);
@@ -207,6 +206,9 @@ export default function ContiGoGame() {
     }
 
     const timer = setInterval(() => {
+      console.log('isPlaying')
+      console.log(isPlaying)
+      if(!isPlaying) return;
       setGeneralTimer((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
@@ -258,7 +260,7 @@ export default function ContiGoGame() {
         }
       } else {
         setErrors((prev) => {
-          if (prev + 1 >= 3) {
+          if (prev - 1 <= 0) {
             endGame();
           } else {
             if (!gameOver) {
@@ -278,7 +280,7 @@ export default function ContiGoGame() {
               }, 1000);
             }
           }
-          return prev + 1;
+          return prev - 1;
         });
         playAudio("wrongAnswer");
       }
