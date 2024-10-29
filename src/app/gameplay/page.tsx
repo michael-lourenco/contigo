@@ -309,7 +309,6 @@ export default function ContiGoGame() {
             errors={errors}
             successes={successes}
             generalTimer={generalTimer}
-            roundTimer={roundTimer}
             formatTime={formatTime}
           />
           <DiceExpression

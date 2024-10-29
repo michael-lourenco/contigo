@@ -5,7 +5,6 @@ interface GameStatsProps {
   errors: number;
   successes: number;
   generalTimer: number;
-  roundTimer: number;
   formatTime: (time: number) => string;
 }
 
@@ -13,7 +12,6 @@ export const GameStats: React.FC<GameStatsProps> = ({
   errors,
   successes,
   generalTimer,
-  roundTimer,
   formatTime,
 }) => (
   <div className="flex justify-between items-center text-slate-50 mb-6">
@@ -31,10 +29,6 @@ export const GameStats: React.FC<GameStatsProps> = ({
       <div className="flex items-center">
         <Icon name="PiClock" className="w-6 h-6 mr-2" />
         <span>{formatTime(generalTimer)}</span>
-      </div>
-      <div className="flex items-center">
-        <Icon name="PiHourglass" className="w-6 h-6 mr-2" />
-        <span>{roundTimer}</span>
       </div>
     </div>
   </div>
