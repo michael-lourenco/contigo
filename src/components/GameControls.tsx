@@ -5,7 +5,7 @@ import { Icon } from "./icons";
 interface GameControlsProps {
   gameOver: boolean;
   startNewGame: () => void;
-  generateNewNumbers: () => void;
+  handleSkipClick: () => void;
   muted: boolean;
   toggleMute: () => void;
 }
@@ -13,7 +13,7 @@ interface GameControlsProps {
 export const GameControls: React.FC<GameControlsProps> = ({
   gameOver,
   startNewGame,
-  generateNewNumbers,
+  handleSkipClick,
   muted,
   toggleMute,
 }) => (
@@ -28,7 +28,7 @@ export const GameControls: React.FC<GameControlsProps> = ({
     <Button
       variant="outline"
       className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
-      onClick={generateNewNumbers}
+      onClick={handleSkipClick}
     >
       <Icon name="PiFastForward" className="w-5 h-5 mr-2" />
       Skip

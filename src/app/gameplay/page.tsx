@@ -48,6 +48,7 @@ export default function ContiGoGame() {
   const [roundTimer, setRoundTimer] = useState(0);
   const [diceValues, setDiceValues] = useState(["", "", ""]);
   const [gridValues, setGridValues] = useState<number[]>([]);
+  const [remainNumbers, setRemainNumbers] = useState<number[]>([]);
   const [authenticatedButtons, setAuthenticatedButtons] = useState<number[]>(
     []
   );
@@ -129,6 +130,29 @@ export default function ContiGoGame() {
     }
   };
 
+  function removeNumber(num: number, remainNumbers: number[]) {
+    const index = remainNumbers.indexOf(num); 
+    if (index !== -1) {
+      setRemainNumbers(remainNumbers.filter((_, i) => i !== index));
+    } else {
+      console.log(`Number ${num} not found in array.`);
+    }
+
+    console.log('remainNumbers');
+    console.log(remainNumbers);
+  }
+
+  function verifyNumbers(remainNumbers: number[]) {
+    
+    for (let i = 0; i < remainNumbers.length; i++) {
+        const result = calculateService.resolve(parseInt(diceValues[0]), parseInt(diceValues[1]), parseInt(diceValues[2]), remainNumbers[i]);
+        if (result.valueFound) {
+            return true; 
+        }
+    }
+    return false; 
+  }
+
   useEffect(() => {
     const loadAudio = async () => {
       const audioPromises = Object.entries(AUDIO_URLS).map(([key, url]) => {
@@ -185,6 +209,7 @@ export default function ContiGoGame() {
     generateNewNumbers();
     setGridValues(possibleNumbers.sort(() => Math.random() - 0.5).slice(0, 64));
     setAuthenticatedButtons([]);
+    setRemainNumbers(possibleNumbers);
     setAllDisabled(false);
     playAudio("gameStart");
   }, [generateNewNumbers, playAudio]);
@@ -206,8 +231,6 @@ export default function ContiGoGame() {
     }
 
     const timer = setInterval(() => {
-      console.log('isPlaying')
-      console.log(isPlaying)
       if(!isPlaying) return;
       setGeneralTimer((prev) => {
         if (prev <= 1) {
@@ -241,6 +264,64 @@ export default function ContiGoGame() {
       if (result.valueFound) {
         setSuccesses((prev) => prev + 1);
         setAuthenticatedButtons((prev) => [...prev, value]);
+        removeNumber(value, remainNumbers);
+
+        playAudio("correctAnswer");
+        if (!gameOver) {
+          setRoundTimer(1);
+          const roundTimerInterval = setInterval(() => {
+            setRoundTimer((prev) => {
+              if (prev <= 1) {
+                clearInterval(roundTimerInterval);
+                if (!gameOver) {
+                  setAllDisabled(false);
+                  generateNewNumbers();
+                }
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
+        }
+      } else {
+        setErrors((prev) => {
+          if (prev - 1 <= 0) {
+            endGame();
+          } else {
+            if (!gameOver) {
+              setRoundTimer(1);
+              const roundTimerInterval = setInterval(() => {
+                setRoundTimer((prev) => {
+                  if (prev <= 1) {
+                    clearInterval(roundTimerInterval);
+                    if (!gameOver) {
+                      setAllDisabled(false);
+                      generateNewNumbers();
+                    }
+                    return 0;
+                  }
+                  return prev - 1;
+                });
+              }, 1000);
+            }
+          }
+          return prev - 1;
+        });
+        playAudio("wrongAnswer");
+      }
+    },
+    [diceValues, endGame, generateNewNumbers, playAudio]
+  );
+
+  const handleSkipClick = useCallback(
+    () => {
+      setAllDisabled(true);
+
+      if (gameOver) return;
+
+      const resultExists = verifyNumbers(remainNumbers)
+
+      if (!resultExists) {
         playAudio("correctAnswer");
         if (!gameOver) {
           setRoundTimer(1);
@@ -326,7 +407,7 @@ export default function ContiGoGame() {
           <GameControls
             gameOver={gameOver}
             startNewGame={startNewGame}
-            generateNewNumbers={generateNewNumbers}
+            handleSkipClick={handleSkipClick}
             muted={muted}
             toggleMute={() => setMuted(!muted)}
           />
