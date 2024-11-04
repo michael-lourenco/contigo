@@ -10,6 +10,9 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+			slate: {
+				900: '#1E1E1E',
+			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

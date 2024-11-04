@@ -19,7 +19,7 @@ export const GridButtons: React.FC<GridButtonsProps> = ({
       <Button
         key={index}
         variant="outline"
-        className={`grid-item ${isAuthenticated(value) ? "authenticated" : ""}`}
+        className={`grid-item min-w-[2rem] min-h-[2rem] aspect-square flex items-center justify-center px-6 py-6 rounded-[12px] border-[1px] border-dashed border-slate-500 text-white ${isAuthenticated(value) ? "authenticated" : ""}`}
         onClick={() => handleGridItemClick(value)}
         disabled={allDisabled || isAuthenticated(value)}
       >
