@@ -14,7 +14,7 @@ export const GridButtons: React.FC<GridButtonsProps> = ({
   handleGridItemClick,
   allDisabled,
 }) => (
-  <div className="w-full max-w-2xl mx-auto p-4">
+  <div className="w-full min-w-[380px] max-w-2xl mx-auto p-2 overflow-x-auto">
     <div className="grid grid-cols-8 gap-2">
       {gridValues.map((value, index) => (
         <Button
