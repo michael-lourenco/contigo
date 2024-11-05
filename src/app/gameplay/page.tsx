@@ -27,13 +27,6 @@ const AUDIO_URLS = {
     "https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3",
 };
 
-const expressions = [
-  { before: "", middle1: "+", middle2: "+", after: "" },
-  { before: "", middle1: "+", middle2: "-", after: "" },
-  { before: "", middle1: "*", middle2: "+", after: "" },
-  { before: "(", middle1: "+", middle2: ") *", after: "" },
-];
-
 const possibleNumbers = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
   22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
@@ -380,9 +373,9 @@ export default function ContiGoGame() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 p-4">
-      <Card className="w-full max-w-4xl bg-slate-900">
-        <CardContent className="p-6">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 pt-4">
+      <Card className="w-full max-w-2xl bg-slate-900 p-0 m-0">
+        <CardContent className="p-2">
           <UserInfo
             user={user}
             handleLogin={handleLogin}
