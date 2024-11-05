@@ -20,7 +20,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin, handleLog
         </>
       ) : (
         <Button onClick={handleLogin} variant="default">
-          Login com Google
+          Sign with Google
         </Button>
       )}
     </div>
