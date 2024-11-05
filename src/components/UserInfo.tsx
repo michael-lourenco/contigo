@@ -24,7 +24,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin, handleLog
           </Button>
         </>
       ) : (
-        <Button onClick={handleLogin} variant="primary" className="w-full">
+        <Button onClick={handleLogin} variant="default" className="w-full">
           Sign in with Google
         </Button>
       )}
