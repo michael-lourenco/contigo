@@ -380,7 +380,7 @@ export default function ContiGoGame() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-w-[380px] min-h-screen bg-slate-900 text-slate-50 p-2">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 p-4">
       <Card className="w-full max-w-4xl bg-slate-900">
         <CardContent className="p-6">
           <UserInfo
