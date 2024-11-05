@@ -23,7 +23,7 @@ export const GameControls: React.FC<GameControlsProps> = ({
       className="bg-lime-500 hover:bg-lime-600 text-slate-900"
     >
       <Icon name="PiPlay" className="w-5 h-5 mr-2" />
-      {gameOver ? "New Game" : "Restart"}
+      {gameOver ? "New Game" : "Start New Game"}
     </Button>
     <Button
       variant="outline"
