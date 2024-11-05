@@ -17,13 +17,13 @@ export const GameControls: React.FC<GameControlsProps> = ({
   muted,
   toggleMute,
 }) => (
-  <div className="flex justify-center space-x-4">
+  <div className="flex justify-center space-x-4 p-6">
     <Button
       onClick={startNewGame}
       className="bg-lime-500 hover:bg-lime-600 text-slate-900"
     >
       <Icon name="PiPlay" className="w-5 h-5 mr-2" />
-      {gameOver ? "New Game" : "Start New Game"}
+      {gameOver ? "New Game" : "New Game"}
     </Button>
     <Button
       variant="outline"
