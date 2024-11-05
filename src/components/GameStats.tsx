@@ -21,7 +21,7 @@ export const GameStats: React.FC<GameStatsProps> = ({
         <span>{errors}</span>
       </div>
       <div className="flex items-center">
-        <Icon name="PiCheckCircle" className="w-6 h-6 text-green-500 mr-2" />
+        <Icon name="PiSmiley" className="w-6 h-6 text-green-500 mr-2" />
         <span>{successes}</span>
       </div>
     </div>
