@@ -130,9 +130,7 @@ export default function ContiGoGame() {
     } else {
       console.log(`Number ${num} not found in array.`);
     }
-
-    console.log('remainNumbers');
-    console.log(remainNumbers);
+    
   }
 
   function verifyNumbers(remainNumbers: number[]) {
@@ -202,7 +200,7 @@ export default function ContiGoGame() {
     generateNewNumbers();
     setGridValues(possibleNumbers.sort(() => Math.random() - 0.5).slice(0, 64));
     setAuthenticatedButtons([]);
-    setRemainNumbers(possibleNumbers);
+    setRemainNumbers(possibleNumbers);    
     setAllDisabled(false);
     playAudio("gameStart");
   }, [generateNewNumbers, playAudio]);
@@ -236,13 +234,12 @@ export default function ContiGoGame() {
     }, 1000);
 
     return () => {
-      clearInterval(timer);
-      setAllDisabled(true);
+      clearInterval(timer);      
     };
   }, [gameOver, endGame, isPlaying]);
 
   const handleGridItemClick = useCallback(
-    (value: number) => {
+    (value: number) => {      
       setAllDisabled(true);
 
       if (gameOver) return;
@@ -266,7 +263,7 @@ export default function ContiGoGame() {
             setRoundTimer((prev) => {
               if (prev <= 1) {
                 clearInterval(roundTimerInterval);
-                if (!gameOver) {
+                if (!gameOver) {                  
                   setAllDisabled(false);
                   generateNewNumbers();
                 }
@@ -287,7 +284,7 @@ export default function ContiGoGame() {
                 setRoundTimer((prev) => {
                   if (prev <= 1) {
                     clearInterval(roundTimerInterval);
-                    if (!gameOver) {
+                    if (!gameOver) {                      
                       setAllDisabled(false);
                       generateNewNumbers();
                     }
@@ -307,7 +304,7 @@ export default function ContiGoGame() {
   );
 
   const handleSkipClick = useCallback(
-    () => {
+    () => {      
       setAllDisabled(true);
 
       if (gameOver) return;
@@ -322,7 +319,7 @@ export default function ContiGoGame() {
             setRoundTimer((prev) => {
               if (prev <= 1) {
                 clearInterval(roundTimerInterval);
-                if (!gameOver) {
+                if (!gameOver) {                  
                   setAllDisabled(false);
                   generateNewNumbers();
                 }
@@ -343,7 +340,7 @@ export default function ContiGoGame() {
                 setRoundTimer((prev) => {
                   if (prev <= 1) {
                     clearInterval(roundTimerInterval);
-                    if (!gameOver) {
+                    if (!gameOver) {                      
                       setAllDisabled(false);
                       generateNewNumbers();
                     }
