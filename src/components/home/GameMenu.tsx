@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { MenuButton } from './MenuButton';
+import { DonationButton } from './DonationButton';
 
 export interface GameMenuProps {
     onPlay: () => void;
@@ -19,6 +20,9 @@ export const GameMenu: React.FC<GameMenuProps> = ({ onPlay, onSettings, onHowToP
             <MenuButton label="Jogar" onClick={onPlay} />
             <MenuButton label="Configurações" onClick={onSettings} />
             <MenuButton label="Como Jogar" onClick={onHowToPlay} />
+            <div className="pt-4">
+                <DonationButton stripeUrl="https://buy.stripe.com/00g02GeSnaJC12g5kk" />
+            </div>
         </CardContent>
     </Card>
 );
