@@ -1,27 +1,31 @@
- // components/LeaderboardsList.tsx
- import { useState, useEffect } from 'react';
- import { fetchLeaderboards,Leaderboard } from '@/services/gamification/api';
- 
- export const LeaderboardsList = () => {
+import { useState, useEffect } from 'react';
+import { fetchLeaderboards, createLeaderboard, Leaderboard } from '@/services/gamification/api';
+
+export const LeaderboardsList = () => {
   const [leaderboards, setLeaderboards] = useState<Leaderboard[]>([]);
   const [error, setError] = useState<string | null>(null);
- 
+
   useEffect(() => {
-    const getLeaderboards = async () => {
+    const initializeLeaderboards = async () => {
       try {
-        console.log("getLeaderboards")
+        console.log("Calling createLeaderboard...");
+        await createLeaderboard(); 
+        console.log("createLeaderboard completed.");
+
+        console.log("Fetching leaderboards...");
         const data = await fetchLeaderboards();
         setLeaderboards(data);
+        console.log("Leaderboards fetched.");
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch leaderboards');
+        setError(err instanceof Error ? err.message : 'Failed to fetch or create leaderboards');
       }
     };
-    
-    getLeaderboards();
-  }, []);
- 
+
+    initializeLeaderboards();
+  }, []); 
+
   if (error) return <div>Error: {error}</div>;
- 
+
   return (
     <div>
       {leaderboards.map((leaderboard) => (
@@ -33,4 +37,4 @@
       ))}
     </div>
   );
- };
+};
