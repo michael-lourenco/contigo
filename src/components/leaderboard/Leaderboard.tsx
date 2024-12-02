@@ -75,9 +75,9 @@ export const LeaderboardByOwnerAndDate = () => {
                                     <p className="text-lg font-semibold text-slate-50">
                                         {entry.name}
                                     </p>
-                                    <p className="text-sm text-slate-400">
+                                    {/* <p className="text-sm text-slate-400">
                                         {formatDistanceToNow(new Date(entry.date), { addSuffix: true })}
-                                    </p>
+                                    </p> */}
                                 </div>
                                 <div className="text-right">
                                     <span className="text-xl font-bold text-primary">
