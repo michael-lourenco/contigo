@@ -1,6 +1,6 @@
 
 export interface PlayerData {
-  if: string;
+  id: string;
   name: string;
   score: number;
   date: Date | null;
@@ -23,6 +23,29 @@ const API_KEY = process.env.NEXT_PUBLIC_GAMIFICATION_API_KEY
 
 export const fetchLeaderboards = async (): Promise<Leaderboard[]> => {
   try {
+    const response = await axios({
+      method: 'get',
+      url: `${API_URL}/leaderboards/list`,
+      headers: {
+        'x-api-key': API_KEY,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: false
+    });
+    
+    return response.data.map((item: any) => ({
+      ...item,
+      date: item.date ? new Date(item.date) : null
+    }));
+  } catch (error) {
+    console.error('Error fetching leaderboards:', error);
+    throw error;
+  }
+};
+
+
+export const findFirstByOwnerAndDate = async (): Promise<Leaderboard> => {
+  try {
     const now = new Date();
     const yesterday = new Date(now);
     yesterday.setDate(now.getDate() - 1);
@@ -40,15 +63,22 @@ export const fetchLeaderboards = async (): Promise<Leaderboard[]> => {
       withCredentials: false,
     });
 
-    return response.data.map((item: any) => ({
-      ...item,
-      date: item.date ? new Date(item.date) : null,
-    }));
+    // Transforma o campo `leaderboard.date` em um objeto `Date`
+    const transformedData = {
+      ...response.data,
+      leaderboard: response.data.leaderboard.map((item: any) => ({
+        ...item,
+        date: item.date ? new Date(item.date) : null,
+      })),
+    };
+
+    return transformedData;
   } catch (error) {
     console.error('Error fetching leaderboards:', error);
     throw error;
   }
 };
+
 
 export const createLeaderboard = async (): Promise<void> => {
   try {

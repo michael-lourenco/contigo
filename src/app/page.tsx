@@ -1,7 +1,7 @@
 'use client';
 
 import { GameMenu } from '@/components/home/GameMenu';
-import { LeaderboardsList } from '@/components/leaderboard/Leaderboard';
+import { LeaderboardByOwnerAndDate } from '@/components/leaderboard/Leaderboard';
 import { useNavigation } from '@/hooks/useNavigation';
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
                 onSettings={handleNavigation('/settings')}
                 onHowToPlay={handleNavigation('/how_to_play')}
             />
-            <LeaderboardsList />
+            <LeaderboardByOwnerAndDate />
         </div>
     );
 }
