@@ -67,7 +67,7 @@ export const LeaderboardByOwnerAndDate = () => {
                             key={entry.id}
                             className="flex items-center p-4 hover:bg-slate-700 transition-colors"
                         >
-                            <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-4 w-full">
                                 <span className="w-8 text-center font-bold text-slate-400">
                                     {getRankIcon(index) || `#${index + 1}`}
                                 </span>
@@ -75,12 +75,12 @@ export const LeaderboardByOwnerAndDate = () => {
                                     <p className="text-lg font-semibold text-slate-50">
                                         {entry.name}
                                     </p>
-                                    {/* <p className="text-sm text-slate-400">
-                                        {formatDistanceToNow(new Date(entry.date), { addSuffix: true })}
-                                    </p> */}
+                                    <p className="text-sm text-slate-400">
+                                       . {/* {formatDistanceToNow(new Date(entry.date), { addSuffix: true })} */}
+                                    </p>
                                 </div>
-                                <div className="text-right">
-                                    <span className="text-xl font-bold text-primary">
+                                <div className="flex flex-col items-center ml-auto">
+                                    <span className="text-xl font-bold text-primary text-yellow-400">
                                         {entry.score}
                                     </span>
                                     <p className="text-xs text-slate-400">points</p>
