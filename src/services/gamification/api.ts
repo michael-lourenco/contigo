@@ -23,19 +23,26 @@ const API_KEY = process.env.NEXT_PUBLIC_GAMIFICATION_API_KEY
 
 export const fetchLeaderboards = async (): Promise<Leaderboard[]> => {
   try {
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    yesterday.setUTCHours(9, 20, 0, 0); // Configura as horas para 09:20:00
+
+    const date = yesterday.toISOString(); // Converte para o formato ISO 8601
+
     const response = await axios({
       method: 'get',
-      url: `${API_URL}/leaderboards/list`,
+      url: `${API_URL}/leaderboards/findFirstByOwnerAndDate/${date}`,
       headers: {
         'x-api-key': API_KEY,
         'Content-Type': 'application/json',
       },
-      withCredentials: false
+      withCredentials: false,
     });
-    
+
     return response.data.map((item: any) => ({
       ...item,
-      date: item.date ? new Date(item.date) : null
+      date: item.date ? new Date(item.date) : null,
     }));
   } catch (error) {
     console.error('Error fetching leaderboards:', error);
