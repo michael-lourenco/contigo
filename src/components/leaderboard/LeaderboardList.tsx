@@ -1,6 +1,6 @@
  // components/LeaderboardsList.tsx
  import { useState, useEffect } from 'react';
- import { fetchLeaderboards,Leaderboard } from '@/services/gamification/api';
+ import { fetchLeaderboards,Leaderboard } from '@/services/gamification/LeaderboardAPI';
  
  export const LeaderboardsList = () => {
   const [leaderboards, setLeaderboards] = useState<Leaderboard[]>([]);

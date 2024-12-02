@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { findFirstByOwnerAndDate, Leaderboard, PlayerData } from '@/services/gamification/api';
+import { findFirstByOwnerAndDate, Leaderboard, PlayerData } from '@/services/gamification/LeaderboardAPI';
 import { formatDistanceToNow } from 'date-fns';
 import { Trophy, Medal, Award } from 'lucide-react';
 
