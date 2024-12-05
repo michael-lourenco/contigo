@@ -22,7 +22,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin, handleLog
           <span className="flex items-center text-lg font-semibold truncate">
             {user.displayName}
             <Icon name="PiTarget" className="w-6 h-6 text-green-500 mx-2 flex-shrink-0" />
-            <span className="text-green-300">{user.best_score}</span>
+            <span className="text-green-300">{user.best_score.value}</span>
           </span>
           <Button 
             onClick={handleDonation}
