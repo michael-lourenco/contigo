@@ -1,9 +1,11 @@
 {
     "routes": [
-      {
-        "src": "/api/sendLeaderboard",
-        "methods": ["POST"],
-        "dest": "/api/sendLeaderboard"
-      }
+        {
+            "src": "/app/api/sendLeaderboard",
+            "methods": [
+                "POST"
+            ],
+            "dest": "/app/api/sendLeaderboard"
+        }
     ]
-  }
+}
