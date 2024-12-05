@@ -238,7 +238,7 @@ async function updateUserBestScore(
       if (newBestScore > currentBestScore) {
         await setDoc(
           userRef,
-          { best_score: { value: newBestScore, updatedAt: new Date() } },
+          { best_score: { value: newBestScore, updatedAt: new Date().toISOString() } },
           { merge: true }
         );
         console.log("User best score updated successfully.");
@@ -291,7 +291,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
     const payload: LeaderboardPayload = {
       id: uuidv4(),
       name: "Ranking CONTI GO",
-      owner: process.env.NEXT_PUBLIC_GAMIFICATION_API_URL || "",
+      owner: process.env.NEXT_PUBLIC_GAMIFICATION_API_KEY || "",
       description: "ranking do jogo contigo",
       leaderboard,
       date: new Date().toISOString(),
