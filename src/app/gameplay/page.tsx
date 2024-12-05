@@ -210,7 +210,7 @@ export default function ContiGoGame() {
     setGameOver(true);
 
     queueMicrotask(async () => {
-      if (user && successes > user.best_score) {
+      if (user && successes > user.best_score.value) {
         await updateUserBestScore(user.email, successes);
       }
     });
