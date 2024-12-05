@@ -218,6 +218,7 @@ function displayUserInfo(displayName: string, best_score: number): void {
   // Exibir informações do usuário na interface Next.js
   console.log(`User: ${displayName}, Best Score: ${best_score}`);
 }
+
 async function updateUserBestScore(
   email: string,
   newBestScore: number
@@ -226,16 +227,36 @@ async function updateUserBestScore(
   const userRef = doc(db, "users", email);
 
   try {
-    await setDoc(
-      userRef,
-      { best_score: { value: newBestScore, updatedAt: new Date() } },
-      { merge: true }
-    );
-    console.log("User best score updated successfully.");
+    const userSnap = await getDoc(userRef);
+
+    // Verifica se o campo `best_score` já existe
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+
+      // Atualiza apenas se o novo score for maior ou se o campo não existir
+      const currentBestScore = userData.best_score?.value || 0;
+      if (newBestScore > currentBestScore) {
+        await setDoc(
+          userRef,
+          { best_score: { value: newBestScore, updatedAt: new Date() } },
+          { merge: true }
+        );
+        console.log("User best score updated successfully.");
+      } else {
+        console.log("New score is not higher. No update performed.");
+      }
+    } else {
+      // Cria o documento com o campo `best_score` se ele não existir
+      await setDoc(userRef, {
+        best_score: { value: newBestScore, updatedAt: new Date() },
+      });
+      console.log("User document created with best score.");
+    }
   } catch (error) {
     console.error("Error updating user best score:", error);
   }
 }
+
 
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
@@ -244,7 +265,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
     
     const usersCollection = collection(db, "users");
     const userDocs = await getDocs(usersCollection);
-
+    console.log("userDocs LENGHT", userDocs.docs.length);
     const leaderboard: LeaderboardEntry[] = userDocs.docs
       .map(
         (doc) =>
