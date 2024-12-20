@@ -13,6 +13,7 @@ export interface Leaderboard {
   description: string;
   leaderboard: PlayerData[];
   date: Date | null;
+  type: string;
 }
 
 import axios from 'axios';
@@ -104,6 +105,7 @@ export const createLeaderboard = async (): Promise<void> => {
         },
       ],
       date: "2024-11-28T09:20:00Z",
+      type: "SCORE_ORDER_LARGER_IS_BETTER",
     };
 
     const response = await axios({

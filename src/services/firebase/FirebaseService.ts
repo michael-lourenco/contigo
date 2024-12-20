@@ -52,6 +52,7 @@ interface LeaderboardPayload {
   description: string;
   leaderboard: LeaderboardEntry[];
   date: string;
+  type: string;
 }
 
 interface BestScore {
@@ -257,7 +258,6 @@ async function updateUserBestScore(
   }
 }
 
-
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
     // Initialize Firebase internally
@@ -295,6 +295,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
       description: "ranking do jogo contigo",
       leaderboard,
       date: new Date().toISOString(),
+      type:"SCORE_ORDER_LARGER_IS_BETTER",
     };
 
     await axios.post(
