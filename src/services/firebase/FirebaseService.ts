@@ -299,12 +299,11 @@ async function sendLeaderboardToGamification(): Promise<void> {
     };
 
     await axios.post(
-      "https://l7m9t7ooy6.execute-api.us-east-1.amazonaws.com/dev/leaderboards/create",
+      `${process.env.NEXT_PUBLIC_GAMIFICATION_API_URL}/leaderboards/create`,
       payload,
       {
         headers: {
-          "x-api-key":
-            "e5cefdc3-d468-4e32-aa86-b48b6bbd07c8|d41d8cd98f00b204e9800998ecf8427e",
+          "x-api-key": process.env.NEXT_PUBLIC_GAMIFICATION_API_KEY || "",
           "Content-Type": "application/json",
         },
       }
