@@ -212,9 +212,15 @@ export default function ContiGoGame() {
 
     queueMicrotask(async () => {
       const userScore = user?.best_score?.value || 0;
-      if (user && successes > userScore) {
-        await updateUserBestScore(user.email, successes);
+
+      if (user) {
+
         await updateUserCurrency(user.email, successes);
+
+        if (successes > userScore) {
+          await updateUserBestScore(user.email, successes);
+        }
+
       }
     });
   }, [successes, user]);
