@@ -206,25 +206,6 @@ export default function ContiGoGame() {
     playAudio("gameStart");
   }, [generateNewNumbers, playAudio]);
 
-  // const endGame = useCallback(() => {
-  //   setIsPlaying(false);
-  //   setGameOver(true);
-
-  //   queueMicrotask(async () => {
-  //     const userScore = user?.best_score?.value || 0;
-
-  //     if (user) {
-
-  //       await updateUserCurrency(user.email, successes);
-
-  //       if (successes > userScore) {
-  //         await updateUserBestScore(user.email, successes);
-  //       }
-
-  //     }
-  //   });
-  // }, [successes, user]);
-
   const endGame = useCallback(() => {
     setIsPlaying(false);
     setGameOver(true);
