@@ -206,24 +206,65 @@ export default function ContiGoGame() {
     playAudio("gameStart");
   }, [generateNewNumbers, playAudio]);
 
+  // const endGame = useCallback(() => {
+  //   setIsPlaying(false);
+  //   setGameOver(true);
+
+  //   queueMicrotask(async () => {
+  //     const userScore = user?.best_score?.value || 0;
+
+  //     if (user) {
+
+  //       await updateUserCurrency(user.email, successes);
+
+  //       if (successes > userScore) {
+  //         await updateUserBestScore(user.email, successes);
+  //       }
+
+  //     }
+  //   });
+  // }, [successes, user]);
+
   const endGame = useCallback(() => {
     setIsPlaying(false);
     setGameOver(true);
-
+  
     queueMicrotask(async () => {
-      const userScore = user?.best_score?.value || 0;
-
-      if (user) {
-
-        await updateUserCurrency(user.email, successes);
-
-        if (successes > userScore) {
-          await updateUserBestScore(user.email, successes);
-        }
-
+      if (!user) return;
+  
+      const userScore = user.best_score?.value || 0;
+      const newCurrency = (user.currency?.value || 0) + successes;
+      const now = new Date();
+  
+      await updateUserCurrency(user.email, successes);
+      
+      if (successes > userScore) {
+        await updateUserBestScore(user.email, successes);
+        setUser(prev => {
+          if (!prev) return null;
+          return {
+            ...prev,
+            best_score: { 
+              value: successes,
+              updatedAt: now
+            }
+          };
+        });
       }
+  
+      setUser(prev => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          currency: { 
+            value: newCurrency,
+            updatedAt: now
+          }
+        };
+      });
     });
   }, [successes, user]);
+  
 
   useEffect(() => {
     if (gameOver || !isPlaying) {
