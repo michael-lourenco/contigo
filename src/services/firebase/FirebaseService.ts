@@ -258,6 +258,45 @@ async function updateUserBestScore(
   }
 }
 
+async function updateUserCurrency(
+  email: string,
+  currency: number
+): Promise<void> {
+  const db = getFirestore();
+  const userRef = doc(db, "users", email);
+
+  try {
+    const userSnap = await getDoc(userRef);
+
+    // Verifica se o campo `currency` já existe
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+
+      // Atualiza apenas se o novo score for maior ou se o campo não existir
+      const currentCurrency = userData.currency?.value || 0;
+      if (currency > 0) {
+        await setDoc(
+          userRef,
+          { currency: { value: currentCurrency + currency, updatedAt: new Date().toISOString() } },
+          { merge: true }
+        );
+        console.log("User best score updated successfully.");
+      } else {
+        console.log("New score is not higher. No update performed.");
+      }
+    } else {
+      // Cria o documento com o campo `currency` se ele não existir
+      await setDoc(userRef, {
+        currency: { value: currency, updatedAt: new Date() },
+      });
+      console.log("User document created with best score.");
+    }
+  } catch (error) {
+    console.error("Error updating user best score:", error);
+  }
+}
+
+
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
     // Initialize Firebase internally
@@ -325,6 +364,7 @@ export {
   handleCredentialResponse,
   sendLeaderboardToGamification,
   updateUserBestScore,
+  updateUserCurrency,
 };
 
 // Re-exportar o tipo UserData

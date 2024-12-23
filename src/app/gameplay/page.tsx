@@ -14,6 +14,7 @@ import {
   signOutFromGoogle,
   UserData,
   updateUserBestScore,
+  updateUserCurrency,
 } from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -213,6 +214,7 @@ export default function ContiGoGame() {
       const userScore = user?.best_score?.value || 0;
       if (user && successes > userScore) {
         await updateUserBestScore(user.email, successes);
+        await updateUserCurrency(user.email, successes);
       }
     });
   }, [successes, user]);
