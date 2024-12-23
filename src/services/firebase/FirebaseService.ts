@@ -31,10 +31,16 @@ interface BestScoreData {
   updatedAt: Date;
 }
 
+interface CurrencyData {
+  value: number;
+  updatedAt: Date;
+}
+
 // Tipos globais para os dados do usuário
 interface UserData {
   displayName: string;
   best_score: BestScoreData;
+  currency: CurrencyData;
   email: string;
 }
 
@@ -60,11 +66,17 @@ interface BestScore {
   updatedAt: Date;
 }
 
+interface Currency {
+  value: number;
+  updatedAt: Date;
+}
+
 interface FirestoreUser {
   id: string;
   displayName: string;
   email: string;
   best_score?: BestScore;
+  currency?: Currency;
 }
 
 interface LeaderboardEntry {
@@ -127,7 +139,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
         globalUser = await fetchUserData(db, user.email!);
         if (globalUser) {
           localStorage.setItem("user", JSON.stringify(globalUser));
-          displayUserInfo(globalUser.displayName, globalUser.best_score.value);
+          displayUserInfo(globalUser.displayName, globalUser.best_score.value, globalUser.currency.value);
         } else {
           console.error("Usuário não encontrado na coleção 'users'.");
         }
@@ -193,7 +205,7 @@ async function handleCredentialResponse(
       const userData: UserData = await backendResponse.json();
       localStorage.setItem("user", JSON.stringify(userData));
       globalUser = userData;
-      displayUserInfo(userData.displayName, userData.best_score.value);
+      displayUserInfo(userData.displayName, userData.best_score.value, userData.currency.value);
     } else {
       console.error("Erro ao fazer login:", backendResponse.statusText);
     }
@@ -207,17 +219,17 @@ async function signOutFromGoogle(auth: Auth): Promise<void> {
   try {
     await signOut(auth);
     localStorage.removeItem("user");
-    displayUserInfo("", 0); // Limpa as informações ao fazer logout
+    displayUserInfo("", 0, 0); // Limpa as informações ao fazer logout
   } catch (error) {
     console.error("Erro durante o logout:", error);
   }
 }
 
 // Função para exibir as informações do usuário
-function displayUserInfo(displayName: string, best_score: number): void {
+function displayUserInfo(displayName: string, best_score: number, currency: number): void {
   globalDisplayName = displayName;
   // Exibir informações do usuário na interface Next.js
-  console.log(`User: ${displayName}, Best Score: ${best_score}`);
+  console.log(`User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}`);
 }
 
 async function updateUserBestScore(
