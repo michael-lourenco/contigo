@@ -1,7 +1,19 @@
-import React from 'react';
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  initFirebase,
+  signInWithGoogle,
+  signOutFromGoogle,
+  UserData,
+  updateUserBestScore,
+  updateUserCurrency,
+} from "@/services/firebase/FirebaseService";
+import { onAuthStateChanged, Auth } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Trophy, Clock, XCircle, Coins } from 'lucide-react';
+import { PlayerStatistics } from "@/components/player/PlayerStatistics";
 
 const formatDate = (date: Date): string => {
   return date.toLocaleDateString('en-US', {
@@ -38,63 +50,94 @@ const mockMatchHistory = [
 ];
 
 export default function PlayerDashboard() {
+
+  const [authenticatedButtons, setAuthenticatedButtons] = useState<number[]>(
+    []
+  );
+
+  const [user, setUser] = useState<UserData | null>(null);
+  const [auth, setAuth] = useState<Auth | null>(null);
+  const [db, setDb] = useState<any>(null);
+
+  useEffect(() => {
+    const initializeFirebase = async () => {
+      const firebaseInstance = await initFirebase();
+      if (firebaseInstance) {
+        setAuth(firebaseInstance.auth);
+        setDb(firebaseInstance.db);
+      } else {
+        console.error("Falha na inicialização do Firebase");
+      }
+    };
+
+    initializeFirebase();
+  }, []);
+
+  useEffect(() => {
+    if (auth) {
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const userData = await fetchUserData(db, user.email!);
+          if (userData) {
+            setUser(userData);
+          }
+        } else {
+          setUser(null);
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, [auth, db]);
+
+  const fetchUserData = async (
+    db: any,
+    email: string
+  ): Promise<UserData | null> => {
+    try {
+      const userRef = doc(db, "users", email);
+      const docSnap = await getDoc(userRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data() as UserData;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+    }
+  };
+
+  const handleLogin = async () => {
+    const { auth } = await initFirebase();
+    await signInWithGoogle(auth);
+  };
+
+  const handleLogout = async () => {
+    if (auth) {
+      await signOutFromGoogle(auth);
+      setUser(null);
+    }
+  };
+
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {/* Player Profile */}
-        <Card className="md:col-span-1">
-          <CardHeader className="text-center">
-            <Avatar className="w-24 h-24 mx-auto">
-              <AvatarImage src="/api/placeholder/150/150" alt="Player avatar" />
-              <AvatarFallback>MP</AvatarFallback>
-            </Avatar>
-            <CardTitle className="mt-4">Michael Player</CardTitle>
-          </CardHeader>
-        </Card>
-
-        {/* Stats Cards */}
-        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Best Score</CardTitle>
-              <Trophy className="h-4 w-4 text-yellow-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">920</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Coins</CardTitle>
-              <Coins className="h-4 w-4 text-yellow-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">2,450</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Games</CardTitle>
-              <Trophy className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">24</div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+    <div className="container mx-auto p-6 space-y-6 bg-slate-900 text-slate-50">
+        <PlayerStatistics
+          user={user}
+          handleLogin={handleLogin}
+          handleLogout={handleLogout}
+        />
 
       {/* Match History */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Match History</CardTitle>
+      <Card className='bg-slate-900 text-slate-50'>
+        <CardHeader className='bg-slate-900 text-slate-50'>
+          <CardTitle className='bg-slate-900 text-slate-50'>Match History</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="relative overflow-x-auto">
+          <div className="relative overflow-x-auto bg-slate-900 text-slate-50" >
             <table className="w-full text-sm text-left">
-              <thead className="text-xs uppercase bg-muted">
+              <thead className="text-xs uppercase bg-muted bg-slate-900 text-slate-50">
                 <tr>
                   <th scope="col" className="px-6 py-3">Date</th>
                   <th scope="col" className="px-6 py-3">Score</th>
