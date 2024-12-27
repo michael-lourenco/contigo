@@ -15,6 +15,7 @@ import {
   UserData,
   updateUserBestScore,
   updateUserCurrency,
+  updateUserTotalGames
 } from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -219,6 +220,8 @@ export default function ContiGoGame() {
   
       await updateUserCurrency(user.email, successes);
       
+      await updateUserTotalGames(user.email, 1);
+
       if (successes > userScore) {
         await updateUserBestScore(user.email, successes);
         setUser(prev => {

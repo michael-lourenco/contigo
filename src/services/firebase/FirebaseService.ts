@@ -36,11 +36,17 @@ interface CurrencyData {
   updatedAt: Date;
 }
 
+interface TotalGamesData {
+  value: number;
+  updatedAt: Date;
+}
+
 // Tipos globais para os dados do usuário
 interface UserData {
   displayName: string;
   best_score: BestScoreData;
   currency: CurrencyData;
+  total_games: TotalGamesData;
   email: string;
 }
 
@@ -139,7 +145,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
         globalUser = await fetchUserData(db, user.email!);
         if (globalUser) {
           localStorage.setItem("user", JSON.stringify(globalUser));
-          displayUserInfo(globalUser.displayName, globalUser.best_score.value, globalUser.currency.value);
+          displayUserInfo(globalUser.displayName, globalUser.best_score.value, globalUser.currency.value, globalUser.total_games.value);
         } else {
           console.error("Usuário não encontrado na coleção 'users'.");
         }
@@ -205,7 +211,7 @@ async function handleCredentialResponse(
       const userData: UserData = await backendResponse.json();
       localStorage.setItem("user", JSON.stringify(userData));
       globalUser = userData;
-      displayUserInfo(userData.displayName, userData.best_score.value, userData.currency.value);
+      displayUserInfo(userData.displayName, userData.best_score.value, userData.currency.value, userData.total_games.value);
     } else {
       console.error("Erro ao fazer login:", backendResponse.statusText);
     }
@@ -219,17 +225,17 @@ async function signOutFromGoogle(auth: Auth): Promise<void> {
   try {
     await signOut(auth);
     localStorage.removeItem("user");
-    displayUserInfo("", 0, 0); // Limpa as informações ao fazer logout
+    displayUserInfo("", 0, 0, 0); // Limpa as informações ao fazer logout
   } catch (error) {
     console.error("Erro durante o logout:", error);
   }
 }
 
 // Função para exibir as informações do usuário
-function displayUserInfo(displayName: string, best_score: number, currency: number): void {
+function displayUserInfo(displayName: string, best_score: number, currency: number, total_games: number): void {
   globalDisplayName = displayName;
   // Exibir informações do usuário na interface Next.js
-  console.log(`User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}`);
+  console.log(`User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}, Total Games: ${total_games}`);
 }
 
 async function updateUserBestScore(
@@ -309,6 +315,44 @@ async function updateUserCurrency(
 }
 
 
+async function updateUserTotalGames(
+  email: string,
+  value: number
+): Promise<void> {
+  const db = getFirestore();
+  const userRef = doc(db, "users", email);
+
+  try {
+    const userSnap = await getDoc(userRef);
+
+    // Verifica se o campo `currency` já existe
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+
+      // Atualiza apenas se o novo score for maior ou se o campo não existir
+      const currentTotalGames = userData.total_games?.value || 0;
+      if (value > 0) {
+        await setDoc(
+          userRef,
+          { total_games: { value: currentTotalGames + value, updatedAt: new Date().toISOString() } },
+          { merge: true }
+        );
+        console.log("User number of games updated successfully.");
+      } else {
+        console.log("New score is not higher. No update performed.");
+      }
+    } else {
+      // Cria o documento com o campo `currency` se ele não existir
+      await setDoc(userRef, {
+        total_games: { value: value, updatedAt: new Date() },
+      });
+      console.log("User document created with number of games.");
+    }
+  } catch (error) {
+    console.error("Error updating user number of games:", error);
+  }
+}
+
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
     // Initialize Firebase internally
@@ -377,6 +421,7 @@ export {
   sendLeaderboardToGamification,
   updateUserBestScore,
   updateUserCurrency,
+  updateUserTotalGames
 };
 
 // Re-exportar o tipo UserData

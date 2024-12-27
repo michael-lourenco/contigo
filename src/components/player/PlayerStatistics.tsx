@@ -63,7 +63,7 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({ user, handle
               <Trophy className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">24</div>
+              <div className="text-2xl font-bold">{user?.total_games?.value ?? 0}</div>
             </CardContent>
           </Card>
         </div>
