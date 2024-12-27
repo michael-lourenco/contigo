@@ -15,10 +15,12 @@ import {
   UserData,
   updateUserBestScore,
   updateUserCurrency,
-  updateUserTotalGames
+  updateUserTotalGames,
+  updateMatchHistory
 } from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { duplexPair } from "stream";
 
 const AUDIO_URLS = {
   gameStart:
@@ -221,6 +223,13 @@ export default function ContiGoGame() {
       await updateUserCurrency(user.email, successes);
       
       await updateUserTotalGames(user.email, 1);
+      await updateMatchHistory(user.email, {
+        date: now,
+        score: successes,
+        errors: errors,
+        duration: generalTimer.toString(),
+
+      })
 
       if (successes > userScore) {
         await updateUserBestScore(user.email, successes);

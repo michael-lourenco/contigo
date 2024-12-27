@@ -26,6 +26,16 @@ import {
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
+
+// Interface para o histórico de partidas
+interface MatchHistoryEntry {
+  id: number;
+  date: Date;
+  score: number;
+  errors: number;
+  duration: string;
+}
+
 interface BestScoreData {
   value: number;
   updatedAt: Date;
@@ -41,14 +51,16 @@ interface TotalGamesData {
   updatedAt: Date;
 }
 
-// Tipos globais para os dados do usuário
+
 interface UserData {
   displayName: string;
   best_score: BestScoreData;
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
+  match_history?: MatchHistoryEntry[]; // Adicionando o novo campo
 }
+
 
 interface LeaderboardEntry {
   id: string;
@@ -411,7 +423,66 @@ async function sendLeaderboardToGamification(): Promise<void> {
   }
 }
 
-// Exportar funções para uso em páginas Next.js
+
+async function updateMatchHistory(
+  email: string,
+  matchData: Omit<MatchHistoryEntry, 'id'>
+): Promise<void> {
+  const db = getFirestore();
+  const userRef = doc(db, "users", email);
+
+  try {
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      const currentHistory = userData.match_history || [];
+
+      // Encontrar o maior ID atual para gerar o próximo
+      const maxId = currentHistory.reduce((max: number, match: MatchHistoryEntry) => 
+        Math.max(max, match.id), 
+      0);
+      
+
+      // Criar nova entrada com ID incrementado
+      const newMatch = {
+        ...matchData,
+        id: maxId + 1,
+        date: new Date(matchData.date).toISOString() // Garantir formato consistente
+      };
+
+      // Adicionar nova partida ao início do array (mais recente primeiro)
+      const updatedHistory = [newMatch, ...currentHistory];
+
+      // Manter apenas as últimas 10 partidas
+      const limitedHistory = updatedHistory.slice(0, 10);
+
+      await setDoc(
+        userRef,
+        { 
+          match_history: limitedHistory 
+        },
+        { merge: true }
+      );
+      console.log("Match history updated successfully.");
+    } else {
+      // Criar documento com primeira entrada do histórico
+      await setDoc(userRef, {
+        match_history: [{
+          ...matchData,
+          id: 1,
+          date: new Date(matchData.date).toISOString()
+        }]
+      });
+      console.log("User document created with first match history entry.");
+    }
+  } catch (error) {
+    console.error("Error updating match history:", error);
+    throw error;
+  }
+}
+
+// Atualizar exportações
 export {
   initFirebase,
   signInWithGoogle,
@@ -421,8 +492,10 @@ export {
   sendLeaderboardToGamification,
   updateUserBestScore,
   updateUserCurrency,
-  updateUserTotalGames
+  updateUserTotalGames,
+  updateMatchHistory // Adicionar nova função às exportações
 };
 
-// Re-exportar o tipo UserData
-export type { UserData };
+// Re-exportar os tipos
+export type { UserData, MatchHistoryEntry };
+

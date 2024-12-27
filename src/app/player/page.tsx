@@ -25,30 +25,6 @@ const formatDate = (date: Date): string => {
   });
 };
 
-const mockMatchHistory = [
-  {
-    id: 1,
-    date: new Date('2024-03-25T14:30:00'),
-    score: 850,
-    errors: 2,
-    duration: '4:30',
-  },
-  {
-    id: 2,
-    date: new Date('2024-03-24T16:15:00'),
-    score: 920,
-    errors: 1,
-    duration: '5:15',
-  },
-  {
-    id: 3,
-    date: new Date('2024-03-23T10:45:00'),
-    score: 760,
-    errors: 4,
-    duration: '3:45',
-  },
-];
-
 export default function PlayerDashboard() {
 
   const [authenticatedButtons, setAuthenticatedButtons] = useState<number[]>(
@@ -146,14 +122,14 @@ export default function PlayerDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {mockMatchHistory.map((match) => (
+                {user?.match_history ? user.match_history.map((match) => (
                   <tr key={match.id} className="border-b">
-                    <td className="px-6 py-4">{formatDate(match.date)}</td>
+                    <td className="px-6 py-4">{formatDate(new Date(match.date))}</td>
                     <td className="px-6 py-4 font-medium">{match.score}</td>
                     <td className="px-6 py-4">{match.errors}</td>
                     <td className="px-6 py-4">{match.duration}</td>
                   </tr>
-                ))}
+                )): null}
               </tbody>
             </table>
           </div>
