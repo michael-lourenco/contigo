@@ -58,7 +58,8 @@ interface UserData {
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
-  match_history?: MatchHistoryEntry[]; // Adicionando o novo campo
+  match_history?: MatchHistoryEntry[]; 
+  photoURL: string; // Adicionando o novo campo
 }
 
 
@@ -157,7 +158,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
         globalUser = await fetchUserData(db, user.email!);
         if (globalUser) {
           localStorage.setItem("user", JSON.stringify(globalUser));
-          displayUserInfo(globalUser.displayName, globalUser.best_score.value, globalUser.currency.value, globalUser.total_games.value);
+          displayUserInfo(globalUser.displayName, globalUser.best_score.value, globalUser.currency.value, globalUser.total_games.value, globalUser.photoURL);
         } else {
           console.error("Usuário não encontrado na coleção 'users'.");
         }
@@ -193,6 +194,7 @@ async function fetchUserData(
 // Função para login com Google
 async function signInWithGoogle(auth: Auth): Promise<void> {
   try {
+    console.log("signInWithGoogle");  
     const provider = new GoogleAuthProvider();
     const response: UserCredential = await signInWithPopup(auth, provider);
     await handleCredentialResponse(response);
@@ -202,9 +204,48 @@ async function signInWithGoogle(auth: Auth): Promise<void> {
 }
 
 // Função para tratar a resposta do Google
+// async function handleCredentialResponse(
+//   response: UserCredential
+// ): Promise<void> {
+//   console.log(`response: ${JSON.stringify(response.user.photoURL)}`);
+//   const idToken = (response as any)._tokenResponse.idToken;
+
+//   try {
+//     const backendResponse = await fetch(
+//       "https://contigo-api-git-master-michaellourencos-projects.vercel.app/login",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ idToken }),
+//       }
+//     );
+
+    
+
+//     if (backendResponse.ok) {
+      
+//       const userData: UserData = await backendResponse.json();
+//       localStorage.setItem("user", JSON.stringify(userData));
+//       userData.photoURL = response?.user?.photoURL || "";
+//       console.log(`userData: ${JSON.stringify(userData)}`);
+//       globalUser = userData;
+//       displayUserInfo(userData.displayName, userData.best_score.value, userData.currency.value, userData.total_games.value, userData.photoURL);
+//     } else {
+//       console.error("Erro ao fazer login:", backendResponse.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Erro durante o login:", error);
+//   }
+// }
+
+
+// Função para tratar a resposta do Google
 async function handleCredentialResponse(
   response: UserCredential
 ): Promise<void> {
+  console.log(`response: ${JSON.stringify(response.user.photoURL)}`);
   const idToken = (response as any)._tokenResponse.idToken;
 
   try {
@@ -221,9 +262,40 @@ async function handleCredentialResponse(
 
     if (backendResponse.ok) {
       const userData: UserData = await backendResponse.json();
+      const googlePhotoURL = response.user.photoURL || "";
+
+      // Adicionar `photoURL` ao objeto `userData`
+      userData.photoURL = googlePhotoURL;
+
+      // Verificar no Firebase se o `photoURL` já existe
+      const userRef = doc(getFirestore(), "users", userData.email);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        const existingData = userDoc.data() as UserData;
+
+        if (!existingData.photoURL || existingData.photoURL === "") {
+          // Atualizar o campo `photoURL` no Firebase
+          await updateDoc(userRef, { photoURL: googlePhotoURL });
+          console.log("PhotoURL atualizado no Firebase.");
+        } else {
+          console.log("PhotoURL já existente no Firebase.");
+        }
+      } else {
+        console.error("Usuário não encontrado no Firestore para atualização.");
+      }
+
       localStorage.setItem("user", JSON.stringify(userData));
+      console.log(`userData: ${JSON.stringify(userData)}`);
       globalUser = userData;
-      displayUserInfo(userData.displayName, userData.best_score.value, userData.currency.value, userData.total_games.value);
+
+      displayUserInfo(
+        userData.displayName,
+        userData.best_score.value,
+        userData.currency.value,
+        userData.total_games.value,
+        userData.photoURL
+      );
     } else {
       console.error("Erro ao fazer login:", backendResponse.statusText);
     }
@@ -237,17 +309,17 @@ async function signOutFromGoogle(auth: Auth): Promise<void> {
   try {
     await signOut(auth);
     localStorage.removeItem("user");
-    displayUserInfo("", 0, 0, 0); // Limpa as informações ao fazer logout
+    displayUserInfo("", 0, 0, 0, ""); // Limpa as informações ao fazer logout
   } catch (error) {
     console.error("Erro durante o logout:", error);
   }
 }
 
 // Função para exibir as informações do usuário
-function displayUserInfo(displayName: string, best_score: number, currency: number, total_games: number): void {
+function displayUserInfo(displayName: string, best_score: number, currency: number, total_games: number, photoURL: string): void {
   globalDisplayName = displayName;
   // Exibir informações do usuário na interface Next.js
-  console.log(`User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}, Total Games: ${total_games}`);
+  console.log(`User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}, Total Games: ${total_games}, Photo URL: ${photoURL}`);
 }
 
 async function updateUserBestScore(
