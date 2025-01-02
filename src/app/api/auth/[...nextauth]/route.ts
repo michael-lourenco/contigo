@@ -13,6 +13,7 @@ const handler = NextAuth({
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CREDENTIALS_OAUTH_CLIENT_SECRET!,
     }),
   ],
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token }: { token: Token }) {
       return token;
