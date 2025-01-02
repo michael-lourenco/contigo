@@ -17,7 +17,7 @@ export const GameStats: React.FC<GameStatsProps> = ({
   <div className="flex justify-between items-center text-slate-50 mb-6 p-2">
     <div className="flex items-center space-x-4">
       <div className="flex items-center">
-        <Icon name="PiHeart"  className="w-6 h-6 text-red-500 mr-2" />
+        <Icon name="PiHeart" className="w-6 h-6 text-red-500 mr-2" />
         <span>{errors}</span>
       </div>
       <div className="flex items-center">

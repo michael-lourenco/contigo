@@ -96,7 +96,7 @@ export const findFirstByOwnerAndDate = async (): Promise<Leaderboard> => {
 };
 
 export const createLeaderboard = async (
-  leaderboard: LeaderboardEntry[]
+  leaderboard: LeaderboardEntry[],
 ): Promise<void> => {
   try {
     const owner =
@@ -120,7 +120,7 @@ export const createLeaderboard = async (
           "x-api-key": process.env.NEXT_PUBLIC_GAMIFICATION_API_KEY || "",
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     console.log("Leaderboard criado com sucesso:", response.data);

@@ -107,7 +107,7 @@ export const DiceExpression: React.FC<DiceExpressionProps> = ({
       <div className="text-2xl font-bold text-purple-500 expression expression-middle-1">
         {currentExpression.middle1}
       </div>
-      <div className="w-16 h-16 px-6 py-4 rounded-[12px] border-[1px] border-dashed border-slate-500 text-2xl text-white/80 font-bold number-box" >
+      <div className="w-16 h-16 px-6 py-4 rounded-[12px] border-[1px] border-dashed border-slate-500 text-2xl text-white/80 font-bold number-box">
         {diceValues[1]}
       </div>
       <div className="text-2xl font-bold text-purple-500 expression expression-middle-2">

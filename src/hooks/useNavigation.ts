@@ -1,8 +1,11 @@
 import { useRouter } from "next/navigation";
-import { NavigationService, INavigationService  } from "@/services/navigation/service";
+import {
+  NavigationService,
+  INavigationService,
+} from "@/services/navigation/service";
 
 export const useNavigation = (): INavigationService => {
-    const router = useRouter();
+  const router = useRouter();
 
-    return new NavigationService(router);
-}
+  return new NavigationService(router);
+};

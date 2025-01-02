@@ -26,7 +26,6 @@ import {
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-
 // Interface para o histórico de partidas
 interface MatchHistoryEntry {
   id: number;
@@ -51,17 +50,15 @@ interface TotalGamesData {
   updatedAt: Date;
 }
 
-
 interface UserData {
   displayName: string;
   best_score: BestScoreData;
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
-  match_history?: MatchHistoryEntry[]; 
+  match_history?: MatchHistoryEntry[];
   photoURL: string; // Adicionando o novo campo
 }
-
 
 interface LeaderboardEntry {
   id: string;
@@ -127,7 +124,7 @@ async function firebaseConfig(): Promise<Record<string, string> | null> {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!backendResponse.ok) {
@@ -158,7 +155,13 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
         globalUser = await fetchUserData(db, user.email!);
         if (globalUser) {
           localStorage.setItem("user", JSON.stringify(globalUser));
-          displayUserInfo(globalUser.displayName, globalUser.best_score.value, globalUser.currency.value, globalUser.total_games.value, globalUser.photoURL);
+          displayUserInfo(
+            globalUser.displayName,
+            globalUser.best_score.value,
+            globalUser.currency.value,
+            globalUser.total_games.value,
+            globalUser.photoURL,
+          );
         } else {
           console.error("Usuário não encontrado na coleção 'users'.");
         }
@@ -174,7 +177,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
 // Função para buscar os dados do usuário
 async function fetchUserData(
   db: Firestore,
-  email: string
+  email: string,
 ): Promise<UserData | null> {
   try {
     const userRef = doc(db, "users", email);
@@ -194,7 +197,7 @@ async function fetchUserData(
 // Função para login com Google
 async function signInWithGoogle(auth: Auth): Promise<void> {
   try {
-    console.log("signInWithGoogle");  
+    console.log("signInWithGoogle");
     const provider = new GoogleAuthProvider();
     const response: UserCredential = await signInWithPopup(auth, provider);
     await handleCredentialResponse(response);
@@ -222,10 +225,8 @@ async function signInWithGoogle(auth: Auth): Promise<void> {
 //       }
 //     );
 
-    
-
 //     if (backendResponse.ok) {
-      
+
 //       const userData: UserData = await backendResponse.json();
 //       localStorage.setItem("user", JSON.stringify(userData));
 //       userData.photoURL = response?.user?.photoURL || "";
@@ -240,10 +241,9 @@ async function signInWithGoogle(auth: Auth): Promise<void> {
 //   }
 // }
 
-
 // Função para tratar a resposta do Google
 async function handleCredentialResponse(
-  response: UserCredential
+  response: UserCredential,
 ): Promise<void> {
   console.log(`response: ${JSON.stringify(response.user.photoURL)}`);
   const idToken = (response as any)._tokenResponse.idToken;
@@ -257,7 +257,7 @@ async function handleCredentialResponse(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ idToken }),
-      }
+      },
     );
 
     if (backendResponse.ok) {
@@ -294,7 +294,7 @@ async function handleCredentialResponse(
         userData.best_score.value,
         userData.currency.value,
         userData.total_games.value,
-        userData.photoURL
+        userData.photoURL,
       );
     } else {
       console.error("Erro ao fazer login:", backendResponse.statusText);
@@ -316,15 +316,23 @@ async function signOutFromGoogle(auth: Auth): Promise<void> {
 }
 
 // Função para exibir as informações do usuário
-function displayUserInfo(displayName: string, best_score: number, currency: number, total_games: number, photoURL: string): void {
+function displayUserInfo(
+  displayName: string,
+  best_score: number,
+  currency: number,
+  total_games: number,
+  photoURL: string,
+): void {
   globalDisplayName = displayName;
   // Exibir informações do usuário na interface Next.js
-  console.log(`User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}, Total Games: ${total_games}, Photo URL: ${photoURL}`);
+  console.log(
+    `User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}, Total Games: ${total_games}, Photo URL: ${photoURL}`,
+  );
 }
 
 async function updateUserBestScore(
   email: string,
-  newBestScore: number
+  newBestScore: number,
 ): Promise<void> {
   const db = getFirestore();
   const userRef = doc(db, "users", email);
@@ -341,8 +349,13 @@ async function updateUserBestScore(
       if (newBestScore > currentBestScore) {
         await setDoc(
           userRef,
-          { best_score: { value: newBestScore, updatedAt: new Date().toISOString() } },
-          { merge: true }
+          {
+            best_score: {
+              value: newBestScore,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          { merge: true },
         );
         console.log("User best score updated successfully.");
       } else {
@@ -362,7 +375,7 @@ async function updateUserBestScore(
 
 async function updateUserCurrency(
   email: string,
-  currency: number
+  currency: number,
 ): Promise<void> {
   const db = getFirestore();
   const userRef = doc(db, "users", email);
@@ -379,8 +392,13 @@ async function updateUserCurrency(
       if (currency > 0) {
         await setDoc(
           userRef,
-          { currency: { value: currentCurrency + currency, updatedAt: new Date().toISOString() } },
-          { merge: true }
+          {
+            currency: {
+              value: currentCurrency + currency,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          { merge: true },
         );
         console.log("User best score updated successfully.");
       } else {
@@ -398,10 +416,9 @@ async function updateUserCurrency(
   }
 }
 
-
 async function updateUserTotalGames(
   email: string,
-  value: number
+  value: number,
 ): Promise<void> {
   const db = getFirestore();
   const userRef = doc(db, "users", email);
@@ -418,8 +435,13 @@ async function updateUserTotalGames(
       if (value > 0) {
         await setDoc(
           userRef,
-          { total_games: { value: currentTotalGames + value, updatedAt: new Date().toISOString() } },
-          { merge: true }
+          {
+            total_games: {
+              value: currentTotalGames + value,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          { merge: true },
         );
         console.log("User number of games updated successfully.");
       } else {
@@ -441,7 +463,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
   try {
     // Initialize Firebase internally
     const { db } = await initFirebase();
-    
+
     const usersCollection = collection(db, "users");
     const userDocs = await getDocs(usersCollection);
     console.log("userDocs LENGHT", userDocs.docs.length);
@@ -451,7 +473,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
           ({
             id: doc.id,
             ...doc.data(),
-          } as FirestoreUser)
+          }) as FirestoreUser,
       )
       .filter((user) => user.best_score?.value !== undefined)
       .map((user) => ({
@@ -474,7 +496,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
       description: "ranking do jogo contigo",
       leaderboard,
       date: new Date().toISOString(),
-      type:"SCORE_ORDER_LARGER_IS_BETTER",
+      type: "SCORE_ORDER_LARGER_IS_BETTER",
     };
 
     await axios.post(
@@ -485,7 +507,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
           "x-api-key": process.env.NEXT_PUBLIC_GAMIFICATION_API_KEY || "",
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     console.log("Leaderboard sent successfully");
@@ -495,10 +517,9 @@ async function sendLeaderboardToGamification(): Promise<void> {
   }
 }
 
-
 async function updateMatchHistory(
   email: string,
-  matchData: Omit<MatchHistoryEntry, 'id'>
+  matchData: Omit<MatchHistoryEntry, "id">,
 ): Promise<void> {
   const db = getFirestore();
   const userRef = doc(db, "users", email);
@@ -511,16 +532,16 @@ async function updateMatchHistory(
       const currentHistory = userData.match_history || [];
 
       // Encontrar o maior ID atual para gerar o próximo
-      const maxId = currentHistory.reduce((max: number, match: MatchHistoryEntry) => 
-        Math.max(max, match.id), 
-      0);
-      
+      const maxId = currentHistory.reduce(
+        (max: number, match: MatchHistoryEntry) => Math.max(max, match.id),
+        0,
+      );
 
       // Criar nova entrada com ID incrementado
       const newMatch = {
         ...matchData,
         id: maxId + 1,
-        date: new Date(matchData.date).toISOString() // Garantir formato consistente
+        date: new Date(matchData.date).toISOString(), // Garantir formato consistente
       };
 
       // Adicionar nova partida ao início do array (mais recente primeiro)
@@ -531,20 +552,22 @@ async function updateMatchHistory(
 
       await setDoc(
         userRef,
-        { 
-          match_history: limitedHistory 
+        {
+          match_history: limitedHistory,
         },
-        { merge: true }
+        { merge: true },
       );
       console.log("Match history updated successfully.");
     } else {
       // Criar documento com primeira entrada do histórico
       await setDoc(userRef, {
-        match_history: [{
-          ...matchData,
-          id: 1,
-          date: new Date(matchData.date).toISOString()
-        }]
+        match_history: [
+          {
+            ...matchData,
+            id: 1,
+            date: new Date(matchData.date).toISOString(),
+          },
+        ],
       });
       console.log("User document created with first match history entry.");
     }
@@ -565,9 +588,8 @@ export {
   updateUserBestScore,
   updateUserCurrency,
   updateUserTotalGames,
-  updateMatchHistory // Adicionar nova função às exportações
+  updateMatchHistory, // Adicionar nova função às exportações
 };
 
 // Re-exportar os tipos
 export type { UserData, MatchHistoryEntry };
-

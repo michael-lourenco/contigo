@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import { useSession } from "next-auth/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { GameStats } from "@/components/GameStats";
 import { DiceExpression } from "@/components/DiceExpression";
@@ -7,20 +8,25 @@ import { GridButtons } from "@/components/GridButtons";
 import { GameControls } from "@/components/GameControls";
 import { GameOverMessage } from "@/components/GameOverMessage";
 import { calculateService } from "@/services/calculate/CalculateService";
+import { useNavigation } from "@/hooks/useNavigation";
 import { UserInfo } from "@/components/UserInfo";
+import {
+  updateUserBestScore,
+  updateUserCurrency,
+  updateUserTotalGames,
+  updateMatchHistory,
+} from "@/services/firebase/FirebaseService";
 import {
   initFirebase,
   signInWithGoogle,
   signOutFromGoogle,
+  handleAuthResponse,
   UserData,
-  updateUserBestScore,
-  updateUserCurrency,
-  updateUserTotalGames,
-  updateMatchHistory
-} from "@/services/firebase/FirebaseService";
+} from "@/services/auth/NextAuthenticationService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { duplexPair } from "stream";
+import GameplayMenu from "@/components/gameplay/GameplayMenu";
 
 const AUDIO_URLS = {
   gameStart:
@@ -39,6 +45,17 @@ const possibleNumbers = [
 ];
 
 export default function ContiGoGame() {
+  const navigationService = useNavigation();
+
+  const handleNavigation = (path: string) => () => {
+    navigationService.navigateTo(path);
+  };
+
+  const { data: session, status } = useSession();
+  const [auth, setAuth] = useState<Auth | null>(null);
+  const [db, setDb] = useState<any>(null);
+  const [user, setUser] = useState<UserData | null>(null);
+
   const [errors, setErrors] = useState(3);
   const [successes, setSuccesses] = useState(0);
   const [generalTimer, setGeneralTimer] = useState(180);
@@ -47,7 +64,7 @@ export default function ContiGoGame() {
   const [gridValues, setGridValues] = useState<number[]>([]);
   const [remainNumbers, setRemainNumbers] = useState<number[]>([]);
   const [authenticatedButtons, setAuthenticatedButtons] = useState<number[]>(
-    []
+    [],
   );
   const [allDisabled, setAllDisabled] = useState(false);
   const [showExpressions, setShowExpressions] = useState(false);
@@ -61,9 +78,21 @@ export default function ContiGoGame() {
     wrongAnswer: null,
     correctAnswer: null,
   });
-  const [user, setUser] = useState<UserData | null>(null);
-  const [auth, setAuth] = useState<Auth | null>(null);
-  const [db, setDb] = useState<any>(null);
+
+  useEffect(() => {
+    const initializeAuth = async () => {
+      if (status === "authenticated" && session) {
+        const userData = await handleAuthResponse(session);
+        if (userData) {
+          setUser(userData);
+        }
+      } else if (status === "unauthenticated") {
+        setUser(null);
+      }
+    };
+
+    initializeAuth();
+  }, [session, status]);
 
   useEffect(() => {
     const initializeFirebase = async () => {
@@ -98,7 +127,7 @@ export default function ContiGoGame() {
 
   const fetchUserData = async (
     db: any,
-    email: string
+    email: string,
   ): Promise<UserData | null> => {
     try {
       const userRef = doc(db, "users", email);
@@ -116,36 +145,36 @@ export default function ContiGoGame() {
   };
 
   const handleLogin = async () => {
-    const { auth } = await initFirebase();
-    await signInWithGoogle(auth);
+    await signInWithGoogle();
   };
 
   const handleLogout = async () => {
-    if (auth) {
-      await signOutFromGoogle(auth);
-      setUser(null);
-    }
+    await signOutFromGoogle();
+    setUser(null);
   };
 
   function removeNumber(num: number, remainNumbers: number[]) {
-    const index = remainNumbers.indexOf(num); 
+    const index = remainNumbers.indexOf(num);
     if (index !== -1) {
       setRemainNumbers(remainNumbers.filter((_, i) => i !== index));
     } else {
       console.log(`Number ${num} not found in array.`);
     }
-    
   }
 
   function verifyNumbers(remainNumbers: number[]) {
-    
     for (let i = 0; i < remainNumbers.length; i++) {
-        const result = calculateService.resolve(parseInt(diceValues[0]), parseInt(diceValues[1]), parseInt(diceValues[2]), remainNumbers[i]);
-        if (result.valueFound) {
-            return true; 
-        }
+      const result = calculateService.resolve(
+        parseInt(diceValues[0]),
+        parseInt(diceValues[1]),
+        parseInt(diceValues[2]),
+        remainNumbers[i],
+      );
+      if (result.valueFound) {
+        return true;
+      }
     }
-    return false; 
+    return false;
   }
 
   useEffect(() => {
@@ -156,7 +185,7 @@ export default function ContiGoGame() {
           audio.addEventListener(
             "canplaythrough",
             () => resolve([key, audio]),
-            { once: true }
+            { once: true },
           );
           audio.addEventListener("error", reject);
           audio.load();
@@ -179,11 +208,11 @@ export default function ContiGoGame() {
       if (!muted && audioElements[audioKey]) {
         audioElements[audioKey]!.currentTime = 0;
         audioElements[audioKey]!.play().catch((error) =>
-          console.error("Audio playback failed", error)
+          console.error("Audio playback failed", error),
         );
       }
     },
-    [muted, audioElements]
+    [muted, audioElements],
   );
 
   const generateNewNumbers = useCallback(() => {
@@ -204,7 +233,7 @@ export default function ContiGoGame() {
     generateNewNumbers();
     setGridValues(possibleNumbers.sort(() => Math.random() - 0.5).slice(0, 64));
     setAuthenticatedButtons([]);
-    setRemainNumbers(possibleNumbers);    
+    setRemainNumbers(possibleNumbers);
     setAllDisabled(false);
     playAudio("gameStart");
   }, [generateNewNumbers, playAudio]);
@@ -212,52 +241,50 @@ export default function ContiGoGame() {
   const endGame = useCallback(() => {
     setIsPlaying(false);
     setGameOver(true);
-  
+
     queueMicrotask(async () => {
       if (!user) return;
-  
+
       const userScore = user.best_score?.value || 0;
       const newCurrency = (user.currency?.value || 0) + successes;
       const now = new Date();
-  
+
       await updateUserCurrency(user.email, successes);
-      
+
       await updateUserTotalGames(user.email, 1);
       await updateMatchHistory(user.email, {
         date: now,
         score: successes,
         errors: errors,
         duration: generalTimer.toString(),
-
-      })
+      });
 
       if (successes > userScore) {
         await updateUserBestScore(user.email, successes);
-        setUser(prev => {
+        setUser((prev) => {
           if (!prev) return null;
           return {
             ...prev,
-            best_score: { 
+            best_score: {
               value: successes,
-              updatedAt: now
-            }
+              updatedAt: now,
+            },
           };
         });
       }
-  
-      setUser(prev => {
+
+      setUser((prev) => {
         if (!prev) return null;
         return {
           ...prev,
-          currency: { 
+          currency: {
             value: newCurrency,
-            updatedAt: now
-          }
+            updatedAt: now,
+          },
         };
       });
     });
   }, [successes, user]);
-  
 
   useEffect(() => {
     if (gameOver || !isPlaying) {
@@ -265,7 +292,7 @@ export default function ContiGoGame() {
     }
 
     const timer = setInterval(() => {
-      if(!isPlaying) return;
+      if (!isPlaying) return;
       setGeneralTimer((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
@@ -277,12 +304,12 @@ export default function ContiGoGame() {
     }, 1000);
 
     return () => {
-      clearInterval(timer);      
+      clearInterval(timer);
     };
   }, [gameOver, endGame, isPlaying]);
 
   const handleGridItemClick = useCallback(
-    (value: number) => {      
+    (value: number) => {
       setAllDisabled(true);
 
       if (gameOver) return;
@@ -291,7 +318,7 @@ export default function ContiGoGame() {
         parseInt(diceValues[0]),
         parseInt(diceValues[1]),
         parseInt(diceValues[2]),
-        value
+        value,
       );
 
       if (result.valueFound) {
@@ -306,7 +333,7 @@ export default function ContiGoGame() {
             setRoundTimer((prev) => {
               if (prev <= 1) {
                 clearInterval(roundTimerInterval);
-                if (!gameOver) {                  
+                if (!gameOver) {
                   setAllDisabled(false);
                   generateNewNumbers();
                 }
@@ -327,7 +354,7 @@ export default function ContiGoGame() {
                 setRoundTimer((prev) => {
                   if (prev <= 1) {
                     clearInterval(roundTimerInterval);
-                    if (!gameOver) {                      
+                    if (!gameOver) {
                       setAllDisabled(false);
                       generateNewNumbers();
                     }
@@ -343,64 +370,61 @@ export default function ContiGoGame() {
         playAudio("wrongAnswer");
       }
     },
-    [diceValues, endGame, generateNewNumbers, playAudio]
+    [diceValues, endGame, generateNewNumbers, playAudio],
   );
 
-  const handleSkipClick = useCallback(
-    () => {      
-      setAllDisabled(true);
+  const handleSkipClick = useCallback(() => {
+    setAllDisabled(true);
 
-      if (gameOver) return;
+    if (gameOver) return;
 
-      const resultExists = verifyNumbers(remainNumbers)
+    const resultExists = verifyNumbers(remainNumbers);
 
-      if (!resultExists) {
-        playAudio("correctAnswer");
-        if (!gameOver) {
-          setRoundTimer(1);
-          const roundTimerInterval = setInterval(() => {
-            setRoundTimer((prev) => {
-              if (prev <= 1) {
-                clearInterval(roundTimerInterval);
-                if (!gameOver) {                  
-                  setAllDisabled(false);
-                  generateNewNumbers();
-                }
-                return 0;
+    if (!resultExists) {
+      playAudio("correctAnswer");
+      if (!gameOver) {
+        setRoundTimer(1);
+        const roundTimerInterval = setInterval(() => {
+          setRoundTimer((prev) => {
+            if (prev <= 1) {
+              clearInterval(roundTimerInterval);
+              if (!gameOver) {
+                setAllDisabled(false);
+                generateNewNumbers();
               }
-              return prev - 1;
-            });
-          }, 1000);
-        }
-      } else {
-        setErrors((prev) => {
-          if (prev - 1 <= 0) {
-            endGame();
-          } else {
-            if (!gameOver) {
-              setRoundTimer(1);
-              const roundTimerInterval = setInterval(() => {
-                setRoundTimer((prev) => {
-                  if (prev <= 1) {
-                    clearInterval(roundTimerInterval);
-                    if (!gameOver) {                      
-                      setAllDisabled(false);
-                      generateNewNumbers();
-                    }
-                    return 0;
-                  }
-                  return prev - 1;
-                });
-              }, 1000);
+              return 0;
             }
-          }
-          return prev - 1;
-        });
-        playAudio("wrongAnswer");
+            return prev - 1;
+          });
+        }, 1000);
       }
-    },
-    [diceValues, endGame, generateNewNumbers, playAudio]
-  );
+    } else {
+      setErrors((prev) => {
+        if (prev - 1 <= 0) {
+          endGame();
+        } else {
+          if (!gameOver) {
+            setRoundTimer(1);
+            const roundTimerInterval = setInterval(() => {
+              setRoundTimer((prev) => {
+                if (prev <= 1) {
+                  clearInterval(roundTimerInterval);
+                  if (!gameOver) {
+                    setAllDisabled(false);
+                    generateNewNumbers();
+                  }
+                  return 0;
+                }
+                return prev - 1;
+              });
+            }, 1000);
+          }
+        }
+        return prev - 1;
+      });
+      playAudio("wrongAnswer");
+    }
+  }, [diceValues, endGame, generateNewNumbers, playAudio]);
 
   const isAuthenticated = (value: number) =>
     authenticatedButtons.includes(value);
@@ -447,6 +471,11 @@ export default function ContiGoGame() {
           <GameOverMessage gameOver={gameOver} />
         </CardContent>
       </Card>
+      <GameplayMenu
+        onDashboard={handleNavigation("/player")}
+        onSettings={handleNavigation("/settings")}
+        onHowToPlay={handleNavigation("/how_to_play")}
+      />
     </div>
   );
 }

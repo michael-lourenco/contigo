@@ -38,7 +38,11 @@ export const GameControls: React.FC<GameControlsProps> = ({
       className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
       onClick={toggleMute}
     >
-      {muted ? <Icon name="PiSpeakerSimpleX" className="w-5 h-5" /> : <Icon name="PiSpeakerSimpleLow" className="w-5 h-5" />}
+      {muted ? (
+        <Icon name="PiSpeakerSimpleX" className="w-5 h-5" />
+      ) : (
+        <Icon name="PiSpeakerSimpleLow" className="w-5 h-5" />
+      )}
     </Button>
   </div>
 );
