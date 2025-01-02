@@ -1,8 +1,7 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 
 export interface PlayerMenuButtonProps {
-  label: string;
+  label: React.ReactNode;
   onClick: () => void;
 }
 
@@ -10,11 +9,12 @@ export const PlayerMenuButton: React.FC<PlayerMenuButtonProps> = ({
   label,
   onClick,
 }) => (
-  <Button
-    className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
-    variant="outline"
+  <button
+    className="flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 text-white hover:bg-slate-700"
     onClick={onClick}
   >
     {label}
-  </Button>
+  </button>
 );
+
+export default PlayerMenuButton;
