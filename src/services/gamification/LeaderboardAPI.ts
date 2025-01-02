@@ -65,9 +65,9 @@ export const findFirstByOwnerAndDate = async (): Promise<Leaderboard> => {
     const now = new Date();
     const yesterday = new Date(now);
     yesterday.setDate(now.getDate() - 1);
-    yesterday.setUTCHours(9, 20, 0, 0); // Configura as horas para 09:20:00
+    yesterday.setUTCHours(9, 20, 0, 0);
 
-    const date = yesterday.toISOString(); // Converte para o formato ISO 8601
+    const date = yesterday.toISOString();
 
     const response = await axios({
       method: "get",

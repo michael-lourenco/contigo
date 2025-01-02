@@ -31,10 +31,6 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
     }
   }, [user]);
 
-  const handleDonation = () => {
-    window.open("https://buy.stripe.com/00g02GeSnaJC12g5kk", "_blank");
-  };
-
   return (
     <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
       {user ? (

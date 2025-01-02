@@ -1,4 +1,3 @@
-// src/app/api/leaderboard/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { sendLeaderboardToGamification } from "@/services/firebase/FirebaseService";
 

@@ -26,7 +26,6 @@ import {
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-// Interface para o histórico de partidas
 interface MatchHistoryEntry {
   id: number;
   date: Date;
@@ -57,7 +56,7 @@ interface UserData {
   total_games: TotalGamesData;
   email: string;
   match_history?: MatchHistoryEntry[];
-  photoURL: string; // Adicionando o novo campo
+  photoURL: string;
 }
 
 interface LeaderboardEntry {
@@ -114,7 +113,6 @@ interface LeaderboardPayload {
 let globalDisplayName: string = "";
 let globalUser: UserData | null = null;
 
-// Função para buscar a configuração do Firebase no backend
 async function firebaseConfig(): Promise<Record<string, string> | null> {
   try {
     const backendResponse = await fetch(
@@ -140,7 +138,6 @@ async function firebaseConfig(): Promise<Record<string, string> | null> {
   }
 }
 
-// Inicializar Firebase com a configuração dinâmica
 async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
   const config = await firebaseConfig();
   if (config) {
@@ -168,13 +165,12 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
       }
     });
 
-    return { auth, db }; // Não retorna mais null
+    return { auth, db };
   } else {
     throw new Error("Firebase initialization failed.");
   }
 }
 
-// Função para buscar os dados do usuário
 async function fetchUserData(
   db: Firestore,
   email: string,
@@ -206,42 +202,6 @@ async function signInWithGoogle(auth: Auth): Promise<void> {
   }
 }
 
-// Função para tratar a resposta do Google
-// async function handleCredentialResponse(
-//   response: UserCredential
-// ): Promise<void> {
-//   console.log(`response: ${JSON.stringify(response.user.photoURL)}`);
-//   const idToken = (response as any)._tokenResponse.idToken;
-
-//   try {
-//     const backendResponse = await fetch(
-//       "https://contigo-api-git-master-michaellourencos-projects.vercel.app/login",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ idToken }),
-//       }
-//     );
-
-//     if (backendResponse.ok) {
-
-//       const userData: UserData = await backendResponse.json();
-//       localStorage.setItem("user", JSON.stringify(userData));
-//       userData.photoURL = response?.user?.photoURL || "";
-//       console.log(`userData: ${JSON.stringify(userData)}`);
-//       globalUser = userData;
-//       displayUserInfo(userData.displayName, userData.best_score.value, userData.currency.value, userData.total_games.value, userData.photoURL);
-//     } else {
-//       console.error("Erro ao fazer login:", backendResponse.statusText);
-//     }
-//   } catch (error) {
-//     console.error("Erro durante o login:", error);
-//   }
-// }
-
-// Função para tratar a resposta do Google
 async function handleCredentialResponse(
   response: UserCredential,
 ): Promise<void> {
@@ -264,10 +224,8 @@ async function handleCredentialResponse(
       const userData: UserData = await backendResponse.json();
       const googlePhotoURL = response.user.photoURL || "";
 
-      // Adicionar `photoURL` ao objeto `userData`
       userData.photoURL = googlePhotoURL;
 
-      // Verificar no Firebase se o `photoURL` já existe
       const userRef = doc(getFirestore(), "users", userData.email);
       const userDoc = await getDoc(userRef);
 
@@ -275,7 +233,6 @@ async function handleCredentialResponse(
         const existingData = userDoc.data() as UserData;
 
         if (!existingData.photoURL || existingData.photoURL === "") {
-          // Atualizar o campo `photoURL` no Firebase
           await updateDoc(userRef, { photoURL: googlePhotoURL });
           console.log("PhotoURL atualizado no Firebase.");
         } else {
@@ -304,18 +261,16 @@ async function handleCredentialResponse(
   }
 }
 
-// Função para logout
 async function signOutFromGoogle(auth: Auth): Promise<void> {
   try {
     await signOut(auth);
     localStorage.removeItem("user");
-    displayUserInfo("", 0, 0, 0, ""); // Limpa as informações ao fazer logout
+    displayUserInfo("", 0, 0, 0, "");
   } catch (error) {
     console.error("Erro durante o logout:", error);
   }
 }
 
-// Função para exibir as informações do usuário
 function displayUserInfo(
   displayName: string,
   best_score: number,
@@ -324,7 +279,6 @@ function displayUserInfo(
   photoURL: string,
 ): void {
   globalDisplayName = displayName;
-  // Exibir informações do usuário na interface Next.js
   console.log(
     `User: ${displayName}, Best Score: ${best_score}, Currency: ${currency}, Total Games: ${total_games}, Photo URL: ${photoURL}`,
   );
@@ -340,11 +294,9 @@ async function updateUserBestScore(
   try {
     const userSnap = await getDoc(userRef);
 
-    // Verifica se o campo `best_score` já existe
     if (userSnap.exists()) {
       const userData = userSnap.data();
 
-      // Atualiza apenas se o novo score for maior ou se o campo não existir
       const currentBestScore = userData.best_score?.value || 0;
       if (newBestScore > currentBestScore) {
         await setDoc(
@@ -362,7 +314,6 @@ async function updateUserBestScore(
         console.log("New score is not higher. No update performed.");
       }
     } else {
-      // Cria o documento com o campo `best_score` se ele não existir
       await setDoc(userRef, {
         best_score: { value: newBestScore, updatedAt: new Date() },
       });
@@ -383,11 +334,9 @@ async function updateUserCurrency(
   try {
     const userSnap = await getDoc(userRef);
 
-    // Verifica se o campo `currency` já existe
     if (userSnap.exists()) {
       const userData = userSnap.data();
 
-      // Atualiza apenas se o novo score for maior ou se o campo não existir
       const currentCurrency = userData.currency?.value || 0;
       if (currency > 0) {
         await setDoc(
@@ -405,7 +354,6 @@ async function updateUserCurrency(
         console.log("New score is not higher. No update performed.");
       }
     } else {
-      // Cria o documento com o campo `currency` se ele não existir
       await setDoc(userRef, {
         currency: { value: currency, updatedAt: new Date() },
       });
@@ -426,11 +374,9 @@ async function updateUserTotalGames(
   try {
     const userSnap = await getDoc(userRef);
 
-    // Verifica se o campo `currency` já existe
     if (userSnap.exists()) {
       const userData = userSnap.data();
 
-      // Atualiza apenas se o novo score for maior ou se o campo não existir
       const currentTotalGames = userData.total_games?.value || 0;
       if (value > 0) {
         await setDoc(
@@ -448,7 +394,6 @@ async function updateUserTotalGames(
         console.log("New score is not higher. No update performed.");
       }
     } else {
-      // Cria o documento com o campo `currency` se ele não existir
       await setDoc(userRef, {
         total_games: { value: value, updatedAt: new Date() },
       });
@@ -461,7 +406,6 @@ async function updateUserTotalGames(
 
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
-    // Initialize Firebase internally
     const { db } = await initFirebase();
 
     const usersCollection = collection(db, "users");
@@ -531,23 +475,19 @@ async function updateMatchHistory(
       const userData = userSnap.data();
       const currentHistory = userData.match_history || [];
 
-      // Encontrar o maior ID atual para gerar o próximo
       const maxId = currentHistory.reduce(
         (max: number, match: MatchHistoryEntry) => Math.max(max, match.id),
         0,
       );
 
-      // Criar nova entrada com ID incrementado
       const newMatch = {
         ...matchData,
         id: maxId + 1,
-        date: new Date(matchData.date).toISOString(), // Garantir formato consistente
+        date: new Date(matchData.date).toISOString(),
       };
 
-      // Adicionar nova partida ao início do array (mais recente primeiro)
       const updatedHistory = [newMatch, ...currentHistory];
 
-      // Manter apenas as últimas 10 partidas
       const limitedHistory = updatedHistory.slice(0, 10);
 
       await setDoc(
@@ -559,7 +499,6 @@ async function updateMatchHistory(
       );
       console.log("Match history updated successfully.");
     } else {
-      // Criar documento com primeira entrada do histórico
       await setDoc(userRef, {
         match_history: [
           {
@@ -577,7 +516,6 @@ async function updateMatchHistory(
   }
 }
 
-// Atualizar exportações
 export {
   initFirebase,
   signInWithGoogle,
@@ -588,8 +526,7 @@ export {
   updateUserBestScore,
   updateUserCurrency,
   updateUserTotalGames,
-  updateMatchHistory, // Adicionar nova função às exportações
+  updateMatchHistory,
 };
 
-// Re-exportar os tipos
 export type { UserData, MatchHistoryEntry };

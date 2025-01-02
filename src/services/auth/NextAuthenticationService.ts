@@ -47,7 +47,6 @@ interface UserData {
 
 let globalUser: UserData | null = null;
 
-// Initialize Firebase (only for Firestore)
 async function initFirebase() {
   try {
     const backendResponse = await fetch(
@@ -75,7 +74,6 @@ async function initFirebase() {
   }
 }
 
-// Fetch user data from Firestore
 async function fetchUserData(email: string): Promise<UserData | null> {
   try {
     const { db } = await initFirebase();
@@ -92,7 +90,6 @@ async function fetchUserData(email: string): Promise<UserData | null> {
   }
 }
 
-// Handle user authentication
 async function handleAuthResponse(
   session: Session | null,
 ): Promise<UserData | null> {
@@ -104,7 +101,6 @@ async function handleAuthResponse(
     let userData = await fetchUserData(email);
 
     if (!userData) {
-      // Create new user in Firestore if they don't exist
       userData = {
         displayName: session.user.name || "",
         email: email,
@@ -119,7 +115,6 @@ async function handleAuthResponse(
       await setDoc(userRef, userData);
     }
 
-    // Update photo URL if it changed
     if (session.user.image && userData.photoURL !== session.user.image) {
       const userRef = doc(db, "users", email);
       await updateDoc(userRef, { photoURL: session.user.image });
@@ -135,7 +130,6 @@ async function handleAuthResponse(
   }
 }
 
-// Sign in with Google
 async function signInWithGoogle(): Promise<void> {
   try {
     await signIn("google", { callbackUrl: "/player" });
@@ -145,7 +139,6 @@ async function signInWithGoogle(): Promise<void> {
   }
 }
 
-// Sign out
 async function signOutUser(): Promise<void> {
   try {
     await signOut({ callbackUrl: "/player" });
