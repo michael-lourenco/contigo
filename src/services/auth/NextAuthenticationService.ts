@@ -71,7 +71,7 @@ interface UserData {
   photoURL: string;
 }
 
-const USERS_COLLECTION = "users";
+
 
 let globalUser: UserData | null = null;
 
@@ -129,7 +129,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
 
 async function fetchUserData(db: Firestore, email: string): Promise<UserData | null> {
   try {
-    const userRef = doc(db, "users", email);
+    const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
     const docSnap: DocumentSnapshot<DocumentData> = await getDoc(userRef);
 
     if (docSnap.exists()) {
@@ -162,12 +162,12 @@ async function handleAuthResponse(session: Session | null): Promise<UserData | n
         match_history: [],
       };
 
-      const userRef = doc(db, "users", email);
+      const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
       await setDoc(userRef, userData);
     }
 
     if (session.user.image && userData.photoURL !== session.user.image) {
-      const userRef = doc(db, "users", email);
+      const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
       await updateDoc(userRef, { photoURL: session.user.image });
       userData.photoURL = session.user.image;
     }
@@ -203,7 +203,7 @@ async function signOutUser(): Promise<void> {
 
 async function updateUserBestScore(email: string, newBestScore: number): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
@@ -243,7 +243,7 @@ async function updateUserCurrency(
   value: number,
 ): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
@@ -283,7 +283,7 @@ async function updateUserTotalGames(
   value: number,
 ): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
@@ -322,7 +322,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
   try {
     const { db } = await initFirebase();
 
-    const usersCollection = collection(db, "users");
+    const usersCollection = collection(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!);
     
     const userDocs = await getDocs(usersCollection);
 
@@ -382,7 +382,7 @@ async function updateMatchHistory(
 ): Promise<void> {
   const db = getFirestore();
 
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
