@@ -11,17 +11,15 @@ import { calculateService } from "@/services/calculate/CalculateService";
 import { useNavigation } from "@/hooks/useNavigation";
 import { UserInfo } from "@/components/UserInfo";
 import {
-  updateUserBestScore,
-  updateUserCurrency,
-  updateUserTotalGames,
-  updateMatchHistory,
-} from "@/services/firebase/FirebaseService";
-import {
   initFirebase,
   signInWithGoogle,
   signOutFromGoogle,
   handleAuthResponse,
   UserData,
+  updateUserBestScore,
+  updateUserCurrency,
+  updateUserTotalGames,
+  updateMatchHistory,
 } from "@/services/auth/NextAuthenticationService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";

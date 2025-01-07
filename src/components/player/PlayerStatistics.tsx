@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UserData } from "@/services/firebase/FirebaseService";
+import { UserData } from "@/services/auth/NextAuthenticationService";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Trophy, Coins } from "lucide-react";
