@@ -15,7 +15,10 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   handleLogin,
   handleLogout,
 }) => {
-  const localStorageUser = localStorage.getItem("user") != null ? localStorage.getItem("user"): {};
+  const localStorageUser =
+    typeof window !== "undefined" && localStorage.getItem("user") !== null
+      ? JSON.parse(localStorage.getItem("user") || "{}")
+      : null;
   const handleDonation = () => {
     window.open("https://buy.stripe.com/00g02GeSnaJC12g5kk", "_blank");
   };
