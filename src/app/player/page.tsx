@@ -34,8 +34,10 @@ export default function PlayerDashboard() {
     navigationService.navigateTo(path);
   };
 
-  const localStorageUser = localStorage.getItem("user") != null ? localStorage.getItem("user"): {};
-
+  const localStorageUser =
+    typeof window !== "undefined" && localStorage.getItem("user") !== null
+      ? JSON.parse(localStorage.getItem("user") || "{}")
+      : null;
 
   const { data: session, status } = useSession();
   const [auth, setAuth] = useState<Auth | null>(null);
