@@ -15,16 +15,17 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   handleLogin,
   handleLogout,
 }) => {
+  const localStorageUser = localStorage.getItem("user") != null ? localStorage.getItem("user"): {};
   const handleDonation = () => {
     window.open("https://buy.stripe.com/00g02GeSnaJC12g5kk", "_blank");
   };
 
   return (
     <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
-      {user ? (
+      {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
         <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
           <span className="flex items-center text-lg font-semibold truncate">
-            {user.displayName}
+            {user?.displayName}
             <Icon
               name="PiTarget"
               className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"

@@ -15,6 +15,7 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
   handleLogin,
   handleLogout,
 }) => {
+  const localStorageUser = localStorage.getItem("user") != null ? localStorage.getItem("user"): {};
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
 
   return (
     <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
-      {user ? (
+      {user || (localStorageUser && localStorage.getItem("user") != null) ? (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-slate-900 text-slate-50">
           {/* Player Profile */}
           <Card className="md:col-span-1 bg-slate-900 text-slate-50">
@@ -45,7 +46,7 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
                 />
                 <AvatarFallback>MP</AvatarFallback>
               </Avatar>
-              <CardTitle className="mt-4">{user.displayName}</CardTitle>
+              <CardTitle className="mt-4">{user?.displayName}</CardTitle>
             </CardHeader>
           </Card>
 

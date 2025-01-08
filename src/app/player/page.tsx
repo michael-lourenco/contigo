@@ -34,10 +34,14 @@ export default function PlayerDashboard() {
     navigationService.navigateTo(path);
   };
 
+  const localStorageUser = localStorage.getItem("user") != null ? localStorage.getItem("user"): {};
+
+
   const { data: session, status } = useSession();
   const [auth, setAuth] = useState<Auth | null>(null);
   const [db, setDb] = useState<any>(null);
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<UserData | null>(localStorageUser as UserData || null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -49,6 +53,7 @@ export default function PlayerDashboard() {
       } else if (status === "unauthenticated") {
         setUser(null);
       }
+      setLoading(false); // Finalizando carregamento
     };
 
     initializeAuth();
@@ -88,6 +93,7 @@ export default function PlayerDashboard() {
         } else {
           setUser(null);
         }
+        setLoading(false); 
       });
 
       return () => unsubscribe();
@@ -112,6 +118,14 @@ export default function PlayerDashboard() {
       return null;
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Carregando...</p>
+      </div>
+    ); 
+  }
 
   return (
     <div className="container mx-auto p-6 space-y-6 bg-slate-900 text-slate-50">
