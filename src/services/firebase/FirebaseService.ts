@@ -176,7 +176,7 @@ async function fetchUserData(
   email: string,
 ): Promise<UserData | null> {
   try {
-    const userRef = doc(db, "users", email);
+    const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
     const docSnap: DocumentSnapshot<DocumentData> = await getDoc(userRef);
 
     if (docSnap.exists()) {
@@ -226,7 +226,7 @@ async function handleCredentialResponse(
 
       userData.photoURL = googlePhotoURL;
 
-      const userRef = doc(getFirestore(), "users", userData.email);
+      const userRef = doc(getFirestore(), process.env.NEXT_PUBLIC_USERS_COLLECTION!, userData.email);
       const userDoc = await getDoc(userRef);
 
       if (userDoc.exists()) {
@@ -289,7 +289,7 @@ async function updateUserBestScore(
   newBestScore: number,
 ): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
@@ -329,7 +329,7 @@ async function updateUserCurrency(
   currency: number,
 ): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
@@ -369,7 +369,7 @@ async function updateUserTotalGames(
   value: number,
 ): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);
@@ -408,7 +408,7 @@ async function sendLeaderboardToGamification(): Promise<void> {
   try {
     const { db } = await initFirebase();
 
-    const usersCollection = collection(db, "users");
+    const usersCollection = collection(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!);
     const userDocs = await getDocs(usersCollection);
     console.log("userDocs LENGHT", userDocs.docs.length);
     const leaderboard: LeaderboardEntry[] = userDocs.docs
@@ -466,7 +466,7 @@ async function updateMatchHistory(
   matchData: Omit<MatchHistoryEntry, "id">,
 ): Promise<void> {
   const db = getFirestore();
-  const userRef = doc(db, "users", email);
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
 
   try {
     const userSnap = await getDoc(userRef);

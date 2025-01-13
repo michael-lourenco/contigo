@@ -107,7 +107,7 @@ export default function PlayerDashboard() {
     email: string,
   ): Promise<UserData | null> => {
     try {
-      const userRef = doc(db, "users", email);
+      const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
       const docSnap = await getDoc(userRef);
 
       if (docSnap.exists()) {
