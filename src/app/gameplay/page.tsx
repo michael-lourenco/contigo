@@ -11,10 +11,12 @@ import { calculateService } from "@/services/calculate/CalculateService";
 import { useNavigation } from "@/hooks/useNavigation";
 import { UserInfo } from "@/components/UserInfo";
 import {
-  initFirebase,
   signInWithGoogle,
   signOutFromGoogle,
   handleAuthResponse,
+} from "@/services/auth/NextAuthenticationService";
+import {
+  initFirebase,
   UserData,
   updateUserBestScore,
   updateUserCurrency,
@@ -23,7 +25,7 @@ import {
   initUserFirebase,
   dbFromInit,
   authFromInit,
-} from "@/services/auth/NextAuthenticationService";
+} from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import GameplayMenu from "@/components/gameplay/GameplayMenu";
@@ -82,7 +84,7 @@ export default function ContiGoGame() {
   useEffect(() => {
     const initializeAuth = async () => {
       if (status === "authenticated" && session) {
-        const userData = await handleAuthResponse(session);
+        const userData = await handleAuthResponse(session, dbFromInit);
         if (userData) {
           setUser(userData);
         }
@@ -112,7 +114,7 @@ export default function ContiGoGame() {
     if (auth) {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
-          const userData = await fetchUserData(db, user.email!);
+          const userData = await fetchUserData(dbFromInit, user.email!);
           if (userData) {
             setUser(userData);
           }
@@ -249,18 +251,18 @@ export default function ContiGoGame() {
       const newCurrency = (user.currency?.value || 0) + successes;
       const now = new Date();
 
-      await updateUserCurrency(user.email, successes);
+      await updateUserCurrency(user.email, successes, dbFromInit);
 
-      await updateUserTotalGames(user.email, 1);
+      await updateUserTotalGames(user.email, 1, dbFromInit);
       await updateMatchHistory(user.email, {
         date: now,
         score: successes,
         errors: errors,
         duration: generalTimer.toString(),
-      });
+      }, dbFromInit);
 
       if (successes > userScore) {
-        await updateUserBestScore(user.email, successes);
+        await updateUserBestScore(user.email, successes, dbFromInit);
         setUser((prev) => {
           if (!prev) return null;
           return {

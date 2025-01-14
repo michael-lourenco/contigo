@@ -3,15 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import {
-  initFirebase,
   signInWithGoogle,
   signOutFromGoogle,
   handleAuthResponse,
-  UserData,
-  initUserFirebase,
-  authFromInit,
-  dbFromInit
 } from "@/services/auth/NextAuthenticationService";
+import {
+  initFirebase,
+  UserData,
+  updateUserBestScore,
+  updateUserCurrency,
+  updateUserTotalGames,
+  updateMatchHistory,
+  initUserFirebase,
+  dbFromInit,
+  authFromInit,
+} from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -51,7 +57,7 @@ export default function PlayerDashboard() {
   useEffect(() => {
     const initializeAuth = async () => {
       if (status === "authenticated" && session) {
-        const userData = await handleAuthResponse(session);
+        const userData = await handleAuthResponse(session, dbFromInit);
         if (userData) {
           setUser(userData);
         }
