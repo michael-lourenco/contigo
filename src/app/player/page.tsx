@@ -8,6 +8,9 @@ import {
   signOutFromGoogle,
   handleAuthResponse,
   UserData,
+  initUserFirebase,
+  authFromInit,
+  dbFromInit
 } from "@/services/auth/NextAuthenticationService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -72,10 +75,10 @@ export default function PlayerDashboard() {
 
   useEffect(() => {
     const initializeFirebase = async () => {
-      const firebaseInstance = await initFirebase();
+      const firebaseInstance = await initUserFirebase(authFromInit, dbFromInit);
       if (firebaseInstance) {
-        setAuth(firebaseInstance.auth);
-        setDb(firebaseInstance.db);
+        setAuth(firebaseInstance.authFromInit);
+        setDb(firebaseInstance.dbFromInit);
       } else {
         console.error("Falha na inicialização do Firebase");
       }

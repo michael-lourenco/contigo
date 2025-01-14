@@ -113,37 +113,28 @@ interface LeaderboardPayload {
 let globalDisplayName: string = "";
 let globalUser: UserData | null = null;
 
-async function firebaseConfig(): Promise<Record<string, string> | null> {
-  try {
-    const backendResponse = await fetch(
-      "https://contigo-api-git-master-michaellourencos-projects.vercel.app/firebaseConfig",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (!backendResponse.ok) {
-      console.error("Failed to fetch config:", backendResponse.statusText);
-      return null;
-    }
-
-    const data = await backendResponse.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching Firebase config:", error);
-    return null;
-  }
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!
 }
 
-async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
-  const config = await firebaseConfig();
-  if (config) {
-    const app: FirebaseApp = initializeApp(config);
-    const auth: Auth = getAuth(app);
-    const db: Firestore = getFirestore(app);
+function initFirebase(){
+  const config = firebaseConfig;
+
+  const app: FirebaseApp = initializeApp(config);
+  const auth: Auth = getAuth(app);
+  const db: Firestore = getFirestore(app);
+
+  return { auth, db };
+
+}
+
+const {db, auth} = initFirebase();
+async function initUserFirebase(auth: Auth, db: Firestore) {
 
     await setPersistence(auth, browserLocalPersistence);
 
@@ -166,9 +157,6 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
     });
 
     return { auth, db };
-  } else {
-    throw new Error("Firebase initialization failed.");
-  }
 }
 
 async function fetchUserData(
@@ -201,6 +189,7 @@ async function signInWithGoogle(auth: Auth): Promise<void> {
     console.error("Erro durante o login:", error);
   }
 }
+
 
 async function handleCredentialResponse(
   response: UserCredential,
@@ -527,6 +516,9 @@ export {
   updateUserCurrency,
   updateUserTotalGames,
   updateMatchHistory,
+  initUserFirebase,
+  db,
+  auth
 };
 
 export type { UserData, MatchHistoryEntry };

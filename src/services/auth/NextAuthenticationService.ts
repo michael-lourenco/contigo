@@ -75,43 +75,38 @@ interface UserData {
 
 let globalUser: UserData | null = null;
 
-async function firebaseConfig(): Promise<Record<string, string> | null> {
-  try {
-    const backendResponse = await fetch(
-      "https://contigo-api-git-master-michaellourencos-projects.vercel.app/firebaseConfig",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (!backendResponse.ok) {
-      console.error("Failed to fetch config:", backendResponse.statusText);
-      return null;
-    }
-
-    const data = await backendResponse.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching Firebase config:", error);
-    return null;
-  }
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!
 }
 
-async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
-  const config = await firebaseConfig();
-  if (config) {
-    const app = initializeApp(config);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+function initFirebase(){
+  const config = firebaseConfig;
 
-    await setPersistence(auth, browserLocalPersistence);
+  const app = initializeApp(config);
+  const authFromInit = getAuth(app);
+  const dbFromInit = getFirestore(app);
 
-    onAuthStateChanged(auth, async (user) => {
+
+
+  return { authFromInit, dbFromInit };
+
+}
+
+const {dbFromInit, authFromInit} = initFirebase();
+async function initUserFirebase(authFromInit: Auth, dbFromInit: Firestore) {
+
+    await setPersistence(authFromInit, browserLocalPersistence);
+
+    await setPersistence(authFromInit, browserLocalPersistence);
+
+    onAuthStateChanged(authFromInit, async (user) => {
       if (user) {
-        globalUser = await fetchUserData(db, user.email!);
+        globalUser = await fetchUserData(dbFromInit, user.email!);
         if (globalUser) {
           localStorage.setItem("user", JSON.stringify(globalUser));
           displayUserInfo(globalUser);
@@ -121,10 +116,7 @@ async function initFirebase(): Promise<{ auth: Auth; db: Firestore }> {
       }
     });
 
-    return { auth, db };
-  } else {
-    throw new Error("Firebase initialization failed.");
-  }
+    return { authFromInit, dbFromInit };
 }
 
 async function fetchUserData(db: Firestore, email: string): Promise<UserData | null> {
@@ -147,9 +139,9 @@ async function handleAuthResponse(session: Session | null): Promise<UserData | n
   if (!session?.user?.email) return null;
 
   try {
-    const { db } = await initFirebase();
+    const { dbFromInit } = await initFirebase();
     const email = session.user.email;
-    let userData = await fetchUserData(db, email);
+    let userData = await fetchUserData(dbFromInit, email);
 
     if (!userData) {
       userData = {
@@ -162,12 +154,12 @@ async function handleAuthResponse(session: Session | null): Promise<UserData | n
         match_history: [],
       };
 
-      const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
+      const userRef = doc(dbFromInit, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
       await setDoc(userRef, userData);
     }
 
     if (session.user.image && userData.photoURL !== session.user.image) {
-      const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
+      const userRef = doc(dbFromInit, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
       await updateDoc(userRef, { photoURL: session.user.image });
       userData.photoURL = session.user.image;
     }
@@ -320,9 +312,9 @@ async function updateUserTotalGames(
 
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
-    const { db } = await initFirebase();
+    const { dbFromInit } = await initFirebase();
 
-    const usersCollection = collection(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!);
+    const usersCollection = collection(dbFromInit, process.env.NEXT_PUBLIC_USERS_COLLECTION!);
     
     const userDocs = await getDocs(usersCollection);
 
@@ -449,6 +441,9 @@ export {
   updateUserCurrency,
   updateUserTotalGames,
   updateMatchHistory,
+  initUserFirebase,
+  dbFromInit,
+  authFromInit
 };
 
 export type { UserData, MatchHistoryEntry };
