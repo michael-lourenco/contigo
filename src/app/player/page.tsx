@@ -8,23 +8,18 @@ import {
   handleAuthResponse,
 } from "@/services/auth/NextAuthenticationService";
 import {
-  initFirebase,
   UserData,
-  updateUserBestScore,
-  updateUserCurrency,
-  updateUserTotalGames,
-  updateMatchHistory,
   initUserFirebase,
   dbFromInit,
   authFromInit,
 } from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { doc, getDoc } from "firebase/firestore";
 import { UserInfo } from "@/components/UserInfo";
 import { PlayerStatistics } from "@/components/player/PlayerStatistics";
 import { useNavigation } from "@/hooks/useNavigation";
 import { PlayerMenu } from "@/components/player/PlayerMenu";
+import { MatchHistory } from "@/components/player/MatchHistory";
 
 const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {
@@ -51,7 +46,9 @@ export default function PlayerDashboard() {
   const { data: session, status } = useSession();
   const [auth, setAuth] = useState<Auth | null>(null);
   const [db, setDb] = useState<any>(null);
-  const [user, setUser] = useState<UserData | null>(localStorageUser as UserData || null);
+  const [user, setUser] = useState<UserData | null>(
+    (localStorageUser as UserData) || null
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -104,7 +101,7 @@ export default function PlayerDashboard() {
         } else {
           setUser(null);
         }
-        setLoading(false); 
+        setLoading(false);
       });
 
       return () => unsubscribe();
@@ -113,7 +110,7 @@ export default function PlayerDashboard() {
 
   const fetchUserData = async (
     db: any,
-    email: string,
+    email: string
   ): Promise<UserData | null> => {
     try {
       const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
@@ -135,7 +132,7 @@ export default function PlayerDashboard() {
       <div className="flex justify-center items-center h-screen">
         <p>Carregando...</p>
       </div>
-    ); 
+    );
   }
 
   return (
@@ -154,57 +151,23 @@ export default function PlayerDashboard() {
             handleLogin={handleLogin}
             handleLogout={handleLogout}
           />
-          {/* Match History */}
-          <Card className="bg-slate-900 text-slate-50">
-            <CardHeader className="bg-slate-900 text-slate-50">
-              <CardTitle className="bg-slate-900 text-slate-50">
-                Match History
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="relative overflow-x-auto bg-slate-900 text-slate-50">
-                <table className="w-full text-sm text-left">
-                  <thead className="text-xs uppercase bg-muted bg-slate-900 text-slate-50">
-                    <tr>
-                      <th scope="col" className="px-6 py-3">
-                        Date
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Score
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Errors
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Duration
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {user?.match_history
-                      ? user.match_history.map((match) => (
-                          <tr key={match.id} className="border-b">
-                            <td className="px-6 py-4">
-                              {formatDate(new Date(match.date))}
-                            </td>
-                            <td className="px-6 py-4 font-medium">
-                              {match.score}
-                            </td>
-                            <td className="px-6 py-4">{match.errors}</td>
-                            <td className="px-6 py-4">{match.duration}</td>
-                          </tr>
-                        ))
-                      : null}
-                  </tbody>
-                </table>
-              </div>
-              <PlayerMenu
-                onPlay={handleNavigation("/gameplay")}
-                onSettings={handleNavigation("/settings")}
-                onHowToPlay={handleNavigation("/how_to_play")}
-              />
-            </CardContent>
-          </Card>
+          <MatchHistory
+            matchHistory={
+              user?.match_history?.map((match) => ({
+                ...match,
+                id: String(match.id),
+                date:
+                  match.date instanceof Date
+                    ? match.date.toISOString()
+                    : match.date,
+              })) || null
+            }
+          />
+          <PlayerMenu
+            onPlay={handleNavigation("/gameplay")}
+            onSettings={handleNavigation("/settings")}
+            onHowToPlay={handleNavigation("/how_to_play")}
+          />
         </>
       )}
     </div>
