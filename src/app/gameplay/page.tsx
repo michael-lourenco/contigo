@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent } from "@/components/ui/card";
 import { GameStats } from "@/components/GameStats";
 import { DiceExpression } from "@/components/DiceExpression";
@@ -11,23 +11,12 @@ import { calculateService } from "@/services/calculate/CalculateService";
 import { useNavigation } from "@/hooks/useNavigation";
 import { UserInfo } from "@/components/UserInfo";
 import {
-  signInWithGoogle,
-  signOutFromGoogle,
-  handleAuthResponse,
-} from "@/services/auth/NextAuthenticationService";
-import {
-  initFirebase,
-  UserData,
   updateUserBestScore,
   updateUserCurrency,
   updateUserTotalGames,
   updateMatchHistory,
-  initUserFirebase,
   dbFromInit,
-  authFromInit,
 } from "@/services/firebase/FirebaseService";
-import { onAuthStateChanged, Auth } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import GameplayMenu from "@/components/gameplay/GameplayMenu";
 
 const AUDIO_URLS = {
@@ -48,15 +37,11 @@ const possibleNumbers = [
 
 export default function ContiGoGame() {
   const navigationService = useNavigation();
-
+  const { user, handleLogin, handleLogout } = useAuth();
   const handleNavigation = (path: string) => () => {
     navigationService.navigateTo(path);
   };
 
-  const { data: session, status } = useSession();
-  const [auth, setAuth] = useState<Auth | null>(null);
-  const [db, setDb] = useState<any>(null);
-  const [user, setUser] = useState<UserData | null>(null);
 
   const [errors, setErrors] = useState(3);
   const [successes, setSuccesses] = useState(0);
@@ -81,79 +66,6 @@ export default function ContiGoGame() {
     correctAnswer: null,
   });
 
-  useEffect(() => {
-    const initializeAuth = async () => {
-      if (status === "authenticated" && session) {
-        const userData = await handleAuthResponse(session, dbFromInit);
-        if (userData) {
-          setUser(userData);
-        }
-      } else if (status === "unauthenticated") {
-        setUser(null);
-      }
-    };
-
-    initializeAuth();
-  }, [session, status]);
-
-  useEffect(() => {
-    const initializeFirebase = async () => {
-      const firebaseInstance = await initUserFirebase(authFromInit, dbFromInit);
-      if (firebaseInstance) {
-        setAuth(firebaseInstance.authFromInit);
-        setDb(firebaseInstance.dbFromInit);
-      } else {
-        console.error("Falha na inicialização do Firebase");
-      }
-    };
-
-    initializeFirebase();
-  }, []);
-
-  useEffect(() => {
-    if (auth) {
-      const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          const userData = await fetchUserData(dbFromInit, user.email!);
-          if (userData) {
-            setUser(userData);
-          }
-        } else {
-          setUser(null);
-        }
-      });
-
-      return () => unsubscribe();
-    }
-  }, [auth, db]);
-
-  const fetchUserData = async (
-    db: any,
-    email: string,
-  ): Promise<UserData | null> => {
-    try {
-      const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
-      const docSnap = await getDoc(userRef);
-
-      if (docSnap.exists()) {
-        return docSnap.data() as UserData;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      return null;
-    }
-  };
-
-  const handleLogin = async () => {
-    await signInWithGoogle();
-  };
-
-  const handleLogout = async () => {
-    await signOutFromGoogle();
-    setUser(null);
-  };
 
   function removeNumber(num: number, remainNumbers: number[]) {
     const index = remainNumbers.indexOf(num);
@@ -263,28 +175,28 @@ export default function ContiGoGame() {
 
       if (successes > userScore) {
         await updateUserBestScore(user.email, successes, dbFromInit);
-        setUser((prev) => {
-          if (!prev) return null;
-          return {
-            ...prev,
-            best_score: {
-              value: successes,
-              updatedAt: now,
-            },
-          };
-        });
+        // setUser((prev) => {
+        //   if (!prev) return null;
+        //   return {
+        //     ...prev,
+        //     best_score: {
+        //       value: successes,
+        //       updatedAt: now,
+        //     },
+        //   };
+        // });
       }
 
-      setUser((prev) => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          currency: {
-            value: newCurrency,
-            updatedAt: now,
-          },
-        };
-      });
+      // setUser((prev) => {
+      //   if (!prev) return null;
+      //   return {
+      //     ...prev,
+      //     currency: {
+      //       value: newCurrency,
+      //       updatedAt: now,
+      //     },
+      //   };
+      // });
     });
   }, [successes, user]);
 
