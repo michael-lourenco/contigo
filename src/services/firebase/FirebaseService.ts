@@ -84,22 +84,22 @@ function initFirebase(){
   const config = firebaseConfig;
 
   const app = initializeApp(config);
-  const authFromInit = getAuth(app);
-  const dbFromInit = getFirestore(app);
+  const authFirestore = getAuth(app);
+  const dbFirestore = getFirestore(app);
 
-  return { authFromInit, dbFromInit };
+  return { authFirestore, dbFirestore };
 }
 
-const {dbFromInit, authFromInit} = initFirebase();
-async function initUserFirebase(authFromInit: Auth, dbFromInit: Firestore) {
+const {dbFirestore, authFirestore} = initFirebase();
+async function initUserFirebase(authFirestore: Auth, dbFirestore: Firestore) {
 
-    await setPersistence(authFromInit, browserLocalPersistence);
+    await setPersistence(authFirestore, browserLocalPersistence);
 
-    await setPersistence(authFromInit, browserLocalPersistence);
+    await setPersistence(authFirestore, browserLocalPersistence);
 
-    onAuthStateChanged(authFromInit, async (user) => {
+    onAuthStateChanged(authFirestore, async (user) => {
       if (user) {
-        globalUser = await fetchUserData(dbFromInit, user.email!);
+        globalUser = await fetchUserData(dbFirestore, user.email!);
         if (globalUser) {
           localStorage.setItem("user", JSON.stringify(globalUser));
           displayUserInfo(globalUser);
@@ -109,7 +109,7 @@ async function initUserFirebase(authFromInit: Auth, dbFromInit: Firestore) {
       }
     });
 
-    return { authFromInit, dbFromInit };
+    return { authFirestore, dbFirestore };
 }
 
 async function fetchUserData(db: Firestore, email: string): Promise<UserData | null> {
@@ -245,9 +245,9 @@ async function updateUserTotalGames(
 
 async function sendLeaderboardToGamification(): Promise<void> {
   try {
-    const { dbFromInit } = initFirebase();
+    const { dbFirestore } = initFirebase();
 
-    const usersCollection = collection(dbFromInit, process.env.NEXT_PUBLIC_USERS_COLLECTION!);
+    const usersCollection = collection(dbFirestore, process.env.NEXT_PUBLIC_USERS_COLLECTION!);
     
     const userDocs = await getDocs(usersCollection);
 
@@ -373,8 +373,8 @@ export {
   updateUserTotalGames,
   updateMatchHistory,
   initUserFirebase,
-  dbFromInit,
-  authFromInit
+  dbFirestore,
+  authFirestore
 };
 
 export type { UserData, MatchHistoryEntry };

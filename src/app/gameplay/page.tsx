@@ -15,7 +15,7 @@ import {
   updateUserCurrency,
   updateUserTotalGames,
   updateMatchHistory,
-  dbFromInit,
+  dbFirestore,
 } from "@/services/firebase/FirebaseService";
 import GameplayMenu from "@/components/gameplay/GameplayMenu";
 
@@ -163,18 +163,18 @@ export default function ContiGoGame() {
       const newCurrency = (user.currency?.value || 0) + successes;
       const now = new Date();
 
-      await updateUserCurrency(user.email, successes, dbFromInit);
+      await updateUserCurrency(user.email, successes, dbFirestore);
 
-      await updateUserTotalGames(user.email, 1, dbFromInit);
+      await updateUserTotalGames(user.email, 1, dbFirestore);
       await updateMatchHistory(user.email, {
         date: now,
         score: successes,
         errors: errors,
         duration: generalTimer.toString(),
-      }, dbFromInit);
+      }, dbFirestore);
 
       if (successes > userScore) {
-        await updateUserBestScore(user.email, successes, dbFromInit);
+        await updateUserBestScore(user.email, successes, dbFirestore);
         // setUser((prev) => {
         //   if (!prev) return null;
         //   return {

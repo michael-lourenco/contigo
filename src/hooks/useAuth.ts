@@ -9,8 +9,8 @@ import {
   fetchUserData,
   UserData,
   initUserFirebase,
-  dbFromInit,
-  authFromInit,
+  dbFirestore,
+  authFirestore,
 } from "@/services/firebase/FirebaseService";
 import { onAuthStateChanged, Auth } from "firebase/auth";
 
@@ -40,7 +40,7 @@ export function useAuth() {
   useEffect(() => {
     const initializeAuth = async () => {
       if (status === "authenticated" && session) {
-        const userData = await handleAuthResponse(session, dbFromInit);
+        const userData = await handleAuthResponse(session, dbFirestore);
         if (userData) {
           setUser(userData);
         }
@@ -55,10 +55,10 @@ export function useAuth() {
 
   useEffect(() => {
     const initializeFirebase = async () => {
-      const firebaseInstance = await initUserFirebase(authFromInit, dbFromInit);
+      const firebaseInstance = await initUserFirebase(authFirestore, dbFirestore);
       if (firebaseInstance) {
-        setAuth(firebaseInstance.authFromInit);
-        setDb(firebaseInstance.dbFromInit);
+        setAuth(firebaseInstance.authFirestore);
+        setDb(firebaseInstance.dbFirestore);
       } else {
         console.error("Falha na inicialização do Firebase");
       }
