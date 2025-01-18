@@ -4,12 +4,24 @@ import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence, A
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
+export interface Round {
+  dice_1: number;
+  dice_2: number;
+  dice_3: number;
+  choosed_value: number;
+  time: number;
+  success: boolean;
+  errors: number;
+  createdAt: Date;
+}
+
 interface MatchHistoryEntry {
   id: number;
   date: Date;
   score: number;
   errors: number;
   duration: string;
+  rounds: Round[];
 }
 
 interface BestScoreData {

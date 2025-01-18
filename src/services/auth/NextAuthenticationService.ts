@@ -3,12 +3,24 @@ import { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 import { fetchUserData } from "../firebase/FirebaseService";
 
+export interface Round {
+  dice_1: number;
+  dice_2: number;
+  dice_3: number;
+  choosed_value: number;
+  time: number;
+  success: boolean;
+  errors: number;
+  createdAt: Date;
+}
+
 interface MatchHistoryEntry {
   id: number;
   date: Date;
   score: number;
   errors: number;
   duration: string;
+  rounds: Round[];
 }
 
 interface BestScoreData {

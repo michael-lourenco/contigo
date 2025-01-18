@@ -16,6 +16,7 @@ Cada rodada (`round`) será representada como um objeto com os seguintes atribut
   "choosed_value": "Valor escolhido pelo jogador",
   "time": "Tempo gasto na rodada (em segundos)",
   "success": "Booleano indicando se o jogador acertou (true) ou errou (false)",
+  "errors": "Quantidade de erros possiveis no momento",
   "createdAt": "Timestamp da criação da rodada"
 }
 ```
@@ -55,6 +56,7 @@ const handleRoundEnd = (round) => {
       choosed_value: round.choosed_value,
       time: round.time,
       success: round.success,
+      errors: round.errors
       createdAt: new Date().toISOString()
     }
   ]);

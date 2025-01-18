@@ -27,7 +27,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
     <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
       {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
         <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
-          <span className="flex items-center text-lg font-semibold truncate">
+          <div className="flex items-center text-lg font-semibold truncate">
             {user?.displayName}
             <Icon
               name="PiTarget"
@@ -41,7 +41,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
               className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
             />
             <span className="text-green-300">{user?.currency?.value ?? 0}</span>
-          </span>
+          </div>
           <Button
             onClick={handleDonation}
             variant="outline"

@@ -11,6 +11,7 @@ import { calculateService } from "@/services/calculate/CalculateService";
 import { useNavigation } from "@/hooks/useNavigation";
 import { UserInfo } from "@/components/UserInfo";
 import {
+  Round,
   updateUserBestScore,
   updateUserCurrency,
   updateUserTotalGames,
@@ -18,6 +19,7 @@ import {
   dbFirestore,
 } from "@/services/firebase/FirebaseService";
 import GameplayMenu from "@/components/gameplay/GameplayMenu";
+import RoundsHistory from "@/components/RoundsHistory";
 
 const AUDIO_URLS = {
   gameStart:
@@ -65,7 +67,7 @@ export default function ContiGoGame() {
     wrongAnswer: null,
     correctAnswer: null,
   });
-
+  const [rounds, setRounds] = useState<Round[]>([]);
 
   function removeNumber(num: number, remainNumbers: number[]) {
     const index = remainNumbers.indexOf(num);
@@ -138,6 +140,7 @@ export default function ContiGoGame() {
   }, []);
 
   const startNewGame = useCallback(() => {
+    setRounds([]);
     setErrors(3);
     setSuccesses(0);
     setGeneralTimer(180);
@@ -171,6 +174,7 @@ export default function ContiGoGame() {
         score: successes,
         errors: errors,
         duration: generalTimer.toString(),
+        rounds: rounds,
       }, dbFirestore);
 
       if (successes > userScore) {
@@ -236,6 +240,16 @@ export default function ContiGoGame() {
       );
 
       if (result.valueFound) {
+        setRounds([...rounds,{
+          dice_1: parseInt(diceValues[0]),
+          dice_2: parseInt(diceValues[1]),
+          dice_3: parseInt(diceValues[2]),
+          choosed_value: value,
+          time: generalTimer,
+          success: result.valueFound,
+          errors: errors,
+          createdAt: new Date(),
+        }]);
         setSuccesses((prev) => prev + 1);
         setAuthenticatedButtons((prev) => [...prev, value]);
         removeNumber(value, remainNumbers);
@@ -258,6 +272,16 @@ export default function ContiGoGame() {
           }, 1000);
         }
       } else {
+        setRounds([...rounds,{
+          dice_1: parseInt(diceValues[0]),
+          dice_2: parseInt(diceValues[1]),
+          dice_3: parseInt(diceValues[2]),
+          choosed_value: value,
+          time: generalTimer,
+          success: result.valueFound,
+          errors: errors,
+          createdAt: new Date(),
+        }]);
         setErrors((prev) => {
           if (prev - 1 <= 0) {
             endGame();
@@ -295,6 +319,7 @@ export default function ContiGoGame() {
     const resultExists = verifyNumbers(remainNumbers);
 
     if (!resultExists) {
+      
       playAudio("correctAnswer");
       if (!gameOver) {
         setRoundTimer(1);
@@ -384,6 +409,7 @@ export default function ContiGoGame() {
           />
           <GameOverMessage gameOver={gameOver} />
         </CardContent>
+        <RoundsHistory roundsData={rounds} />
       </Card>
       <GameplayMenu
         onDashboard={handleNavigation("/player")}
