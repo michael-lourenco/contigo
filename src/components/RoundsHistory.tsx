@@ -47,16 +47,14 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
     <>
       <Button 
         onClick={toggleTableVisibility} 
-        className="flex items-center gap-2 mb-4 bg-lime-500 hover:bg-lime-600 text-slate-900 w-full sm:w-auto"
+        className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
       >
         <Icon name="LuBookOpen" size={20} />
-        <span className="hidden sm:inline">Histórico</span>
-        <span className="sm:hidden">Ver Histórico</span>
       </Button>
 
       {isTableVisible && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 bg-black/50 z-100 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
           onClick={() => setIsTableVisible(false)}
         >
           <div 

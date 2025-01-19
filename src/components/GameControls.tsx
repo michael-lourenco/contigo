@@ -23,13 +23,15 @@ export const GameControls: React.FC<GameControlsProps> = ({
   toggleMute,
   rounds,
 }) => (
-  <div className="flex justify-center space-x-4 p-6">
+  <>
+  <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-6">
+
     <Button
       onClick={startNewGame}
       className="bg-lime-500 hover:bg-lime-600 text-slate-900"
     >
       <Icon name="PiPlay" className="w-5 h-5 mr-2" />
-      {gameOver ? "New Game" : "New Game"}
+      {gameOver ? "New" : "New"}
     </Button>
     <Button
       variant="outline"
@@ -52,4 +54,5 @@ export const GameControls: React.FC<GameControlsProps> = ({
     </Button>
     <RoundsHistory roundsData={rounds} />
   </div>
+  </>
 );

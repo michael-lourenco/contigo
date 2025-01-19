@@ -411,11 +411,11 @@ export default function ContiGoGame() {
           <GameOverMessage gameOver={gameOver} />
         </CardContent>
       </Card>
-      <GameplayMenu
+      {/* <GameplayMenu
         onDashboard={handleNavigation("/player")}
         onSettings={handleNavigation("/settings")}
         onHowToPlay={handleNavigation("/how_to_play")}
-      />
+      /> */}
     </div>
   );
 }
