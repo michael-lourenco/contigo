@@ -1,6 +1,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "./icons";
+import {
+  Round,
+} from "@/services/firebase/FirebaseService";
+import RoundsHistory from "@/components/RoundsHistory"
 
 interface GameControlsProps {
   gameOver: boolean;
@@ -8,6 +12,7 @@ interface GameControlsProps {
   handleSkipClick: () => void;
   muted: boolean;
   toggleMute: () => void;
+  rounds: Round[];
 }
 
 export const GameControls: React.FC<GameControlsProps> = ({
@@ -16,6 +21,7 @@ export const GameControls: React.FC<GameControlsProps> = ({
   handleSkipClick,
   muted,
   toggleMute,
+  rounds,
 }) => (
   <div className="flex justify-center space-x-4 p-6">
     <Button
@@ -44,5 +50,6 @@ export const GameControls: React.FC<GameControlsProps> = ({
         <Icon name="PiSpeakerSimpleLow" className="w-5 h-5" />
       )}
     </Button>
+    <RoundsHistory roundsData={rounds} />
   </div>
 );

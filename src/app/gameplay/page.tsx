@@ -406,10 +406,10 @@ export default function ContiGoGame() {
             handleSkipClick={handleSkipClick}
             muted={muted}
             toggleMute={() => setMuted(!muted)}
+            rounds={rounds}
           />
           <GameOverMessage gameOver={gameOver} />
         </CardContent>
-        <RoundsHistory roundsData={rounds} />
       </Card>
       <GameplayMenu
         onDashboard={handleNavigation("/player")}

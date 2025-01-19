@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Icon } from "./icons";
+import { Icon, IconName } from "./icons";
 
 export interface Round {
   dice_1: number;
@@ -28,73 +28,104 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
   };
 
   if (!roundsData || roundsData.length === 0) {
-    return (
-        <></>
-    );
+    return null;
   }
+
+  // Header items with their respective icons and mobile-friendly labels
+  const headerItems = [
+    { icon: "LuHash", label: "Rodada", mobileLabel: "#" },
+    { icon: "LuDices", label: "Dado 1", mobileLabel: "D1" },
+    { icon: "LuDices", label: "Dado 2", mobileLabel: "D2" },
+    { icon: "LuDices", label: "Dado 3", mobileLabel: "D3" },
+    { icon: "LuMousePointer", label: "Escolha", mobileLabel: "Esc" },
+    { icon: "LuTimer", label: "Tempo", mobileLabel: "T(s)" },
+    { icon: "LuTarget", label: "Resultado", mobileLabel: "R" },
+    { icon: "LuCalendar", label: "Data", mobileLabel: "Data" },
+  ];
 
   return (
     <>
-      {/* Botão para abrir a tabela */}
-      <Button onClick={toggleTableVisibility} variant="outline" className="flex items-center gap-2 mb-4">
+      <Button 
+        onClick={toggleTableVisibility} 
+        className="flex items-center gap-2 mb-4 bg-lime-500 hover:bg-lime-600 text-slate-900 w-full sm:w-auto"
+      >
         <Icon name="LuBookOpen" size={20} />
-        Histórico
+        <span className="hidden sm:inline">Histórico</span>
+        <span className="sm:hidden">Ver Histórico</span>
       </Button>
 
-      {/* Tabela sobreposta quando visível */}
       {isTableVisible && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
-          onClick={(e) => {
-            // Previne que cliques na tabela fechem o modal.
-            e.stopPropagation();
-          }}
+          className="fixed inset-0 bg-black/50 z-50 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
+          onClick={() => setIsTableVisible(false)}
         >
-          <div className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl">
+          <div 
+            className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl mt-4 sm:mt-0"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Card className="bg-slate-900 text-slate-50">
-              <CardHeader className="flex justify-between items-center">
-                <CardTitle>Histórico de Rodadas</CardTitle>
+              <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
+                <CardTitle className="text-xl flex items-center gap-2">
+                  <Icon name="LuHistory" size={24} />
+                  Histórico de Rodadas
+                </CardTitle>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={toggleTableVisibility}
-                  className="ml-auto"
+                  className="ml-auto p-2"
                 >
-                  ✖ Fechar
+                  <Icon name="LuX" size={20} />
                 </Button>
               </CardHeader>
               <CardContent>
-                {/* Wrapper para rolagem horizontal em telas menores */}
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto -mx-6 sm:mx-0">
                   <Table className="min-w-full">
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="text-left">#</TableHead>
-                        <TableHead className="text-left">Dado 1</TableHead>
-                        <TableHead className="text-left">Dado 2</TableHead>
-                        <TableHead className="text-left">Dado 3</TableHead>
-                        <TableHead className="text-left">Escolha</TableHead>
-                        <TableHead className="text-left">Tempo (s)</TableHead>
-                        <TableHead className="text-left">Sucesso</TableHead>
-                        <TableHead className="text-left">Data</TableHead>
+                        {headerItems.map((item, index) => (
+                          <TableHead 
+                            key={index}
+                            className="text-left p-2 sm:p-4 whitespace-nowrap"
+                          >
+                            <div className="flex items-center gap-1 sm:gap-2">
+                              <Icon name={item.icon as IconName} size={16} className="text-slate-400" />
+                              <span className="hidden sm:inline">{item.label}</span>
+                              <span className="sm:hidden">{item.mobileLabel}</span>
+                            </div>
+                          </TableHead>
+                        ))}
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {roundsData.map((round, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{index + 1}</TableCell>
-                          <TableCell>{round.dice_1}</TableCell>
-                          <TableCell>{round.dice_2}</TableCell>
-                          <TableCell>{round.dice_3}</TableCell>
-                          <TableCell>{round.choosed_value}</TableCell>
-                          <TableCell>{round.time}</TableCell>
-                          <TableCell>
-                            <Badge variant={round.success ? "default" : "destructive"}>
-                              {round.success ? "✔️ Sucesso" : "❌ Erro"}
+                        <TableRow key={index} className="hover:bg-slate-800/50">
+                          <TableCell className="p-2 sm:p-4">{index + 1}</TableCell>
+                          <TableCell className="p-2 sm:p-4">{round.dice_1}</TableCell>
+                          <TableCell className="p-2 sm:p-4">{round.dice_2}</TableCell>
+                          <TableCell className="p-2 sm:p-4">{round.dice_3}</TableCell>
+                          <TableCell className="p-2 sm:p-4">{round.choosed_value}</TableCell>
+                          <TableCell className="p-2 sm:p-4">{round.time}</TableCell>
+                          <TableCell className="p-2 sm:p-4">
+                            <Badge 
+                              variant={round.success ? "default" : "destructive"}
+                              className="whitespace-nowrap"
+                            >
+                              {round.success ? (
+                                <span className="flex items-center gap-1">
+                                  <Icon name="LuCheckCircle" size={14} />
+                                  <span className="hidden sm:inline">Sucesso</span>
+                                </span>
+                              ) : (
+                                <span className="flex items-center gap-1">
+                                  <Icon name="LuXCircle" size={14} />
+                                  <span className="hidden sm:inline">Erro</span>
+                                </span>
+                              )}
                             </Badge>
                           </TableCell>
-                          <TableCell>
-                            {new Date(round.createdAt).toLocaleString()}
+                          <TableCell className="p-2 sm:p-4">
+                            {new Date(round.createdAt).toLocaleDateString()}
                           </TableCell>
                         </TableRow>
                       ))}
