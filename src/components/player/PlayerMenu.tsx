@@ -14,7 +14,7 @@ export const PlayerMenu: React.FC<PlayerMenuProps> = ({
   onSettings,
   onHowToPlay,
 }) => (
-  <Card className="fixed bottom-0 left-0 right-0 bg-slate-900 p-0 m-0">
+  <Card className="bottom-0 left-0 right-0 bg-slate-900 p-0 m-0">
     <CardContent className="flex flex-row justify-center space-x-4 py-4">
       <PlayerMenuButton
         label={<Icon name="LuPlay" size={24} />}

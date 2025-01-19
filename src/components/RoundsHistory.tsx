@@ -40,7 +40,6 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
     { icon: "LuMousePointer", label: "Escolha", mobileLabel: "Esc" },
     { icon: "LuTimer", label: "Tempo", mobileLabel: "T(s)" },
     { icon: "LuTarget", label: "Resultado", mobileLabel: "R" },
-    { icon: "LuCalendar", label: "Data", mobileLabel: "Data" },
   ];
 
   return (
@@ -58,14 +57,14 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
           onClick={() => setIsTableVisible(false)}
         >
           <div 
-            className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl mt-4 sm:mt-0"
+            className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl mt-4 sm:mt-0 border-2 border-lime-500"
             onClick={(e) => e.stopPropagation()}
           >
             <Card className="bg-slate-900 text-slate-50">
-              <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
+              <CardHeader className="flex flex-row sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
                 <CardTitle className="text-xl flex items-center gap-2">
                   <Icon name="LuHistory" size={24} />
-                  Histórico de Rodadas
+                  Jogadas
                 </CardTitle>
                 <Button
                   variant="ghost"
@@ -84,10 +83,10 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
                         {headerItems.map((item, index) => (
                           <TableHead 
                             key={index}
-                            className="text-left p-2 sm:p-4 whitespace-nowrap"
+                            className="text-center p-2 sm:p-4 whitespace-nowrap"
                           >
                             <div className="flex items-center gap-1 sm:gap-2">
-                              <Icon name={item.icon as IconName} size={16} className="text-slate-400" />
+                              <Icon name={item.icon as IconName} size={16} className="text-slate-50" />
                               <span className="hidden sm:inline">{item.label}</span>
                               <span className="sm:hidden">{item.mobileLabel}</span>
                             </div>
@@ -98,32 +97,27 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
                     <TableBody>
                       {roundsData.map((round, index) => (
                         <TableRow key={index} className="hover:bg-slate-800/50">
-                          <TableCell className="p-2 sm:p-4">{index + 1}</TableCell>
-                          <TableCell className="p-2 sm:p-4">{round.dice_1}</TableCell>
-                          <TableCell className="p-2 sm:p-4">{round.dice_2}</TableCell>
-                          <TableCell className="p-2 sm:p-4">{round.dice_3}</TableCell>
-                          <TableCell className="p-2 sm:p-4">{round.choosed_value}</TableCell>
-                          <TableCell className="p-2 sm:p-4">{round.time}</TableCell>
-                          <TableCell className="p-2 sm:p-4">
+                          <TableCell className="p-2 sm:p-4 text-center">{index + 1}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{round.dice_1}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{round.dice_2}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{round.dice_3}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{round.choosed_value}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{round.time}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">
                             <Badge 
-                              variant={round.success ? "default" : "destructive"}
+                              variant={round.success ? "secondary" : "destructive"}
                               className="whitespace-nowrap"
                             >
                               {round.success ? (
                                 <span className="flex items-center gap-1">
                                   <Icon name="LuCheckCircle" size={14} />
-                                  <span className="hidden sm:inline">Sucesso</span>
                                 </span>
                               ) : (
                                 <span className="flex items-center gap-1">
                                   <Icon name="LuXCircle" size={14} />
-                                  <span className="hidden sm:inline">Erro</span>
                                 </span>
                               )}
                             </Badge>
-                          </TableCell>
-                          <TableCell className="p-2 sm:p-4">
-                            {new Date(round.createdAt).toLocaleDateString()}
                           </TableCell>
                         </TableRow>
                       ))}

@@ -91,8 +91,26 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      table: {
+        DEFAULT: {
+          borderCollapse: "collapse",
+          width: "100%",
+          borderWidth: "1px",
+          borderColor: "hsl(var(--border))",
+        },
+        th: {
+          backgroundColor: "hsl(var(--background))",
+          color: "hsl(var(--foreground))",
+          textAlign: "left",
+          padding: "0.5rem",
+        },
+        td: {
+          padding: "0.5rem",
+          borderBottomWidth: "1px",
+          borderColor: "hsl(var(--border))",
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
 };
 export default config;
