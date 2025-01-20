@@ -1,7 +1,8 @@
 // components/player/MatchHistory.tsx
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Icon, IconName } from "../icons";
 interface Match {
   id: string;
   date: string;
@@ -14,15 +15,24 @@ interface MatchHistoryProps {
   matchHistory: Match[] | null;
 }
 
-const formatDate = (date: Date): string => {
-  return date.toLocaleDateString("en-US", {
-    month: "short",
+const formatDate = (date: string): string => {
+  const parsedDate = new Date(date); // Converte a string em um objeto Date
+  return parsedDate.toLocaleDateString("en-GB", {
     day: "2-digit",
-    year: "numeric",
+    month: "2-digit",
+    year: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
-  });
+    hour12: false, // Usa o formato de 24 horas
+  }).replace(",", ""); // Remove a vírgula que aparece em algumas localizações
 };
+
+const headerItems = [
+  { icon: "LuCalendar", label: "Data", mobileLabel: "#" },
+  { icon: "LuTarget", label: "Pontuação", mobileLabel: "R" },
+  { icon: "LuXCircle", label: "Erros", mobileLabel: "R" },
+  { icon: "LuTimer", label: "Duração", mobileLabel: "T(s)" },
+];
 
 export const MatchHistory: React.FC<MatchHistoryProps> = ({ matchHistory }) => {
   return (
@@ -31,45 +41,39 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ matchHistory }) => {
         <Card className="bg-slate-900 text-slate-50">
           <CardHeader className="bg-slate-900 text-slate-50">
             <CardTitle className="bg-slate-900 text-slate-50">
-              Match History
+              Últimas partidas
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="relative overflow-x-auto bg-slate-900 text-slate-50">
-              <table className="w-full text-sm text-left">
-                <thead className="text-xs uppercase bg-muted bg-slate-900 text-slate-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-3">
-                      Date
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Score
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Errors
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Duration
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {matchHistory
-                    ? matchHistory.map((match) => (
-                        <tr key={match.id} className="border-b">
-                          <td className="px-6 py-4">
-                            {formatDate(new Date(match.date))}
-                          </td>
-                          <td className="px-6 py-4 font-medium">
-                            {match.score}
-                          </td>
-                          <td className="px-6 py-4">{match.errors}</td>
-                          <td className="px-6 py-4">{match.duration}</td>
-                        </tr>
-                      ))
-                    : null}
-                </tbody>
-              </table>
+            <Table className="min-w-full">
+                    <TableHeader>
+                      <TableRow>
+                        {headerItems.map((item, index) => (
+                          <TableHead 
+                            key={index}
+                            className="text-center p-2 sm:p-4 whitespace-nowrap"
+                          >
+                            <div className="flex items-center gap-1 sm:gap-2">
+                              <Icon name={item.icon as IconName} size={16} className="text-slate-50" />
+                              <span className="hidden sm:inline">{item.label}</span>
+                              <span className="sm:hidden">{item.mobileLabel}</span>
+                            </div>
+                          </TableHead>
+                        ))}
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {matchHistory.map((match, index) => (
+                        <TableRow key={index} className="hover:bg-slate-800/50 border-y-2 border-slate-500">
+                          <TableCell className="p-2 sm:p-4 text-left">{formatDate(match.date)}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{match.score}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{match.errors}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{match.duration}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
             </div>
           </CardContent>
         </Card>
