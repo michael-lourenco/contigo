@@ -37,9 +37,8 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
     { icon: "LuDices", label: "Dado 1", mobileLabel: "D1" },
     { icon: "LuDices", label: "Dado 2", mobileLabel: "D2" },
     { icon: "LuDices", label: "Dado 3", mobileLabel: "D3" },
-    { icon: "LuMousePointer", label: "Escolha", mobileLabel: "Esc" },
-    { icon: "LuTimer", label: "Tempo", mobileLabel: "T(s)" },
     { icon: "LuTarget", label: "Resultado", mobileLabel: "R" },
+    { icon: "LuTimer", label: "Tempo", mobileLabel: "T(s)" },
   ];
 
   return (
@@ -48,7 +47,7 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
         onClick={toggleTableVisibility} 
         className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
       >
-        <Icon name="LuBookOpen" size={20} />
+        <Icon name="LuHistory" size={20} />
       </Button>
 
       {isTableVisible && (
@@ -57,7 +56,7 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
           onClick={() => setIsTableVisible(false)}
         >
           <div 
-            className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl mt-4 sm:mt-0 border-2 border-lime-500"
+            className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl mt-4 sm:mt-0 border-2 border-slate-500"
             onClick={(e) => e.stopPropagation()}
           >
             <Card className="bg-slate-900 text-slate-50">
@@ -96,13 +95,11 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
                     </TableHeader>
                     <TableBody>
                       {roundsData.map((round, index) => (
-                        <TableRow key={index} className="hover:bg-slate-800/50">
+                        <TableRow key={index} className="hover:bg-slate-800/50 border-y-2 border-slate-500">
                           <TableCell className="p-2 sm:p-4 text-center">{index + 1}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{round.dice_1}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{round.dice_2}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{round.dice_3}</TableCell>
-                          <TableCell className="p-2 sm:p-4 text-center">{round.choosed_value}</TableCell>
-                          <TableCell className="p-2 sm:p-4 text-center">{round.time}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">
                             <Badge 
                               variant={round.success ? "secondary" : "destructive"}
@@ -111,14 +108,17 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
                               {round.success ? (
                                 <span className="flex items-center gap-1">
                                   <Icon name="LuCheckCircle" size={14} />
+                                  {round.choosed_value}
                                 </span>
                               ) : (
                                 <span className="flex items-center gap-1">
                                   <Icon name="LuXCircle" size={14} />
+                                  {round.choosed_value}
                                 </span>
                               )}
                             </Badge>
                           </TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{round.time}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
