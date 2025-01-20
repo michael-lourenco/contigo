@@ -26,36 +26,56 @@ const formatDate = (date: Date): string => {
 
 export const MatchHistory: React.FC<MatchHistoryProps> = ({ matchHistory }) => {
   return (
-    <Card className="bg-slate-900 text-slate-50">
-      <CardHeader className="bg-slate-900 text-slate-50">
-        <CardTitle className="bg-slate-900 text-slate-50">Match History</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="relative overflow-x-auto bg-slate-900 text-slate-50">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs uppercase bg-muted bg-slate-900 text-slate-50">
-              <tr>
-                <th scope="col" className="px-6 py-3">Date</th>
-                <th scope="col" className="px-6 py-3">Score</th>
-                <th scope="col" className="px-6 py-3">Errors</th>
-                <th scope="col" className="px-6 py-3">Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              {matchHistory
-                ? matchHistory.map((match) => (
-                    <tr key={match.id} className="border-b">
-                      <td className="px-6 py-4">{formatDate(new Date(match.date))}</td>
-                      <td className="px-6 py-4 font-medium">{match.score}</td>
-                      <td className="px-6 py-4">{match.errors}</td>
-                      <td className="px-6 py-4">{match.duration}</td>
-                    </tr>
-                  ))
-                : null}
-            </tbody>
-          </table>
-        </div>
-      </CardContent>
-    </Card>
+    <>
+      {matchHistory ? (
+        <Card className="bg-slate-900 text-slate-50">
+          <CardHeader className="bg-slate-900 text-slate-50">
+            <CardTitle className="bg-slate-900 text-slate-50">
+              Match History
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="relative overflow-x-auto bg-slate-900 text-slate-50">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs uppercase bg-muted bg-slate-900 text-slate-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Date
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Score
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Errors
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Duration
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {matchHistory
+                    ? matchHistory.map((match) => (
+                        <tr key={match.id} className="border-b">
+                          <td className="px-6 py-4">
+                            {formatDate(new Date(match.date))}
+                          </td>
+                          <td className="px-6 py-4 font-medium">
+                            {match.score}
+                          </td>
+                          <td className="px-6 py-4">{match.errors}</td>
+                          <td className="px-6 py-4">{match.duration}</td>
+                        </tr>
+                      ))
+                    : null}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };

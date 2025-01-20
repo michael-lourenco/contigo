@@ -7,6 +7,7 @@ import { PlayerStatistics } from "@/components/player/PlayerStatistics";
 import { useNavigation } from "@/hooks/useNavigation";
 import { PlayerMenu } from "@/components/player/PlayerMenu";
 import { MatchHistory } from "@/components/player/MatchHistory";
+import { Card, CardContent } from "@/components/ui/card";
 
 const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {
@@ -34,7 +35,9 @@ export default function PlayerDashboard() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6 bg-slate-900 text-slate-50">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 pt-4">
+      <Card className="w-full max-w-2xl bg-slate-900 p-0 m-0">
+        <CardContent className="p-2">
       {status === "loading" ? (
         <p>Loading...</p>
       ) : (
@@ -68,6 +71,9 @@ export default function PlayerDashboard() {
           />
         </>
       )}
+      </CardContent>
+      </Card>
+              
     </div>
   );
 }

@@ -33,8 +33,9 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
   }, [user]);
 
   return (
-    <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
+    <>
       {user || (localStorageUser && localStorage.getItem("user") != null) ? (
+        <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-slate-900 text-slate-50">
           {/* Player Profile */}
           <Card className="md:col-span-1 bg-slate-900 text-slate-50">
@@ -93,14 +94,10 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
             </Card>
           </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-[1fr,auto] items-center gap-2">
-          <span className="flex items-center text-lg font-semibold truncate">
-            {" "}
-            Dashboard{" "}
-          </span>
         </div>
+      ) : (
+        <></>
       )}
-    </div>
+    </>
   );
 };
