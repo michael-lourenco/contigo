@@ -15,17 +15,18 @@ interface MatchHistoryProps {
   matchHistory: Match[] | null;
 }
 
-const formatDate = (date: string): string => {
+const formatDate: (date: string) => string = (date: string): string => {
   const parsedDate = new Date(date); // Converte a string em um objeto Date
   return parsedDate.toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "2-digit",
-    year: "2-digit",
+    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
     hour12: false, // Usa o formato de 24 horas
   }).replace(",", ""); // Remove a vírgula que aparece em algumas localizações
 };
+
 
 const headerItems = [
   { icon: "LuCalendar", label: "Data", mobileLabel: "#" },
