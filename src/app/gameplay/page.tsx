@@ -413,7 +413,7 @@ export default function ContiGoGame() {
       </Card>
       <GameplayMenu
         onDashboard={handleNavigation("/player")}
-        onSettings={handleNavigation("/settings")}
+        // onSettings={handleNavigation("/settings")}
         onHowToPlay={handleNavigation("/how_to_play")}
       />
     </div>

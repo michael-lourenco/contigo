@@ -63,7 +63,7 @@ export default function PlayerDashboard() {
           />
           <PlayerMenu
             onPlay={handleNavigation("/gameplay")}
-            onSettings={handleNavigation("/settings")}
+            // onSettings={handleNavigation("/settings")}
             onHowToPlay={handleNavigation("/how_to_play")}
           />
         </>

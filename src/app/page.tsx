@@ -15,7 +15,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 pt-4">
       <GameMenu
         onPlay={handleNavigation("/gameplay")}
-        onSettings={handleNavigation("/settings")}
+        // onSettings={handleNavigation("/settings")}
         onHowToPlay={handleNavigation("/how_to_play")}
       />
       <LeaderboardByOwnerAndDate />

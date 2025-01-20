@@ -5,13 +5,13 @@ import { Icon } from "@/components/icons";
 
 export interface GameplayMenuProps {
   onDashboard: () => void;
-  onSettings: () => void;
+  // onSettings: () => void;
   onHowToPlay: () => void;
 }
 
 export const GameplayMenu: React.FC<GameplayMenuProps> = ({
   onDashboard,
-  onSettings,
+  // onSettings,
   onHowToPlay,
 }) => (
   <Card className="bottom-0 left-0 right-0 bg-slate-900 p-0 m-0">
@@ -20,10 +20,10 @@ export const GameplayMenu: React.FC<GameplayMenuProps> = ({
         label={<Icon name="LuUser" size={24} />}
         onClick={onDashboard}
       />
-      <GameplayMenuButton
+      {/* <GameplayMenuButton
         label={<Icon name="LuSettings" size={24} />}
         onClick={onSettings}
-      />
+      /> */}
       <GameplayMenuButton
         label={<Icon name="LuInfo" size={24} />}
         onClick={onHowToPlay}
