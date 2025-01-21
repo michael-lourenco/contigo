@@ -5,9 +5,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { UserInfo } from "@/components/UserInfo";
 import { PlayerStatistics } from "@/components/player/PlayerStatistics";
 import { useNavigation } from "@/hooks/useNavigation";
-import { PlayerMenu } from "@/components/player/PlayerMenu";
 import { MatchHistory } from "@/components/player/MatchHistory";
 import { Card, CardContent } from "@/components/ui/card";
+import { Footer } from "@/components/Footer";
 
 const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {
@@ -35,45 +35,44 @@ export default function PlayerDashboard() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 pt-4">
-      <Card className="w-full max-w-2xl bg-slate-900 p-0 m-0">
-        <CardContent className="p-2">
-      {status === "loading" ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <UserInfo
-            user={user}
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-          />
-          <PlayerStatistics
-            user={user}
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-          />
-          <MatchHistory
-            matchHistory={
-              user?.match_history?.map((match) => ({
-                ...match,
-                id: String(match.id),
-                date:
-                  match.date instanceof Date
-                    ? match.date.toISOString()
-                    : match.date,
-              })) || null
-            }
-          />
-          <PlayerMenu
-            onPlay={handleNavigation("/gameplay")}
-            // onSettings={handleNavigation("/settings")}
-            onHowToPlay={handleNavigation("/how_to_play")}
-          />
-        </>
-      )}
-      </CardContent>
-      </Card>
-              
+    <div className="flex flex-col min-h-screen bg-slate-900 text-slate-50">
+      <main className="flex-grow flex flex-col items-center justify-start pt-4">
+        <div className="max-w-4xl mx-auto">
+          <Card className="w-full max-w-2xl bg-slate-900 p-0 m-0">
+            <CardContent className="p-2">
+              {status === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <>
+                  <UserInfo
+                    user={user}
+                    handleLogin={handleLogin}
+                    handleLogout={handleLogout}
+                  />
+                  <PlayerStatistics
+                    user={user}
+                    handleLogin={handleLogin}
+                    handleLogout={handleLogout}
+                  />
+                  <MatchHistory
+                    matchHistory={
+                      user?.match_history?.map((match) => ({
+                        ...match,
+                        id: String(match.id),
+                        date:
+                          match.date instanceof Date
+                            ? match.date.toISOString()
+                            : match.date,
+                      })) || null
+                    }
+                  />
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }

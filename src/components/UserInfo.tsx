@@ -68,14 +68,6 @@ export const UserInfo: React.FC<UserInfoProps> = ({
             <Button onClick={handleLogin} variant="default">
               Sign in with Google
             </Button>
-            <Button
-              onClick={handleDonation}
-              variant="outline"
-              className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap"
-            >
-              <Heart className="w-4 h-4" />
-              Apoiar
-            </Button>
           </div>
         </div>
       )}

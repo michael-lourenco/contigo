@@ -8,6 +8,7 @@ import { LeaderboardByOwnerAndDate } from "@/components/leaderboard/Leaderboard"
 import { HomeUserInfo } from "@/components/HomeUserInfo";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useAuth } from "@/hooks/useAuth";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const navigationService = useNavigation();
@@ -89,6 +90,7 @@ export default function Home() {
           <LeaderboardByOwnerAndDate />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

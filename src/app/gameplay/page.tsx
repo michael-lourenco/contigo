@@ -20,6 +20,7 @@ import {
 } from "@/services/firebase/FirebaseService";
 import GameplayMenu from "@/components/gameplay/GameplayMenu";
 import RoundsHistory from "@/components/RoundsHistory";
+import { Footer } from "@/components/Footer";
 
 const AUDIO_URLS = {
   gameStart:
@@ -376,7 +377,9 @@ export default function ContiGoGame() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-slate-900 text-slate-50 pt-4">
+    <div className="flex flex-col min-h-screen bg-slate-900 text-slate-50">
+      <main className="flex-grow flex flex-col items-center justify-start pt-4">
+        <div className="max-w-4xl mx-auto">
       <Card className="w-full max-w-2xl bg-slate-900 p-0 m-0">
         <CardContent className="p-2">
           <UserInfo
@@ -411,11 +414,14 @@ export default function ContiGoGame() {
           <GameOverMessage gameOver={gameOver} />
         </CardContent>
       </Card>
-      <GameplayMenu
+      {/* <GameplayMenu
         onDashboard={handleNavigation("/player")}
         // onSettings={handleNavigation("/settings")}
         onHowToPlay={handleNavigation("/how_to_play")}
-      />
+      /> */}
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }

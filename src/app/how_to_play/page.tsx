@@ -2,6 +2,7 @@
 
 import { useNavigation } from "@/hooks/useNavigation";
 import { Icon } from "@/components/icons";
+import { Footer } from "@/components/Footer";
 
 export default function HowToPlay() {
   const navigationService = useNavigation();
@@ -18,8 +19,9 @@ export default function HowToPlay() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="flex flex-col min-h-screen bg-slate-900 text-slate-50">
+      <main className="flex-grow flex flex-col items-center justify-start pt-4">
+        <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-2 mb-6">
           <Icon name="LuGamepad" className="w-8 h-8" /> Como Jogar
         </h1>
@@ -167,7 +169,10 @@ export default function HowToPlay() {
         >
           <Icon name="LuArrowLeft" className="w-5 h-5" /> Voltar
         </button>
-      </div>
+        </div>
+        <Footer />
+      </main>
     </div>
+    
   );
 }
