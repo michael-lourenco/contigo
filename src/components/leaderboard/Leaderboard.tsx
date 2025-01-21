@@ -83,13 +83,13 @@ export const LeaderboardByOwnerAndDate = () => {
                     {getRankIcon(index) || `#${index + 1}`}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-lg font-semibold text-slate-50">
+                    <p className="text-lg items-center font-semibold text-slate-50">
                       {entry.name}
                     </p>
-                    <p className="text-sm text-slate-400">
-                      .{" "}
+                    {/* <p className="text-sm text-slate-400">
+                      .{" "} */}
                       {/* {formatDistanceToNow(new Date(entry.date), { addSuffix: true })} */}
-                    </p>
+                    {/* </p> */}
                   </div>
                   <div className="flex flex-col items-center ml-auto">
                     <span className="text-xl font-bold text-primary text-yellow-400">

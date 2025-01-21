@@ -15,11 +15,6 @@ export const GameMenu: React.FC<GameMenuProps> = ({
   onHowToPlay,
 }) => (
   <Card className="w-full max-w-2xl bg-slate-900 p-0 m-0">
-    <CardHeader>
-      <CardTitle className="text-center text-3xl mb-4 text-slate-50">
-        Conti GO
-      </CardTitle>
-    </CardHeader>
     <CardContent className="flex flex-col space-y-4">
       <MenuButton label="Jogar" onClick={onPlay} />
       {/* <MenuButton label="Configurações" onClick={onSettings} /> */}

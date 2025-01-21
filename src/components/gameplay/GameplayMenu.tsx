@@ -17,7 +17,7 @@ export const GameplayMenu: React.FC<GameplayMenuProps> = ({
   <Card className="bottom-0 left-0 right-0 bg-slate-900 p-0 m-0">
     <CardContent className="flex flex-row justify-center space-x-4 py-4">
       <GameplayMenuButton
-        label={<Icon name="LuUser" size={24} />}
+        label={<><Icon name="LuUser" size={24} /> Stats</>}
         onClick={onDashboard}
       />
       {/* <GameplayMenuButton
@@ -25,7 +25,7 @@ export const GameplayMenu: React.FC<GameplayMenuProps> = ({
         onClick={onSettings}
       /> */}
       <GameplayMenuButton
-        label={<Icon name="LuInfo" size={24} />}
+        label={<><Icon name="LuInfo" size={24} /> Aprender</>}
         onClick={onHowToPlay}
       />
     </CardContent>
