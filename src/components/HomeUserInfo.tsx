@@ -46,7 +46,7 @@ export const HomeUserInfo: React.FC<HomeUserInfoProps> = ({
             <Button
               onClick={handleDonation}
               variant="outline"
-              className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap"
+              className="border-chart-4 text-chart-4 hover:bg-chart-4 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap"
               size="sm"
             >
               <Heart className="w-4 h-4" />

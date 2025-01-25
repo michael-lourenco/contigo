@@ -59,7 +59,7 @@ export const LeaderboardByOwnerAndDate = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto p-6">
-      <div className="bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+      <div className="rounded-lg shadow-lg overflow-hidden">
         <div className="p-4 border-b border-slate-700">
           <h2 className="text-xl font-bold text-slate-50">
             {firstLeaderboardByOwnerAndDate?.name || "Leaderboard"}

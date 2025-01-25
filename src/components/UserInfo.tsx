@@ -26,7 +26,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   return (
     <>
       {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
-        <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
+        <div className="flex flex-col text-primary mb-4 p-4 bg-background rounded-lg">
           <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
             <div className="flex items-center text-lg font-semibold truncate">
               {user?.displayName}
@@ -34,19 +34,19 @@ export const UserInfo: React.FC<UserInfoProps> = ({
                 name="PiTarget"
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
-              <span className="text-green-300">
+              <span className="text-primary">
                 {user?.best_score?.value ?? 0}
               </span>
               <Icon
                 name="PiCoin"
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
-              <span className="text-green-300">{user?.currency?.value ?? 0}</span>
+              <span className="text-primary">{user?.currency?.value ?? 0}</span>
             </div>
             <Button
               onClick={handleDonation}
               variant="outline"
-              className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap"
+              className="border-chart-4 text-chart-4 hover:bg-chart-4 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap"
               size="sm"
             >
               <Heart className="w-4 h-4" />
@@ -63,7 +63,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-col text-slate-50 mb-4 p-4 bg-slate-800 rounded-lg shadow-lg">
+        <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
           <div className="grid grid-cols-[1fr,auto] items-center gap-2">
             <Button onClick={handleLogin} variant="default">
               Sign in with Google

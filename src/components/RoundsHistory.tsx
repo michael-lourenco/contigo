@@ -45,21 +45,21 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
     <>
       <Button 
         onClick={toggleTableVisibility} 
-        className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
+        className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-background"
       >
         <Icon name="LuHistory" size={20} />
       </Button>
 
       {isTableVisible && (
         <div
-          className="fixed inset-0 bg-black/50 z-100 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 bg-black/50  z-100 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
           onClick={() => setIsTableVisible(false)}
         >
           <div 
-            className="relative w-full max-w-4xl bg-slate-900 text-slate-50 rounded-lg shadow-xl mt-4 sm:mt-0 border-2 border-slate-500"
+            className="relative w-full max-w-4xl bg-background text-primary rounded-lg shadow-xl mt-4 sm:mt-0 border-2 border-primary"
             onClick={(e) => e.stopPropagation()}
           >
-            <Card className="bg-slate-900 text-slate-50">
+            <Card className="bg-background text-primary">
               <CardHeader className="flex flex-row sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
                 <CardTitle className="text-xl flex items-center gap-2">
                   <Icon name="LuHistory" size={24} />
@@ -85,7 +85,7 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
                             className="text-center p-2 sm:p-4 whitespace-nowrap"
                           >
                             <div className="flex items-center gap-1 sm:gap-2">
-                              <Icon name={item.icon as IconName} size={16} className="text-slate-50" />
+                              <Icon name={item.icon as IconName} size={16} className="text-primary" />
                               <span className="hidden sm:inline">{item.label}</span>
                               <span className="sm:hidden">{item.mobileLabel}</span>
                             </div>
@@ -95,7 +95,7 @@ const RoundsHistory: React.FC<RoundsHistoryProps> = ({ roundsData }) => {
                     </TableHeader>
                     <TableBody>
                       {roundsData.map((round, index) => (
-                        <TableRow key={index} className="hover:bg-slate-800/50 border-y-2 border-slate-500">
+                        <TableRow key={index} className="hover:bg-background border-y-2 border-primary">
                           <TableCell className="p-2 sm:p-4 text-center">{index + 1}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{round.dice_1}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{round.dice_2}</TableCell>

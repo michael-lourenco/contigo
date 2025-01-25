@@ -28,14 +28,14 @@ export const GameControls: React.FC<GameControlsProps> = ({
 
     <Button
       onClick={startNewGame}
-      className="bg-lime-500 hover:bg-lime-600 text-slate-900"
+      className="bg-chart-2 hover:bg-lime-600 text-primary"
     >
       <Icon name="PiPlay" className="w-5 h-5 mr-2" />
       {gameOver ? "New" : "New"}
     </Button>
     <Button
       variant="outline"
-      className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
+      className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
       onClick={handleSkipClick}
     >
       <Icon name="PiFastForward" className="w-5 h-5 mr-2" />
@@ -43,7 +43,7 @@ export const GameControls: React.FC<GameControlsProps> = ({
     </Button>
     <Button
       variant="outline"
-      className="border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900"
+      className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
       onClick={toggleMute}
     >
       {muted ? (

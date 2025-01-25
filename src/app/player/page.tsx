@@ -20,11 +20,8 @@ const formatDate = (date: Date): string => {
 };
 
 export default function PlayerDashboard() {
-  const navigationService = useNavigation();
+
   const { user, loading, status, handleLogin, handleLogout } = useAuth();
-  const handleNavigation = (path: string) => () => {
-    navigationService.navigateTo(path);
-  };
 
   if (loading) {
     return (

@@ -8,7 +8,7 @@ export const GameOverMessage: React.FC<GameOverMessageProps> = ({
   gameOver,
 }) =>
   gameOver ? (
-    <div className="mt-4 text-center text-2xl font-bold text-red-500">
+    <div className="mt-4 text-center text-2xl font-bold text-destructive">
       Game Over!
     </div>
   ) : null;

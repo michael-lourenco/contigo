@@ -76,9 +76,9 @@ export default function Home() {
               <Button
                 onClick={() => window.open("https://buy.stripe.com/00g02GeSnaJC12g5kk", "_blank")}
                 variant="outline"
-                className="w-full border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:border-purple-400 group transition-all duration-300"
+                className="w-full border-chart-4/50 text-purple-400 hover:bg-chart-4/10 hover:border-purple-400 group transition-all duration-300"
               >
-                <Heart className="w-5 h-5 mr-2 text-purple-500 group-hover:text-purple-400" />
+                <Heart className="w-5 h-5 mr-2 text-chart-4 group-hover:text-purple-400" />
                 <span>Apoiar o Projeto</span>
               </Button>
             </div>
