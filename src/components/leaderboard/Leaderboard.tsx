@@ -58,35 +58,35 @@ export const LeaderboardByOwnerAndDate = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6">
-      <div className="rounded-lg shadow-lg overflow-hidden">
-        <div className="p-4 border-b border-slate-700">
-          <h2 className="text-xl font-bold text-slate-50">
+    <div className="w-full max-w-2xl mx-auto p-2">
+      <div className="rounded-sm shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-background">
+          <h2 className="text-xl font-bold text-primary">
             {firstLeaderboardByOwnerAndDate?.name || "Leaderboard"}
           </h2>
           {firstLeaderboardByOwnerAndDate?.description && (
-            <p className="text-slate-400 mt-1">
+            <p className="text-primary mt-1">
               {firstLeaderboardByOwnerAndDate.description}
             </p>
           )}
         </div>
 
-        <div className="divide-y divide-slate-700">
+        <div className="divide-y divide-background">
           {firstLeaderboardByOwnerAndDate?.leaderboard?.map(
             (entry: PlayerData, index: number) => (
               <div
                 key={entry.id}
-                className="flex items-center p-4 hover:bg-slate-700 transition-colors"
+                className="flex items-center p-4 hover:bg-background transition-colors"
               >
                 <div className="flex items-center space-x-4 w-full">
-                  <span className="w-8 text-center font-bold text-slate-400">
+                  <span className="w-8 text-center font-bold text-primary">
                     {getRankIcon(index) || `#${index + 1}`}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-lg items-center font-semibold text-slate-50">
+                    <p className="text-lg items-center font-semibold text-primary">
                       {entry.name}
                     </p>
-                    {/* <p className="text-sm text-slate-400">
+                    {/* <p className="text-sm text-primary">
                       .{" "} */}
                       {/* {formatDistanceToNow(new Date(entry.date), { addSuffix: true })} */}
                     {/* </p> */}
@@ -95,7 +95,7 @@ export const LeaderboardByOwnerAndDate = () => {
                     <span className="text-xl font-bold text-primary text-yellow-400">
                       {entry.score}
                     </span>
-                    <p className="text-xs text-slate-400">points</p>
+                    <p className="text-xs text-primary">points</p>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export const LeaderboardByOwnerAndDate = () => {
 
         {(!firstLeaderboardByOwnerAndDate?.leaderboard ||
           firstLeaderboardByOwnerAndDate.leaderboard.length === 0) && (
-          <div className="p-8 text-center text-slate-400">
+          <div className="p-8 text-center text-primary">
             No scores recorded yet
           </div>
         )}

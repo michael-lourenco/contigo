@@ -20,8 +20,8 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-slate-900">
-        <div className="animate-pulse text-slate-400">Carregando...</div>
+      <div className="flex justify-center items-center h-screen bg-background">
+        <div className="animate-pulse text-primary">Carregando...</div>
       </div>
     );
   }
@@ -31,7 +31,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-6 max-w-md">
         {/* User Info Section */}
         {status !== "loading" && (
-          <div className="mb-8">
+          <div className="mb-4">
             <HomeUserInfo
               user={user}
               handleLogin={handleLogin}
@@ -41,9 +41,9 @@ export default function Home() {
         )}
 
         {/* Main Game Section */}
-        <Card className="bg-slate-900">
+        <Card className="bg-background">
           <CardHeader className="space-y-2">
-            <CardTitle className="text-4xl font-bold text-center bg-gradient-to-r from-lime-400 to-green-500 text-transparent bg-clip-text">
+            <CardTitle className="text-4xl font-bold text-center bg-gradient-to-r from-chart-2 to-green-500 text-transparent bg-clip-text">
               Conti GO
             </CardTitle>
           </CardHeader>
@@ -53,10 +53,10 @@ export default function Home() {
             <div className="flex justify-center">
               <Button
                 onClick={handleNavigation("/gameplay")}
-                className="w-32 h-32 rounded-full bg-gradient-to-r from-lime-500 to-green-500 hover:from-lime-400 hover:to-green-400 shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
+                className="w-32 h-32 rounded-full bg-gradient-to-r from-chart-2 to-green-500 hover:from-chart-2 hover:to-green-400 shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
                 size="lg"
               >
-                <Play className="w-16 h-16 text-slate-900" />
+                <Play className="w-16 h-16 text-background" />
               </Button>
             </div>
 
@@ -66,10 +66,10 @@ export default function Home() {
               <Button
                 onClick={handleNavigation("/how_to_play")}
                 variant="ghost"
-                className="w-full group transition-all duration-300 hover:bg-slate-800"
+                className="w-full group transition-all duration-300 hover:bg-background"
               >
-                <HelpCircle className="w-5 h-5 mr-2 text-slate-400 group-hover:text-lime-500" />
-                <span className="text-slate-300 group-hover:text-lime-500">Como Jogar</span>
+                <HelpCircle className="w-5 h-5 mr-2 text-primary group-hover:text-chart-2" />
+                <span className="text-primary group-hover:text-chart-2">Como Jogar</span>
               </Button>
 
               {/* Support Button */}
@@ -86,7 +86,7 @@ export default function Home() {
         </Card>
 
         {/* Leaderboard Section */}
-        <div className="mt-8">
+        <div className="mt-4">
           <LeaderboardByOwnerAndDate />
         </div>
       </div>
