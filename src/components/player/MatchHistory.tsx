@@ -39,14 +39,14 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ matchHistory }) => {
   return (
     <>
       {matchHistory ? (
-        <Card className="bg-slate-900 text-slate-50">
-          <CardHeader className="bg-slate-900 text-slate-50">
-            <CardTitle className="bg-slate-900 text-slate-50">
+        <Card className="bg-background text-primary">
+          <CardHeader className="bg-background text-primary">
+            <CardTitle className="bg-background text-primary">
               Últimas partidas
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="relative overflow-x-auto bg-slate-900 text-slate-50">
+            <div className="relative overflow-x-auto bg-background text-primary">
             <Table className="min-w-full">
                     <TableHeader>
                       <TableRow>
@@ -56,7 +56,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ matchHistory }) => {
                             className="text-center p-2 sm:p-4 whitespace-nowrap"
                           >
                             <div className="flex items-center gap-1 sm:gap-2">
-                              <Icon name={item.icon as IconName} size={16} className="text-slate-50" />
+                              <Icon name={item.icon as IconName} size={16} className="text-primary" />
                               <span className="hidden sm:inline">{item.label}</span>
                               <span className="sm:hidden">{item.mobileLabel}</span>
                             </div>
@@ -66,7 +66,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ matchHistory }) => {
                     </TableHeader>
                     <TableBody>
                       {matchHistory.map((match, index) => (
-                        <TableRow key={index} className="hover:bg-slate-800/50 border-y-2 border-slate-500">
+                        <TableRow key={index} className="border-y-dashed border-primary border-dashed  hover:bg-popover-foreground hover:text-secondary">
                           <TableCell className="p-2 sm:p-4 text-left">{formatDate(match.date)}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{match.score}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">{match.errors}</TableCell>

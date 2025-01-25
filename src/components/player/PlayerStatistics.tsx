@@ -33,9 +33,9 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
   }, [user]);
 
   const StatCard = ({ title, value, icon: Icon, color }: { title: string; value: number; icon: any; color: string }) => (
-    <Card className="bg-slate-800 border-none hover:bg-slate-700 transition-all duration-300">
+    <Card className="bg-background border-none hover:bg-background transition-all duration-300">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle className="text-sm font-medium text-slate-400">
+        <CardTitle className="text-sm font-medium text-primary">
           {title}
         </CardTitle>
         <div className={`p-2 rounded-lg ${color}`}>
@@ -44,8 +44,8 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
       </CardHeader>
       <CardContent>
         <div className="space-y-1">
-          <div className="text-3xl font-bold text-slate-50">{value}</div>
-          <div className="text-xs text-slate-400">
+          <div className="text-3xl font-bold text-primary">{value}</div>
+          <div className="text-xs text-primary">
             {title === "Best Score" && "Personal Record"}
             {title === "Coins" && "Available Balance"}
             {title === "Total Games" && "Games Played"}
@@ -58,28 +58,28 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
   return (
     <>
       {user || (localStorageUser && localStorage.getItem("user") != null) ? (
-        <div className="p-6 bg-slate-900 rounded-xl shadow-2xl">
+        <div className="p-6 bg-background rounded-xl shadow-2xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Player Profile */}
-            <Card className="md:col-span-1 bg-slate-800 border-none">
+            <Card className="md:col-span-1 bg-background border-none">
               <CardHeader className="text-center">
                 <div className="relative mx-auto">
-                  <Avatar className="w-24 h-24 border-4 border-slate-700">
+                  <Avatar className="w-24 h-24 border-4 border-background">
                     <AvatarImage
                       src={avatarUrl || "/api/placeholder/150/150"}
-                      alt="Player avatar"
+                      alt="Player avatar" 
                       className="object-cover"
                     />
-                    <AvatarFallback className="bg-slate-700">
+                    <AvatarFallback className="bg-background">
                       {user?.displayName?.charAt(0) || 'MP'}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute -bottom-2 right-0 bg-green-500 w-4 h-4 rounded-full border-2 border-slate-800"></div>
+                  <div className="absolute -bottom-2 right-0 bg-chart-2 w-4 h-4 rounded-full border-2 border-background"></div>
                 </div>
-                <CardTitle className="mt-4 text-slate-50 text-xl">
+                <CardTitle className="mt-4 text-primary text-xl">
                   {user?.displayName}
                 </CardTitle>
-                <p className="text-sm text-slate-400">Player Profile</p>
+                <p className="text-sm text-primary">Player Profile</p>
               </CardHeader>
             </Card>
 
