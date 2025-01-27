@@ -380,45 +380,45 @@ export default function ContiGoGame() {
     <div className="flex flex-col min-h-screen bg-background text-primary">
       <main className="flex-grow flex flex-col items-center justify-start pt-4">
         <div className="max-w-4xl mx-auto">
-      <Card className="w-full max-w-2xl bg-background p-0 m-0">
-        <CardContent className="p-2">
-          <UserInfo
-            user={user}
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-          />
-          <GameStats
-            errors={errors}
-            successes={successes}
-            generalTimer={generalTimer}
-            formatTime={formatTime}
-          />
-          <DiceExpression
-            diceValues={diceValues}
-            showExpressions={showExpressions}
-          />
-          <GridButtons
-            gridValues={gridValues}
-            isAuthenticated={isAuthenticated}
-            handleGridItemClick={handleGridItemClick}
-            allDisabled={allDisabled}
-          />
-          <GameControls
-            gameOver={gameOver}
-            startNewGame={startNewGame}
-            handleSkipClick={handleSkipClick}
-            muted={muted}
-            toggleMute={() => setMuted(!muted)}
-            rounds={rounds}
-          />
-          <GameOverMessage gameOver={gameOver} />
-        </CardContent>
-      </Card>
-      {/* <GameplayMenu
-        onDashboard={handleNavigation("/player")}
-        // onSettings={handleNavigation("/settings")}
-        onHowToPlay={handleNavigation("/how_to_play")}
-      /> */}
+          <Card className="w-full max-w-4xl bg-background p-0 m-0 border-none shadow-none">
+            <CardContent className="p-2 border-none shadow-none">
+              <UserInfo
+                user={user}
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}
+              />
+              <GameStats
+                errors={errors}
+                successes={successes}
+                generalTimer={generalTimer}
+                formatTime={formatTime}
+              />
+              <DiceExpression
+                diceValues={diceValues}
+                showExpressions={showExpressions}
+              />
+              <GridButtons
+                gridValues={gridValues}
+                isAuthenticated={isAuthenticated}
+                handleGridItemClick={handleGridItemClick}
+                allDisabled={allDisabled}
+              />
+              <GameControls
+                gameOver={gameOver}
+                startNewGame={startNewGame}
+                handleSkipClick={handleSkipClick}
+                muted={muted}
+                toggleMute={() => setMuted(!muted)}
+                rounds={rounds}
+              />
+              <GameOverMessage gameOver={gameOver} />
+            </CardContent>
+          </Card>
+          {/* <GameplayMenu
+            onDashboard={handleNavigation("/player")}
+            // onSettings={handleNavigation("/settings")}
+            onHowToPlay={handleNavigation("/how_to_play")}
+          /> */}
         </div>
       </main>
       <Footer />

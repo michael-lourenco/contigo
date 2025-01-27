@@ -26,7 +26,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   return (
     <>
       {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
-        <div className="flex flex-col text-primary mb-4 p-4 bg-background rounded-lg">
+        <div className="flex flex-col text-primary mb-4 p-4 bg-background rounded-sm">
           <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
             <div className="flex items-center text-lg font-semibold truncate">
               <Icon

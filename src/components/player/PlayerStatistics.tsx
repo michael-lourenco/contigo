@@ -58,7 +58,7 @@ export const PlayerStatistics: React.FC<PlayerStatisticsProps> = ({
   return (
     <>
       {user || (localStorageUser && localStorage.getItem("user") != null) ? (
-        <div className="p-6 bg-background rounded-xl shadow-2xl">
+        <div className="p-6 bg-background rounded-xl shadow-none">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Player Profile */}
             <Card className="md:col-span-1 bg-background border-none">

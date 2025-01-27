@@ -27,8 +27,9 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen text-slate-50">
-      <div className="container mx-auto px-4 py-6 max-w-md">
+    <div className="flex flex-col min-h-screen bg-background text-primary">
+      <main className="flex-grow flex flex-col items-center justify-start pt-4">
+        <div className="max-w-4xl mx-auto">
         {/* User Info Section */}
         {status !== "loading" && (
           <div className="mb-4">
@@ -41,7 +42,7 @@ export default function Home() {
         )}
 
         {/* Main Game Section */}
-        <Card className="bg-background">
+        <Card className="bg-background border-none shadow-none">
           <CardHeader className="space-y-2">
             <CardTitle className="text-4xl font-bold text-center bg-gradient-to-r from-chart-2 to-green-500 text-transparent bg-clip-text">
               Conti GO
@@ -89,7 +90,8 @@ export default function Home() {
         <div className="mt-4">
           <LeaderboardByOwnerAndDate />
         </div>
-      </div>
+        </div>
+      </main>
       <Footer />
     </div>
   );

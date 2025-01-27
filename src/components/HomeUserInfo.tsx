@@ -33,14 +33,14 @@ export const HomeUserInfo: React.FC<HomeUserInfoProps> = ({
                 name="PiTarget"
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
-              <span className="text-green-300">
+              <span className="text-primary">
                 {user?.best_score?.value ?? 0}
               </span>
               <Icon
                 name="PiCoin"
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
-              <span className="text-green-300">{user?.currency?.value ?? 0}</span>
+              <span className="text-primary">{user?.currency?.value ?? 0}</span>
             </div>
             <Button
               onClick={handleDonation}

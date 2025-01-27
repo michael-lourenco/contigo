@@ -37,8 +37,8 @@ export default function PlayerDashboard() {
     <div className="flex flex-col min-h-screen bg-background text-primary">
       <main className="flex-grow flex flex-col items-center justify-start pt-4">
         <div className="max-w-4xl mx-auto">
-          <Card className="w-full max-w-2xl bg-background p-0 m-0">
-            <CardContent className="p-2">
+          <Card className="w-full max-w-4xl bg-background p-0 m-0 border-none shadow-none">
+            <CardContent className="p-2 border-none shadow-none">
               {status === "loading" ? (
                 <p>Loading...</p>
               ) : (
