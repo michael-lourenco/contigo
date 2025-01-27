@@ -7,7 +7,9 @@ import { PlayerStatistics } from "@/components/player/PlayerStatistics";
 import { useNavigation } from "@/hooks/useNavigation";
 import { MatchHistory } from "@/components/player/MatchHistory";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
+import { UserLogout } from "@/components/UserLogout";
 
 const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {
@@ -63,7 +65,13 @@ export default function PlayerDashboard() {
                       })) || null
                     }
                   />
+                  <UserLogout
+                    user={user}
+                    handleLogin={handleLogin}
+                    handleLogout={handleLogout}
+                  />
                 </>
+
               )}
             </CardContent>
           </Card>

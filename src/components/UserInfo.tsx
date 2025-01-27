@@ -29,7 +29,6 @@ export const UserInfo: React.FC<UserInfoProps> = ({
         <div className="flex flex-col text-primary mb-4 p-4 bg-background rounded-lg">
           <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
             <div className="flex items-center text-lg font-semibold truncate">
-              {user?.displayName}
               <Icon
                 name="PiTarget"
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
@@ -51,14 +50,6 @@ export const UserInfo: React.FC<UserInfoProps> = ({
             >
               <Heart className="w-4 h-4" />
               Apoiar
-            </Button>
-            <Button
-              onClick={handleLogout}
-              variant="destructive"
-              size="sm"
-              className="whitespace-nowrap"
-            >
-              Logout
             </Button>
           </div>
         </div>
