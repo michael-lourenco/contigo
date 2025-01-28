@@ -60,7 +60,7 @@ async function signInWithGoogle(): Promise<void> {
 
 async function signOutUser(): Promise<void> {
   try {
-    await signOut({ callbackUrl: "/player" });
+    await signOut({ callbackUrl: "/" });
     localStorage.removeItem("user");
     globalUser = null;
   } catch (error) {

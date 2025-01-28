@@ -32,13 +32,11 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
         {/* User Info Section */}
         {status !== "loading" && (
-          <div className="mb-4">
-            <HomeUserInfo
-              user={user}
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-            />
-          </div>
+          <HomeUserInfo
+            user={user}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+          />
         )}
 
         {/* Main Game Section */}
