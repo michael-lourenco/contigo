@@ -24,7 +24,7 @@ export const GameControls: React.FC<GameControlsProps> = ({
   rounds,
 }) => (
   <>
-  <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-6">
+  <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
 
     <Button
       onClick={startNewGame}
