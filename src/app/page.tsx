@@ -55,7 +55,7 @@ export default function Home() {
                 className="w-32 h-32 rounded-full bg-gradient-to-r from-chart-2 to-green-500 hover:from-chart-2 hover:to-green-400 shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
                 size="lg"
               >
-                <Play className="w-16 h-16 text-background" />
+                <Icon name="LuPlay" style={{ width: "36px", height: "36px" }}  className="text-background"/>
               </Button>
             </div>
 
