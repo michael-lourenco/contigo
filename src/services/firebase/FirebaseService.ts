@@ -51,6 +51,11 @@ interface Currency {
   value: number;
   updatedAt: Date;
 }
+
+interface Credit {
+  value: number;
+  updatedAt: Date;
+}
 interface FirestoreUser {
   id: string;
   displayName: string;
@@ -84,6 +89,7 @@ interface UserData {
   best_score: BestScoreData;
   currency: CurrencyData;
   total_games: TotalGamesData;
+  credits: Credit;
   email: string;
   match_history?: MatchHistoryEntry[];
   photoURL: string;
