@@ -41,6 +41,13 @@ export const UserInfo: React.FC<UserInfoProps> = ({
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
               <span className="text-primary">{user?.currency?.value ?? 0}</span>
+              <Icon
+                name="PiStar"
+                className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
+              />
+              <span className="text-primary">
+                {user?.credits?.value ?? 0}
+              </span>
             </div>
             <Button
               onClick={handleDonation}

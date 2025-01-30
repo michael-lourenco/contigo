@@ -2,6 +2,7 @@ import {  doc, setDoc, updateDoc, Firestore } from "firebase/firestore";
 import { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 import { fetchUserData } from "../firebase/FirebaseService";
+import { Credit } from "@/application/entities/User";
 
 export interface Round {
   dice_1: number;
@@ -42,6 +43,7 @@ interface UserData {
   best_score: BestScoreData;
   currency: CurrencyData;
   total_games: TotalGamesData;
+  credits: Credit;
   email: string;
   match_history?: MatchHistoryEntry[];
   photoURL: string;
@@ -81,6 +83,7 @@ async function handleAuthResponse(session: Session | null, db: Firestore): Promi
         displayName: session.user.name || "",
         email: email,
         photoURL: session.user.image || "",
+        credits: { value: 0, updatedAt: new Date() },
         best_score: { value: 0, updatedAt: new Date() },
         currency: { value: 0, updatedAt: new Date() },
         total_games: { value: 0, updatedAt: new Date() },

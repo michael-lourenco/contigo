@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence, Auth } from "firebase/auth";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-
+import { HistoryEntry } from "@/application/entities/User";
 export interface Round {
   dice_1: number;
   dice_2: number;
@@ -24,13 +24,6 @@ interface MatchHistoryEntry {
   rounds: Round[];
 }
 
-interface HistoryEntry {
-  id: number;
-  date: Date;
-  prompt: string;
-  history: string;
-}
-
 
 interface BestScoreData {
   value: number;
@@ -47,12 +40,11 @@ interface BestScore {
   updatedAt: Date;
 }
 
-interface Currency {
+interface Credit {
   value: number;
   updatedAt: Date;
 }
-
-interface Credit {
+interface Currency {
   value: number;
   updatedAt: Date;
 }
@@ -87,10 +79,11 @@ interface TotalGamesData {
 interface UserData {
   displayName: string;
   best_score: BestScoreData;
+  credits: Credit;
   currency: CurrencyData;
   total_games: TotalGamesData;
-  credits: Credit;
   email: string;
+  history?: HistoryEntry[];
   match_history?: MatchHistoryEntry[];
   photoURL: string;
 }
@@ -188,6 +181,7 @@ async function updateUserBestScore(email: string, newBestScore: number, db: Fire
     console.error("Error updating user best score:", error);
   }
 }
+
 
 async function updateUserCredits(
   email: string,
@@ -477,7 +471,6 @@ async function updateHistory(
     throw error;
   }
 }
-
 function displayUserInfo(user: UserData): void {
   console.log(
     `User: ${user.displayName}, Best Score: ${user.best_score.value}, Currency: ${user.currency.value}, Total Games: ${user.total_games.value}, Photo URL: ${user.photoURL}`
@@ -485,19 +478,19 @@ function displayUserInfo(user: UserData): void {
 }
 
 export {
+  authFirestore,
+  dbFirestore,
+  displayUserInfo,
   fetchUserData,
   initFirebase,
-  updateUserBestScore,
-  displayUserInfo,
+  initUserFirebase,
   sendLeaderboardToGamification,
   updateHistory,
+  updateUserBestScore,
   updateUserCredits,
   updateUserCurrency,
-  updateUserTotalGames,
   updateMatchHistory,
-  initUserFirebase,
-  dbFirestore,
-  authFirestore
+  updateUserTotalGames,
 };
 
 export type { UserData, MatchHistoryEntry };
