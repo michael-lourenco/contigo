@@ -20,6 +20,11 @@ interface MatchHistoryEntry {
     value: number;
     updatedAt: Date;
   }
+
+  interface Credit {
+    value: number;
+    updatedAt: Date;
+  }
   
   interface Currency {
     value: number;
@@ -56,6 +61,7 @@ interface MatchHistoryEntry {
  export interface UserData {
     displayName: string;
     best_score: BestScoreData;
+    credits: Credit;
     currency: CurrencyData;
     total_games: TotalGamesData;
     email: string;
