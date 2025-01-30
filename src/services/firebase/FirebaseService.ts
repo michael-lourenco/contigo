@@ -24,6 +24,14 @@ interface MatchHistoryEntry {
   rounds: Round[];
 }
 
+interface HistoryEntry {
+  id: number;
+  date: Date;
+  prompt: string;
+  history: string;
+}
+
+
 interface BestScoreData {
   value: number;
   updatedAt: Date;
@@ -408,6 +416,62 @@ async function updateMatchHistory(
   }
 }
 
+async function updateHistory(
+  email: string,
+  historyData: Omit<HistoryEntry, "id">,
+  db: Firestore
+): Promise<void> {
+
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
+
+  try {
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      const currentHistory = userData.history || [];
+
+      const maxId = currentHistory.reduce(
+        (max: number, history: HistoryEntry) => Math.max(max, history.id),
+        0,
+      );
+
+      const newHistory = {
+        ...historyData,
+        id: maxId + 1,
+        date: new Date(historyData.date).toISOString(),
+      };
+
+      const updatedHistory = [newHistory, ...currentHistory];
+
+      const limitedHistory = updatedHistory.slice(0, 10);
+
+      await setDoc(
+        userRef,
+        {
+          history: limitedHistory,
+        },
+        { merge: true },
+      );
+      console.log("Match history updated successfully.");
+    } else {
+      await setDoc(userRef, {
+        history: [
+          {
+            ...historyData,
+            id: 1,
+            date: new Date(historyData.date).toISOString(),
+          },
+        ],
+      });
+      console.log("User document created with first match history entry.");
+    }
+  } catch (error) {
+    console.error("Error updating match history:", error);
+    throw error;
+  }
+}
+
 function displayUserInfo(user: UserData): void {
   console.log(
     `User: ${user.displayName}, Best Score: ${user.best_score.value}, Currency: ${user.currency.value}, Total Games: ${user.total_games.value}, Photo URL: ${user.photoURL}`
@@ -420,6 +484,7 @@ export {
   updateUserBestScore,
   displayUserInfo,
   sendLeaderboardToGamification,
+  updateHistory,
   updateUserCredits,
   updateUserCurrency,
   updateUserTotalGames,
