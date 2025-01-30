@@ -6,6 +6,7 @@ import { Icon, IconName } from "../icons";
 interface History {
   id: number;
   date: string;
+  title: string;
   prompt: string;
   history: string;
 }
@@ -40,7 +41,7 @@ export const History: React.FC<HistoryProps> = ({ historyData }) => {
         <Card className="bg-background text-primary">
           <CardHeader className="bg-background text-primary">
             <CardTitle className="bg-background text-primary">
-              Últimas histórias
+              Suas histórias
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -66,7 +67,7 @@ export const History: React.FC<HistoryProps> = ({ historyData }) => {
                       {historyData.map((match, index) => (
                         <TableRow key={index} className="border-y-dashed border-primary border-dashed  hover:bg-popover-foreground hover:text-secondary">
                           <TableCell className="p-2 sm:p-4 text-left">{formatDate(match.date)}</TableCell>
-                          <TableCell className="p-2 sm:p-4 text-center">{match.history.length > 20 ? `${match.history.slice(0, 30)}...` : match.history}</TableCell>
+                          <TableCell className="p-2 sm:p-4 text-center">{match.title.length > 20 ? `${match.title.slice(0, 30)}...` : match.title}</TableCell>
                           <TableCell className="p-2 sm:p-4 text-center">""</TableCell>
                         </TableRow>
                       ))}

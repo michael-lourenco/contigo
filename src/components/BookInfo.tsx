@@ -14,7 +14,7 @@ interface BookInfoProps {
 
 export const BookInfo: React.FC<BookInfoProps> = ({ prompt, response,   handleLogin,
   handleLogout, user }) => {
-  const [safeResponse, setSafeResponse] = useState<string>("Lembrando a história ...");
+  const [safeResponse, setSafeResponse] = useState<string>("A história de hoje será sensacional!");
 
   const localStorageUser =
   typeof window !== "undefined" && localStorage.getItem("user") !== null
@@ -40,16 +40,9 @@ export const BookInfo: React.FC<BookInfoProps> = ({ prompt, response,   handleLo
     <>
       {user || (localStorageUser && localStorage.getItem("user") != null)  ?  (
         <div className="flex flex-col text-primary mb-4 p-4 bg-background rounded-lg shadow-md">
-          {/* Exibir a pergunta */}
-          <div className="flex items-start gap-2 mb-3">
-            <Icon name="PiQuestion" className="w-5 h-5 text-blue-500 flex-shrink-0" />
-            {/* <span className="text-base font-medium">{prompt}</span> */}
-            História do dia!
-          </div>
-
           {/* Exibir a resposta como HTML seguro */}
           <div className="flex items-start gap-2">
-            <Icon name="PiChat" className="w-5 h-5 text-green-500 flex-shrink-0" />
+            <Icon name="PiBook" className="w-5 h-5 text-green-500 flex-shrink-0" />
             <span
               className="text-base"
               dangerouslySetInnerHTML={{ __html: safeResponse }}

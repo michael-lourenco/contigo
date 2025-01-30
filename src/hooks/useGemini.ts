@@ -8,6 +8,9 @@ export function useGemini(prompt: string, generateContent?: boolean) {
     const fetchData = async () => {
       if (prompt && generateContent == true) {
         try {
+
+          const intermediateResponse = "Lembrando a história...";
+          setResponse(intermediateResponse);
           const promptData = await GeminiService(prompt);
           setResponse(promptData);
         } catch (error) {

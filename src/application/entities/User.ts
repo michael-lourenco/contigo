@@ -48,6 +48,7 @@ export interface HistoryEntry {
   id: number;
   date: Date;
   prompt: string;
+  title: string;
   history: string;
 }
 

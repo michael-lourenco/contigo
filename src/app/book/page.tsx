@@ -17,7 +17,14 @@ import { UserLogout } from "@/components/UserLogout";
 import { BookInfo } from "@/components/BookInfo";
 import { BookControls } from "@/components/BookControls";
 import { Button } from "@/components/ui/button";
+import { title } from "process";
 export default function Book() {
+
+  function extrairTitulo(htmlString:string) {
+    const match = htmlString.match(/<h2>(.*?)<\/h2>/i);
+    return match ? match[1] : "sem titulo";
+  }
+
   const { user, loading, status, handleLogin, handleLogout } = useAuth();
 
   const [generateContent, setGenerateContent] = useState<boolean>(false);
@@ -30,16 +37,17 @@ export default function Book() {
 
     queueMicrotask(async () => {
       if (!user) return;
-
+      const title = response ? extrairTitulo(response) : "Sem titulo";
       const now = new Date();
       if(user.credits.value > 0) {
         await updateHistory(user.email, {
           date: now,
           prompt: prompt,
+          title: title,
           history: response ? response : "Sem resposta",
         }, dbFirestore);
   
-        await updateUserCredits(user.email, -1, dbFirestore);        
+        await updateUserCredits(user.email, -1, dbFirestore);
       } else {
         console.log("New credit is not done. No update performed.");
       }
@@ -72,55 +80,78 @@ export default function Book() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-primary">
-      <main className="flex-grow flex flex-col items-center justify-start pt-4">
-        <div className="max-w-4xl mx-auto">
-          <UserInfo
-            user={user}
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-          />
+    <>
+      {user ? ( 
+      <div className="flex flex-col min-h-screen bg-background text-primary">
+        <main className="flex-grow flex flex-col items-center justify-start pt-4">
+          <div className="max-w-4xl mx-auto">
+            <UserInfo
+              user={user}
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+            />
+            {user.credits.value > 0 ? (
+              <>
 
-          {/* O prompt já está definido e a resposta será carregada automaticamente */}
-          <Button
-            variant="outline"
-            className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
-            onClick={handleGenerateBook}
-          >
-            
-            história do dia
-          </Button>
-          <BookInfo prompt={prompt} response={response} user={user}             handleLogin={handleLogin}
-            handleLogout={handleLogout} />
-          <BookControls
-                    handleSaveClick={handleSaveClick}
-                  />
-          <Card className="bg-background border-none shadow-none">
-            <CardContent className="border-none shadow-none">
-              {status === "loading" ? (
-                <p>Loading...</p>
-              ) : (
-                <>
-                  <History
-                    historyData={
-                      user?.history?.map((history) => ({
-                        ...history,
-                        id: history.id,
-                        date:
-                          history.date instanceof Date
-                            ? history.date.toISOString()
-                            : history.date,
-                      })) || null
-                    }
-                  />
+              <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
 
-                </>
+                <Button
+                  variant="outline"
+                  className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
+                  onClick={handleGenerateBook}
+                >
+                  história do dia
+                </Button>
+              </div>
+                <BookInfo prompt={prompt} response={response} user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
+                <BookControls
+                handleSaveClick={handleSaveClick}
+                />
+              </>): (
+                  <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
+                  <div className="grid grid-cols-[1fr,auto] items-center gap-2">
+                    <Button onClick={() => "ola"} variant="default">
+                      Insira créditos para ler novas histórias
+                    </Button>
+                  </div>
+                </div>
               )}
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-      <Footer />
-    </div>
+
+            <Card className="bg-background border-none shadow-none">
+              <CardContent className="border-none shadow-none">
+                {status === "loading" ? (
+                  <p>Loading...</p>
+                ) : (
+                  <>
+                    <History
+                      historyData={
+                        user?.history?.map((history) => ({
+                          ...history,
+                          id: history.id,
+                          date:
+                            history.date instanceof Date
+                              ? history.date.toISOString()
+                              : history.date,
+                        })) || null
+                      }
+                    />
+
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    ) : ( <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
+              <div className="grid grid-cols-[1fr,auto] items-center gap-2">
+                <Button onClick={handleLogin} variant="default">
+                  Sign in with Google
+                </Button>
+              </div>
+            </div>)}
+
+    </>
   );
 }
