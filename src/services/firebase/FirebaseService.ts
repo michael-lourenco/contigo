@@ -175,6 +175,45 @@ async function updateUserBestScore(email: string, newBestScore: number, db: Fire
   }
 }
 
+async function updateUserCredits(
+  email: string,
+  value: number,
+  db: Firestore
+): Promise<void> {
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
+
+  try {
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+
+      const currentCredits = userData.credits?.value || 0;
+      if (currentCredits >= 1) {
+        await setDoc(
+          userRef,
+          {
+            credits: {
+              value: currentCredits + value,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          { merge: true },
+        );
+        console.log("User credits updated successfully.");
+      } else {
+        console.log("New credit is not done. No update performed.");
+      }
+    } else {
+      await setDoc(userRef, {
+        credits: { value: value, updatedAt: new Date() },
+      });
+      console.log("User document created with credits.");
+    }
+  } catch (error) {
+    console.error("Error updating user credits:", error);
+  }
+}
 async function updateUserCurrency(
   email: string,
   value: number,
@@ -381,6 +420,7 @@ export {
   updateUserBestScore,
   displayUserInfo,
   sendLeaderboardToGamification,
+  updateUserCredits,
   updateUserCurrency,
   updateUserTotalGames,
   updateMatchHistory,
