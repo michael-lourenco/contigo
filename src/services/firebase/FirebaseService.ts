@@ -196,8 +196,14 @@ async function updateUserCredits(
     if (userSnap.exists()) {
       const userData = userSnap.data();
 
-      const currentCredits = userData.credits?.value || 0;
-      if (currentCredits >= 1) {
+      let currentCredits = userData.credits?.value || 0;
+      
+      if (currentCredits < 0 ) {
+        currentCredits = 0
+      }
+      console.log("currentCredits", currentCredits)
+      if (currentCredits >= 0) {
+
         await setDoc(
           userRef,
           {

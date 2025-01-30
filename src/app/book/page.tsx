@@ -57,6 +57,8 @@ export default function Book() {
   }, [prompt, response, user]);
 
 
+
+
   const handleSaveClick = useCallback(
     () => {
       endRead();
@@ -110,7 +112,7 @@ export default function Book() {
               </>): (
                   <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
                   <div className="grid grid-cols-[1fr,auto] items-center gap-2">
-                    <Button onClick={() => "ola"} variant="default">
+                    <Button onClick={() => updateUserCredits(user.email, 1, dbFirestore)} variant="default">
                       Insira créditos para ler novas histórias
                     </Button>
                   </div>
