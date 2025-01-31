@@ -3,7 +3,7 @@ import { UserData } from "@/application/entities/User";
 import { Icon } from "./icons";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface BookInfoProps {
+interface StoryInfoProps {
   prompt: string | null;
   response: string | null | HTMLElement | HTMLCollection;
   title: string | null;
@@ -13,9 +13,9 @@ interface BookInfoProps {
 }
 
 
-export const BookInfo: React.FC<BookInfoProps> = ({ prompt, response, title,  handleLogin,
+export const StoryInfo: React.FC<StoryInfoProps> = ({ prompt, response, title,  handleLogin,
   handleLogout, user }) => {
-  const [safeResponse, setSafeResponse] = useState<string>("A história de hoje será sensacional!");
+  const [safeResponse, setSafeResponse] = useState<string>("A estória de hoje será sensacional!");
 
   const localStorageUser =
   typeof window !== "undefined" && localStorage.getItem("user") !== null

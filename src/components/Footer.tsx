@@ -10,7 +10,7 @@ const menuItems = [
   { icon: "LuHome", label: "Home", href: "/" },
   { icon: "LuPlay", label: "Jogar", href: "/gameplay" },
   { icon: "LuHelpCircle", label: "Como Jogar", href: "/how_to_play" },
-  { icon: "LuBook", label: "Livros", href: "/book" },
+  { icon: "LuBook", label: "Estórias", href: "/story" },
   { icon: "LuUser", label: "Perfil", href: "/player" },
 ] as const
 

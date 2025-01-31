@@ -44,12 +44,12 @@ interface LeaderboardEntry {
   date: Date;
 }
 
-export interface HistoryEntry {
+export interface StoryEntry {
   id: number;
   date: Date;
   prompt: string;
   title: string;
-  history: string;
+  story: string;
 }
 
 interface LeaderboardPayload {
@@ -73,7 +73,7 @@ export interface UserData {
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
-  history?: HistoryEntry[];
+  story?: StoryEntry[];
   match_history?: MatchHistoryEntry[];
   photoURL: string;
 }

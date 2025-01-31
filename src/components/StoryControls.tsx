@@ -1,12 +1,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Icon } from "./icons";
 
-interface BookControlsProps {
+interface StoryControlsProps {
   handleSaveClick: () => void;
 }
 
-export const BookControls: React.FC<BookControlsProps> = ({
+export const StoryControls: React.FC<StoryControlsProps> = ({
   handleSaveClick,
 }) => (
   <>
@@ -17,7 +16,7 @@ export const BookControls: React.FC<BookControlsProps> = ({
       className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
       onClick={handleSaveClick}
     >
-      Salvar história
+      Salvar estória
     </Button>
   </div>
   </>

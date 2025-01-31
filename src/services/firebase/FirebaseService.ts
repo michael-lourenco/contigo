@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence, Auth } from "firebase/auth";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { HistoryEntry } from "@/application/entities/User";
+import { StoryEntry } from "@/application/entities/User";
 export interface Round {
   dice_1: number;
   dice_2: number;
@@ -83,7 +83,7 @@ interface UserData {
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
-  history?: HistoryEntry[];
+  story?: StoryEntry[];
   match_history?: MatchHistoryEntry[];
   photoURL: string;
 }
@@ -422,9 +422,9 @@ async function updateMatchHistory(
   }
 }
 
-async function updateHistory(
+async function updateStory(
   email: string,
-  historyData: Omit<HistoryEntry, "id">,
+  storyData: Omit<StoryEntry, "id">,
   db: Firestore
 ): Promise<void> {
 
@@ -435,45 +435,45 @@ async function updateHistory(
 
     if (userSnap.exists()) {
       const userData = userSnap.data();
-      const currentHistory = userData.history || [];
+      const currentStory = userData.story || [];
 
-      const maxId = currentHistory.reduce(
-        (max: number, history: HistoryEntry) => Math.max(max, history.id),
+      const maxId = currentStory.reduce(
+        (max: number, story: StoryEntry) => Math.max(max, story.id),
         0,
       );
 
-      const newHistory = {
-        ...historyData,
+      const newStory = {
+        ...storyData,
         id: maxId + 1,
-        date: new Date(historyData.date).toISOString(),
+        date: new Date(storyData.date).toISOString(),
       };
 
-      const updatedHistory = [newHistory, ...currentHistory];
+      const updatedStory = [newStory, ...currentStory];
 
-      const limitedHistory = updatedHistory.slice(0, 10);
+      const limitedStory = updatedStory.slice(0, 10);
 
       await setDoc(
         userRef,
         {
-          history: limitedHistory,
+          story: limitedStory,
         },
         { merge: true },
       );
       console.log("Match history updated successfully.");
     } else {
       await setDoc(userRef, {
-        history: [
+        story: [
           {
-            ...historyData,
+            ...storyData,
             id: 1,
-            date: new Date(historyData.date).toISOString(),
+            date: new Date(storyData.date).toISOString(),
           },
         ],
       });
-      console.log("User document created with first match history entry.");
+      console.log("User document created with first match story entry.");
     }
   } catch (error) {
-    console.error("Error updating match history:", error);
+    console.error("Error updating match story:", error);
     throw error;
   }
 }
@@ -491,7 +491,7 @@ export {
   initFirebase,
   initUserFirebase,
   sendLeaderboardToGamification,
-  updateHistory,
+  updateStory,
   updateUserBestScore,
   updateUserCredits,
   updateUserCurrency,

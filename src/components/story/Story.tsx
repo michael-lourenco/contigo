@@ -1,14 +1,14 @@
-// components/player/History.tsx
+// components/player/Story.tsx
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Icon, IconName } from "../icons";
-export interface HistoryData {
+export interface StoryData {
   id: number;
   date: string;
   title: string;
   prompt: string;
-  history: string;
+  story: string;
 }
 
 const formatDate: (date: string) => string = (date: string): string => {
@@ -26,23 +26,23 @@ const formatDate: (date: string) => string = (date: string): string => {
 
 const headerItems = [
   { icon: "LuCalendar", label: "Data", mobileLabel: "#" },
-  { icon: "LuTarget", label: "História", mobileLabel: "R" },
+  { icon: "LuTarget", label: "Estória", mobileLabel: "R" },
   { icon: "LuTimer", label: "Duração", mobileLabel: "T(s)" },
 ];
 
-interface HistoryProps {
-  historyData: HistoryData[] | null;
-  onRowClick: (history: HistoryData) => void; 
+interface StoryProps {
+  storyData: StoryData[] | null;
+  onRowClick: (story: StoryData) => void; 
 }
 
-export const History: React.FC<HistoryProps> = ({ historyData, onRowClick }) => {
+export const Story: React.FC<StoryProps> = ({ storyData, onRowClick }) => {
   return (
     <>
-      {historyData ? (
+      {storyData ? (
         <Card className="bg-background text-primary">
           <CardHeader className="bg-background text-primary">
             <CardTitle className="bg-background text-primary">
-              Suas histórias
+              Suas estórias
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -65,7 +65,7 @@ export const History: React.FC<HistoryProps> = ({ historyData, onRowClick }) => 
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {historyData.map((match, index) => (
+                  {storyData.map((match, index) => (
                     <TableRow
                       key={index}
                       className="border-y-dashed border-primary border-dashed hover:bg-popover-foreground hover:text-secondary cursor-pointer"
