@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { GeminiService } from "@/services/gemini/GeminiService";
 
+function extractTitle(htmlString: string) {
+  const match = htmlString.match(/<h2>(.*?)<\/h2>/i);
+  return match ? match[1] : "sem titulo";
+}
 export function useGemini(prompt: string, generateContent?: boolean) {
   const [response, setResponse] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,6 +17,8 @@ export function useGemini(prompt: string, generateContent?: boolean) {
           const intermediateResponse = "Lembrando a história...";
           setResponse(intermediateResponse);
           const promptData = await GeminiService(prompt);
+          const title = extractTitle(promptData);
+          setTitle(title);
           setResponse(promptData);
         } catch (error) {
           console.error("Erro ao chamar o GeminiService:", error);
@@ -23,5 +30,5 @@ export function useGemini(prompt: string, generateContent?: boolean) {
     fetchData();
   }, [prompt, generateContent]);
 
-  return { response };
+  return { response, title };
 }
