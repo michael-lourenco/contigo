@@ -118,7 +118,7 @@ export default function HowToPlay() {
                   </li>
                   <li>
                     Um tempo (<Icon name="LuClock" className="inline w-5 h-5" />)
-                    principal.
+                    principal de 5 minutos.
                   </li>
                 </ul>
               </section>

@@ -31,6 +31,9 @@ const AUDIO_URLS = {
     "https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3",
 };
 
+/** Duração de cada partida em segundos (5 minutos). */
+const GAME_DURATION_SECONDS = 5 * 60;
+
 const possibleNumbers = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
   22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
@@ -48,7 +51,7 @@ export default function ContiGoGame() {
 
   const [errors, setErrors] = useState(3);
   const [successes, setSuccesses] = useState(0);
-  const [generalTimer, setGeneralTimer] = useState(180);
+  const [generalTimer, setGeneralTimer] = useState(GAME_DURATION_SECONDS);
   const [roundTimer, setRoundTimer] = useState(0);
   const [diceValues, setDiceValues] = useState(["", "", ""]);
   const [gridValues, setGridValues] = useState<number[]>([]);
@@ -144,7 +147,7 @@ export default function ContiGoGame() {
     setRounds([]);
     setErrors(3);
     setSuccesses(0);
-    setGeneralTimer(180);
+    setGeneralTimer(GAME_DURATION_SECONDS);
     setIsPlaying(true);
     setRoundTimer(0);
     setGameOver(false);
