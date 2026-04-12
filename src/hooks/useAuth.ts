@@ -12,7 +12,12 @@ import {
   dbFirestore,
   authFirestore,
 } from "@/services/firebase/FirebaseService";
-import { onAuthStateChanged, Auth } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential,
+  Auth,
+} from "firebase/auth";
 
 export function useAuth() {
   const localStorageUser =
@@ -39,19 +44,43 @@ export function useAuth() {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      if (status === "authenticated" && session) {
+      if (status === "loading") {
+        return;
+      }
+      if (status === "unauthenticated") {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      if (status !== "authenticated" || !session || !auth) {
+        return;
+      }
+
+      try {
+        const email = session.user?.email ?? undefined;
+        const needsFirebaseLink =
+          session.idToken &&
+          (!auth.currentUser ||
+            (email && auth.currentUser.email !== email));
+
+        if (needsFirebaseLink && session.idToken) {
+          const credential = GoogleAuthProvider.credential(session.idToken);
+          await signInWithCredential(auth, credential);
+        }
+
         const userData = await handleAuthResponse(session, dbFirestore);
         if (userData) {
           setUser(userData);
         }
-      } else if (status === "unauthenticated") {
-        setUser(null);
+      } catch (e) {
+        console.error("Erro ao sincronizar sessão com o Firebase:", e);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false); // Finalizando carregamento
     };
 
     initializeAuth();
-  }, [session, status]);
+  }, [session, status, auth]);
 
   useEffect(() => {
     const initializeFirebase = async () => {
@@ -69,14 +98,12 @@ export function useAuth() {
 
   useEffect(() => {
     if (auth) {
-      const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          const userData = await fetchUserData(db, user.email!);
+      const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+        if (firebaseUser) {
+          const userData = await fetchUserData(db, firebaseUser.email!);
           if (userData) {
             setUser(userData);
           }
-        } else {
-          setUser(null);
         }
         setLoading(false);
       });

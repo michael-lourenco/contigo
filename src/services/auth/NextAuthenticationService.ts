@@ -1,7 +1,8 @@
 import {  doc, setDoc, updateDoc, Firestore } from "firebase/firestore";
+import { signOut as firebaseSignOut } from "firebase/auth";
 import { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
-import { fetchUserData } from "../firebase/FirebaseService";
+import { authFirestore, fetchUserData } from "../firebase/FirebaseService";
 import { StoryEntry, Credit } from "@/application/entities/User";
 
 export interface Round {
@@ -63,6 +64,7 @@ async function signInWithGoogle(): Promise<void> {
 
 async function signOutUser(): Promise<void> {
   try {
+    await firebaseSignOut(authFirestore);
     await signOut({ callbackUrl: "/" });
     localStorage.removeItem("user");
     globalUser = null;
