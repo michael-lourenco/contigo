@@ -44,14 +44,6 @@ interface LeaderboardEntry {
   date: Date;
 }
 
-export interface StoryEntry {
-  id: number;
-  date: Date;
-  prompt: string;
-  title: string;
-  story: string;
-}
-
 interface LeaderboardPayload {
   id: string;
   name: string;
@@ -73,7 +65,6 @@ export interface UserData {
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
-  story?: StoryEntry[];
   match_history?: MatchHistoryEntry[];
   photoURL: string;
 }

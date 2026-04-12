@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence, Auth } from "firebase/auth";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { StoryEntry } from "@/application/entities/User";
 export interface Round {
   dice_1: number;
   dice_2: number;
@@ -83,7 +82,6 @@ interface UserData {
   currency: CurrencyData;
   total_games: TotalGamesData;
   email: string;
-  story?: StoryEntry[];
   match_history?: MatchHistoryEntry[];
   photoURL: string;
 }
@@ -422,61 +420,6 @@ async function updateMatchHistory(
   }
 }
 
-async function updateStory(
-  email: string,
-  storyData: Omit<StoryEntry, "id">,
-  db: Firestore
-): Promise<void> {
-
-  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
-
-  try {
-    const userSnap = await getDoc(userRef);
-
-    if (userSnap.exists()) {
-      const userData = userSnap.data();
-      const currentStory = userData.story || [];
-
-      const maxId = currentStory.reduce(
-        (max: number, story: StoryEntry) => Math.max(max, story.id),
-        0,
-      );
-
-      const newStory = {
-        ...storyData,
-        id: maxId + 1,
-        date: new Date(storyData.date).toISOString(),
-      };
-
-      const updatedStory = [newStory, ...currentStory];
-
-      const limitedStory = updatedStory.slice(0, 10);
-
-      await setDoc(
-        userRef,
-        {
-          story: limitedStory,
-        },
-        { merge: true },
-      );
-      console.log("Match history updated successfully.");
-    } else {
-      await setDoc(userRef, {
-        story: [
-          {
-            ...storyData,
-            id: 1,
-            date: new Date(storyData.date).toISOString(),
-          },
-        ],
-      });
-      console.log("User document created with first match story entry.");
-    }
-  } catch (error) {
-    console.error("Error updating match story:", error);
-    throw error;
-  }
-}
 function displayUserInfo(user: UserData): void {
   console.log(
     `User: ${user.displayName}, Best Score: ${user.best_score.value}, Currency: ${user.currency.value}, Total Games: ${user.total_games.value}, Photo URL: ${user.photoURL}`
@@ -491,7 +434,6 @@ export {
   initFirebase,
   initUserFirebase,
   sendLeaderboardToGamification,
-  updateStory,
   updateUserBestScore,
   updateUserCredits,
   updateUserCurrency,
